@@ -26,6 +26,10 @@ The homepage uses anchor navigation with these sections:
 6. **Contact** — Facebook/Messenger CTA, temporary placeholder destination, and future social links.
 7. **Footer** — YNS D6 identity, location, anchor links, future social links, and basic copyright text.
 
+### Gallery addition
+
+The Gallery includes a homepage event-album preview and a full event index with responsive bento photo grids, stacked event thumbnails, dedicated event views, and an accessible lightbox/photo detail view with close and previous/next controls scoped to each event.
+
 Missions, resources, an events calendar, news, membership forms, and CMS functionality are not part of the first release unless documented here later.
 
 ## Implementation Rules

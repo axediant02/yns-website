@@ -11,8 +11,8 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Hero — welcome message, YNS D6 identity, Sunday details, and primary CTA.
 - [x] About YNS D6 — community identity, pillars, and mission/vision placeholders.
 - [x] Weekly Gathering — Sunday schedule, location, venue placeholder, and first-time guidance.
-- [x] Gallery preview — responsive bento preview with Kids and Youth imagery.
-- [x] Full Gallery — dedicated `#gallery-all` view with grouped photo grids.
+- [x] Gallery preview — responsive event-album preview with stacked thumbnails.
+- [x] Full Gallery — dedicated `#gallery-all` event index with event-specific photo views.
 - [x] Stories — content-ready cards for verified community stories.
 - [x] Leadership — content-ready cards for verified leaders and community voices.
 - [x] Contact — contact CTA with a disabled state until the official link is available.
@@ -49,15 +49,17 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 
 ### Gallery
 
-- [x] Show a preview grid in the homepage flow.
-- [x] Use a responsive bento layout on desktop, tablet, and mobile.
+- [x] Show event album previews in the homepage flow.
+- [x] Use stacked thumbnail imagery for each event group.
+- [x] Use responsive bento layouts on desktop, tablet, and mobile.
 - [x] Show “Go to gallery” CTA.
 - [x] Show “See all photos” CTA.
 - [x] Open the dedicated gallery through `#gallery-all`.
 - [x] Provide a “Back to home” action.
-- [x] Update document title and description for the full gallery view.
-- [x] Support browser back/forward behavior for the gallery hash view.
-- [x] Use 16 illustrative stock images while approved YNS D6 photos are unavailable.
+- [x] Update document title and description for the event index and selected event view.
+- [x] Support browser back/forward behavior for the gallery and event hash views.
+- [x] Keep lightbox previous/next navigation scoped to the selected event.
+- [x] Use 16 illustrative stock images across event albums while approved YNS D6 photos are unavailable.
 - [~] Replace stock images with approved community photos before public launch.
 - [ ] Confirm image licensing/attribution requirements for final photo assets.
 
@@ -93,17 +95,17 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Include copyright text.
 - [ ] Add verified social links when available.
 
-## Full gallery categories and tabs
+## Full gallery event groups
 
-- [x] Add category controls for `All photos`, `Kids`, and `Youth`.
-- [x] Keep Kids and Youth as separate grouped sections in the full gallery.
-- [x] Make category controls scroll to the matching group.
-- [x] Provide 8 Kids images.
-- [x] Provide 8 Youth images.
+- [x] Show a `Youth Camp 2026` event group.
+- [x] Show neutral `Event album coming soon` placeholder groups.
+- [x] Make each event group open its dedicated event photo view.
+- [x] Show three stacked cover thumbnails per event group.
+- [x] Provide all event photos in the dedicated event view.
 - [x] Add descriptive alt text to every gallery image.
 - [x] Lazy-load gallery images and use async decoding.
 - [x] Support responsive bento spans for standard, wide, and tall cards.
-- [ ] Add a lightbox/photo detail view if users need to inspect images larger.
+- [x] Add an accessible lightbox/photo detail view with previous/next controls.
 - [ ] Add pagination or load-more behavior only if the final gallery grows beyond the first curated set.
 
 ## Navigation and interactions
@@ -116,7 +118,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Keep the primary “Join us” CTA visible in the header.
 - [x] Add scroll-triggered section reveals.
 - [x] Respect `prefers-reduced-motion`.
-- [ ] Add active-section navigation state if the page grows enough to need it.
+- [x] Keep event index and event detail navigation stateful through URL hashes.
 
 ## Content and brand readiness
 
@@ -157,7 +159,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [ ] Manually test homepage anchors on desktop.
 - [ ] Manually test homepage anchors on mobile.
 - [ ] Manually test `#gallery-all` and browser back/forward behavior.
-- [ ] Manually test Kids and Youth gallery controls.
+- [ ] Manually test event album cards, dedicated event views, and back navigation.
 - [ ] Manually test keyboard navigation and focus visibility.
 - [ ] Manually test reduced-motion behavior.
 - [ ] Test layout at phone, tablet, and desktop widths.
@@ -178,4 +180,8 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 ## Change log
 
 - 2026-08-22 — Added the responsive Gallery preview, full gallery view, Kids/Youth categories, bento grids, and gallery CTAs.
+- 2026-08-22 — Added the accessible gallery lightbox with close, previous/next, and keyboard arrow controls.
+- 2026-08-22 — Added active Kids/Youth gallery category navigation that updates while scrolling.
+- 2026-08-22 — Approved replacing Kids/Youth gallery categories with event-based albums and dedicated event views.
+- 2026-08-22 — Implemented event-based gallery albums with stacked thumbnails and event-scoped photo lightboxes.
 - 2026-08-22 — Created this checklist as the ongoing guide for page scope, feature status, content readiness, and release checks.
