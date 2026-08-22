@@ -1,0 +1,181 @@
+# YNS D6 Website Checklist
+
+This is the working checklist for the YNS D6 community website. Use it to decide what to build next and to keep completed work visible.
+
+When a new feature is requested, update this file first with the approved scope and acceptance checks. Keep the checklist updated in the same change as the implementation.
+
+Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or waiting for verified content
+
+## Current page map
+
+- [x] Hero — welcome message, YNS D6 identity, Sunday details, and primary CTA.
+- [x] About YNS D6 — community identity, pillars, and mission/vision placeholders.
+- [x] Weekly Gathering — Sunday schedule, location, venue placeholder, and first-time guidance.
+- [x] Gallery preview — responsive bento preview with Kids and Youth imagery.
+- [x] Full Gallery — dedicated `#gallery-all` view with grouped photo grids.
+- [x] Stories — content-ready cards for verified community stories.
+- [x] Leadership — content-ready cards for verified leaders and community voices.
+- [x] Contact — contact CTA with a disabled state until the official link is available.
+- [x] Footer — identity, navigation links, gathering details, and copyright text.
+
+## Homepage sections
+
+### Hero
+
+- [x] Show “Find your people. Follow Jesus.” headline.
+- [x] Show Toledo City, Cebu context.
+- [x] Show Sunday gathering day and location details.
+- [x] Link “Join us this Sunday” to the Gathering section.
+- [x] Link “Get to know us” to the About section.
+- [x] Include restrained entrance animation.
+- [x] Respect reduced-motion preferences.
+
+### About
+
+- [x] Explain the community in welcoming, accessible language.
+- [x] Show the three identity pillars.
+- [~] Replace mission placeholder with an approved mission statement.
+- [~] Replace vision placeholder with an approved vision statement.
+
+### Weekly Gathering
+
+- [x] Show weekly day: Every Sunday.
+- [x] Show weekly time: 10:00 AM–12:00 noon.
+- [x] Show location: Toledo City, Cebu.
+- [~] Replace “Venue details coming soon” with the verified venue.
+- [x] Show who the gathering is for.
+- [x] Show first-time visitor guidance.
+- [x] Link “Ask a question” to Contact.
+
+### Gallery
+
+- [x] Show a preview grid in the homepage flow.
+- [x] Use a responsive bento layout on desktop, tablet, and mobile.
+- [x] Show “Go to gallery” CTA.
+- [x] Show “See all photos” CTA.
+- [x] Open the dedicated gallery through `#gallery-all`.
+- [x] Provide a “Back to home” action.
+- [x] Update document title and description for the full gallery view.
+- [x] Support browser back/forward behavior for the gallery hash view.
+- [x] Use 16 illustrative stock images while approved YNS D6 photos are unavailable.
+- [~] Replace stock images with approved community photos before public launch.
+- [ ] Confirm image licensing/attribution requirements for final photo assets.
+
+### Stories
+
+- [x] Provide a clear structure for story cards.
+- [x] Use honest placeholder copy until stories are verified.
+- [~] Add approved stories, testimonials, or reflections.
+- [ ] Add an approved story submission destination if the community wants submissions.
+- [ ] Add final story photos only with permission and descriptive alt text.
+
+### Leadership
+
+- [x] Provide a leadership section structure.
+- [x] Use placeholder state for unverified information.
+- [~] Add verified leadership names.
+- [~] Add verified roles and biographies.
+- [~] Add approved leadership photos and alt text.
+
+### Contact
+
+- [x] Show a clear contact CTA.
+- [x] Keep the CTA disabled while the official destination is unknown.
+- [~] Add the verified Facebook/Messenger URL.
+- [ ] Add approved Instagram or other social links.
+- [ ] Verify that all public contact links open the intended destination.
+
+### Footer
+
+- [x] Show YNS D6 identity and Toledo City, Cebu location.
+- [x] Provide anchor links to homepage sections.
+- [x] Include gathering time and location.
+- [x] Include copyright text.
+- [ ] Add verified social links when available.
+
+## Full gallery categories and tabs
+
+- [x] Add category controls for `All photos`, `Kids`, and `Youth`.
+- [x] Keep Kids and Youth as separate grouped sections in the full gallery.
+- [x] Make category controls scroll to the matching group.
+- [x] Provide 8 Kids images.
+- [x] Provide 8 Youth images.
+- [x] Add descriptive alt text to every gallery image.
+- [x] Lazy-load gallery images and use async decoding.
+- [x] Support responsive bento spans for standard, wide, and tall cards.
+- [ ] Add a lightbox/photo detail view if users need to inspect images larger.
+- [ ] Add pagination or load-more behavior only if the final gallery grows beyond the first curated set.
+
+## Navigation and interactions
+
+- [x] Keep the primary navigation fixed at the top.
+- [x] Add compact scrolled-header styling.
+- [x] Provide a mobile navigation menu.
+- [x] Close the mobile menu after navigation.
+- [x] Keep navigation links descriptive and anchor-based.
+- [x] Keep the primary “Join us” CTA visible in the header.
+- [x] Add scroll-triggered section reveals.
+- [x] Respect `prefers-reduced-motion`.
+- [ ] Add active-section navigation state if the page grows enough to need it.
+
+## Content and brand readiness
+
+- [~] Mission statement verified.
+- [~] Vision statement verified.
+- [~] Gathering venue verified.
+- [~] Facebook/Messenger URL verified.
+- [ ] Instagram and other social URLs verified.
+- [ ] Final brand colors approved.
+- [ ] Final logo/brand assets supplied and approved.
+- [ ] Final community photo assets supplied and approved.
+- [~] Leadership information verified.
+- [~] Community stories/testimonials verified.
+- [ ] Final SEO description approved.
+- [ ] Social preview image supplied and approved.
+- [ ] Final domain and hosting details confirmed.
+
+## SEO and accessibility
+
+- [x] Set document language and viewport metadata.
+- [x] Include title and meta description metadata.
+- [x] Include canonical, Open Graph, and Twitter metadata placeholders.
+- [x] Use semantic page landmarks.
+- [x] Keep one primary `h1` per rendered view.
+- [x] Add meaningful alt text to informative images.
+- [x] Hide decorative visual elements from assistive technology where appropriate.
+- [x] Provide keyboard-accessible navigation and buttons.
+- [x] Preserve visible focus styles from the UI system.
+- [x] Support reduced-motion preferences.
+- [ ] Replace placeholder canonical URL with the final domain.
+- [ ] Verify metadata and social preview content against the final public copy.
+- [ ] Add structured data only after Organization/Event details are verified.
+
+## Quality and release checks
+
+- [x] `npm run build` passes.
+- [x] `npm run lint` passes.
+- [ ] Manually test homepage anchors on desktop.
+- [ ] Manually test homepage anchors on mobile.
+- [ ] Manually test `#gallery-all` and browser back/forward behavior.
+- [ ] Manually test Kids and Youth gallery controls.
+- [ ] Manually test keyboard navigation and focus visibility.
+- [ ] Manually test reduced-motion behavior.
+- [ ] Test layout at phone, tablet, and desktop widths.
+- [ ] Check external image loading and replace any failed URLs.
+- [ ] Confirm all factual public content before launch.
+- [ ] Confirm the primary CTA has a verified destination before launch.
+
+## Scope guardrails
+
+- [x] Keep the project frontend-only and suitable for static hosting.
+- [x] Keep content in local data modules until a CMS is explicitly approved.
+- [x] Use React, Vite, Tailwind CSS, and shadcn/ui.
+- [x] Keep generated shadcn primitives in `src/components/ui`.
+- [ ] Do not add backend routes, databases, authentication, payments, or CMS functionality without explicit approval.
+- [ ] Do not publish invented events, leaders, testimonials, locations, statistics, or community claims.
+- [ ] Do not add an events calendar, news system, resources hub, or membership flow unless added to this checklist first.
+
+## Change log
+
+- 2026-08-22 — Added the responsive Gallery preview, full gallery view, Kids/Youth categories, bento grids, and gallery CTAs.
+- 2026-08-22 — Created this checklist as the ongoing guide for page scope, feature status, content readiness, and release checks.
