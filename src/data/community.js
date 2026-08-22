@@ -24,7 +24,7 @@ export const navigationItems = [
   { label: 'Leadership', href: '#leadership' },
 ]
 
-export const galleryPhotos = [
+const galleryPhotoPool = [
   {
     id: 'kids-01',
     category: 'kids',
@@ -152,6 +152,30 @@ export const galleryPhotos = [
     alt: 'Friends enjoying time together outdoors',
     title: 'Make memories here.',
     size: 'standard',
+  },
+]
+
+export const galleryEvents = [
+  {
+    id: 'youth-camp-2026',
+    label: 'Illustrative event album',
+    title: 'Youth Camp 2026',
+    description: 'A preview of the friendships, learning, and shared moments that belong in this event album.',
+    photos: galleryPhotoPool.slice(0, 6),
+  },
+  {
+    id: 'event-album-coming-soon-01',
+    label: 'Coming soon',
+    title: 'Event album coming soon 01',
+    description: 'Verified event details and approved photos will be added here when available.',
+    photos: galleryPhotoPool.slice(6, 11),
+  },
+  {
+    id: 'event-album-coming-soon-02',
+    label: 'Coming soon',
+    title: 'Event album coming soon 02',
+    description: 'This space is ready for another verified YNS D6 event and its shared memories.',
+    photos: galleryPhotoPool.slice(11),
   },
 ]
 

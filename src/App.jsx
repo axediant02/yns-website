@@ -12,12 +12,19 @@ import GallerySection from '@/components/sections/gallery-section'
 import HeroSection from '@/components/sections/hero-section'
 import LeadershipSection from '@/components/sections/leadership-section'
 import StoriesSection from '@/components/sections/stories-section'
+import { galleryEvents } from '@/data/community'
+
+function getGalleryRoute(hash) {
+  if (hash === '#gallery-all') return { type: 'index' }
+  if (hash.startsWith('#gallery-event-')) return { type: 'event', eventId: hash.replace('#gallery-event-', '') }
+  return null
+}
 
 function App() {
-  const [isGalleryView, setIsGalleryView] = useState(() => window.location.hash === '#gallery-all')
+  const [galleryRoute, setGalleryRoute] = useState(() => getGalleryRoute(window.location.hash))
 
   useEffect(() => {
-    const handleHashChange = () => setIsGalleryView(window.location.hash === '#gallery-all')
+    const handleHashChange = () => setGalleryRoute(getGalleryRoute(window.location.hash))
 
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
@@ -26,9 +33,10 @@ function App() {
   useEffect(() => {
     const description = document.querySelector('meta[name="description"]')
 
-    if (isGalleryView) {
-      document.title = 'YNS D6 Gallery — See the life around here.'
-      description?.setAttribute('content', 'Explore illustrative Kids and Youth gallery moments from the welcoming community of YNS D6.')
+    if (galleryRoute) {
+      const event = galleryEvents.find((galleryEvent) => galleryEvent.id === galleryRoute.eventId)
+      document.title = event ? `YNS D6 Gallery — ${event.title}` : 'YNS D6 Gallery — See the life around here.'
+      description?.setAttribute('content', event ? event.description : 'Explore illustrative event albums from the welcoming community of YNS D6.')
       window.scrollTo(0, 0)
     } else {
       document.title = 'YNS D6 — Find your people. Follow Jesus.'
@@ -39,13 +47,13 @@ function App() {
         window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ block: 'start' }))
       }
     }
-  }, [isGalleryView])
+  }, [galleryRoute])
 
   return (
     <div className="site-shell">
       <SiteHeader />
-      {isGalleryView ? (
-        <GalleryPage />
+      {galleryRoute ? (
+        <GalleryPage route={galleryRoute} />
       ) : (
         <main>
           <HeroSection />
