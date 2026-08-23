@@ -18,6 +18,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Leadership — content-ready cards for verified leaders and community voices.
 - [x] Contact — contact CTA with a disabled state until the official link is available.
 - [x] Footer — identity, navigation links, gathering details, and copyright text.
+- [x] Label hierarchy — direct section labels with consolidated status and metadata copy.
 
 ## Homepage sections
 
@@ -125,6 +126,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Add scroll-triggered section reveals.
 - [x] Respect `prefers-reduced-motion`.
 - [x] Keep event index and event detail navigation stateful through URL hashes.
+- [x] Reduce repeated section, status, and placeholder labels without changing page scope.
 
 ## Content and brand readiness
 
@@ -195,3 +197,4 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - 2026-08-22 — Created this checklist as the ongoing guide for page scope, feature status, content readiness, and release checks.
 - 2026-08-23 — Added temporary lorem mission, vision, and core value content to the About section.
 - 2026-08-23 — Added the eight-location directory with map previews and directions links.
+- 2026-08-23 — Simplified section labels and consolidated repeated UI status copy.

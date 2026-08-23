@@ -22,7 +22,7 @@ function GatheringSection() {
       <div className="page-frame">
         <div className="section-heading section-heading-split">
           <div>
-            <Badge className="eyebrow-badge">02 / Make a plan</Badge>
+            <Badge className="eyebrow-badge">Gathering</Badge>
             <h2>Start with<br /><em>Sunday.</em></h2>
           </div>
           <p>Come for the gathering. Stay for the people, the questions, and the possibility of a life shaped by Jesus.</p>
@@ -35,7 +35,7 @@ function GatheringSection() {
               <strong>01</strong>
             </div>
             <div>
-              <Badge variant="outline">Weekly gathering</Badge>
+              <Badge variant="outline">Sunday gathering</Badge>
               <h3>Everyone is invited.</h3>
             </div>
             <span className="gathering-card-arrow"><ArrowUpRight aria-hidden="true" /></span>
@@ -69,7 +69,7 @@ function GatheringSection() {
         <div className="locations-directory">
           <div className="locations-directory-heading">
             <div>
-              <Badge className="eyebrow-badge eyebrow-dark">Find your place</Badge>
+              <Badge className="eyebrow-badge eyebrow-dark">Locations</Badge>
               <h3>Gather with us<br /><em>near you.</em></h3>
             </div>
             <p>Choose the location closest to you. These map previews are approximate and will be updated with verified venue details.</p>
@@ -86,11 +86,9 @@ function GatheringSection() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                     />
-                    <span className="location-map-label">Approximate location</span>
                   </div>
                   <div className="location-card-details">
                     <div>
-                      <span className="footer-label">Location</span>
                       <h3>{location.name}</h3>
                       <p>{location.area}</p>
                     </div>

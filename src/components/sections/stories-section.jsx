@@ -13,7 +13,7 @@ function StoriesSection() {
       <div className="page-frame">
         <div className="section-heading section-heading-split">
           <div>
-            <Badge className="eyebrow-badge eyebrow-dark">03 / The people</Badge>
+            <Badge className="eyebrow-badge eyebrow-dark">Stories</Badge>
             <h2>Every story<br /><em>starts somewhere.</em></h2>
           </div>
           <p>The best way to understand YNS D6 is to hear from the people who are finding their way through faith, friendship, and everyday life.</p>
@@ -27,10 +27,9 @@ function StoriesSection() {
                   <span className="story-accent">{story.accent}</span>
                   <Quote aria-hidden="true" />
                 </div>
-                <Badge variant="outline">{story.eyebrow}</Badge>
                 <h3>{story.title}</h3>
                 <p>{story.description}</p>
-                <a className="story-link" href="#contact">Share your story <ArrowUpRight aria-hidden="true" /></a>
+                <a className="story-link" href="#contact">Start a conversation <ArrowUpRight aria-hidden="true" /></a>
               </CardContent>
             </Card>
           ))}

@@ -36,13 +36,11 @@ function HeroSection() {
             <span>YNS</span>
             <strong>D6</strong>
           </div>
-          <div className="hero-art-caption">A place to belong<br />before you believe.</div>
         </div>
       </div>
       <div className="hero-scroll page-frame">
         <span>Scroll to explore</span>
         <span className="hero-scroll-line" />
-        <span>01—06</span>
       </div>
     </section>
   )

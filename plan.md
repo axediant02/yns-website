@@ -32,6 +32,10 @@ The Gallery includes a homepage event-album preview and a full event index with 
 
 Missions, resources, an events calendar, news, membership forms, and CMS functionality are not part of the first release unless documented here later.
 
+### Label clarity pass
+
+The interface uses direct section labels instead of numbered metaphors. Repeated status, placeholder, and metadata labels should be consolidated so the main headings and actions carry the hierarchy. Temporary content remains unchanged.
+
 ## Implementation Rules
 
 - Use React, Vite, Tailwind CSS, and shadcn/ui.

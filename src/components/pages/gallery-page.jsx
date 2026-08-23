@@ -29,7 +29,6 @@ function GalleryPhotoCard({ photo, eventTitle, onOpen }) {
       <CardContent>
         <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
         <div className="gallery-photo-overlay">
-          <span>{eventTitle}</span>
           <strong>{photo.title}</strong>
         </div>
       </CardContent>
@@ -73,7 +72,7 @@ function GalleryEventIndex() {
           <a className="gallery-back-link" href="#top"><ArrowLeft aria-hidden="true" /> Back to home</a>
           <div className="gallery-page-heading">
             <div>
-              <Badge className="eyebrow-badge eyebrow-dark">Gallery / The moments</Badge>
+              <Badge className="eyebrow-badge eyebrow-dark">Gallery</Badge>
               <h1>Browse by<br /><em>event.</em></h1>
             </div>
             <p>Each gathering has its own story. Open an event album to see the moments that bring people together.</p>
@@ -84,7 +83,7 @@ function GalleryEventIndex() {
       <div className="gallery-page-content section-frame">
         <div className="page-frame">
           <div className="gallery-event-index-heading">
-            <Badge className="eyebrow-badge">Event albums</Badge>
+            <h2 className="gallery-subheading">Event albums</h2>
             <p>Illustrative previews will be replaced with approved YNS D6 photos as albums become available.</p>
           </div>
           <div className="gallery-event-index-grid" aria-label="Event albums">
@@ -156,7 +155,6 @@ function GalleryEventView({ event }) {
           </div>
           <div className="gallery-event-meta">
             <span>{event.photos.length} photos</span>
-            <span>Illustrative preview</span>
           </div>
         </div>
       </section>
@@ -164,7 +162,7 @@ function GalleryEventView({ event }) {
       <div className="gallery-page-content section-frame">
         <div className="page-frame">
           <div className="gallery-event-photo-heading">
-            <Badge className="eyebrow-badge">Inside the album</Badge>
+            <h2 className="gallery-subheading">Photos</h2>
             <p>Open any image to view it larger, then move through this event’s photos with the arrows or your keyboard.</p>
           </div>
           <div className="gallery-photo-grid" aria-label={`${event.title} photos`}>

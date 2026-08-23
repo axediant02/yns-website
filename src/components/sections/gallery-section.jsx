@@ -14,7 +14,7 @@ function GallerySection() {
       <div className="page-frame">
         <div className="section-heading section-heading-split">
           <div>
-            <Badge className="eyebrow-badge eyebrow-light">04 / Around here</Badge>
+            <Badge className="eyebrow-badge eyebrow-light">Gallery</Badge>
             <h2>Room for<br /><em>the moments.</em></h2>
           </div>
           <div>

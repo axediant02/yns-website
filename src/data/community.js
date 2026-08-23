@@ -214,7 +214,7 @@ const galleryPhotoPool = [
 export const galleryEvents = [
   {
     id: 'youth-camp-2026',
-    label: 'Illustrative event album',
+    label: 'Preview',
     title: 'Youth Camp 2026',
     description: 'A preview of the friendships, learning, and shared moments that belong in this event album.',
     photos: galleryPhotoPool.slice(0, 6),
@@ -222,14 +222,14 @@ export const galleryEvents = [
   {
     id: 'event-album-coming-soon-01',
     label: 'Coming soon',
-    title: 'Event album coming soon 01',
+    title: 'More moments coming soon',
     description: 'Verified event details and approved photos will be added here when available.',
     photos: galleryPhotoPool.slice(6, 11),
   },
   {
     id: 'event-album-coming-soon-02',
     label: 'Coming soon',
-    title: 'Event album coming soon 02',
+    title: 'Another album coming soon',
     description: 'This space is ready for another verified YNS D6 event and its shared memories.',
     photos: galleryPhotoPool.slice(11),
   },
@@ -237,14 +237,12 @@ export const galleryEvents = [
 
 export const storyPlaceholders = [
   {
-    eyebrow: 'Stories',
     title: 'Real stories from the community are on the way.',
     description:
       'We are making room for honest stories about faith, friendship, and the ways God is moving in ordinary lives.',
     accent: '01',
   },
   {
-    eyebrow: 'Stories',
     title: 'A place to ask honest questions.',
     description:
       'YNS D6 is for people who are curious, searching, growing, and ready to take one more step with others.',
@@ -255,12 +253,10 @@ export const storyPlaceholders = [
 export const leadershipPlaceholders = [
   {
     name: 'Leadership team',
-    role: 'Details coming soon',
     description: 'Verified names, roles, and photos will be added here when available.',
   },
   {
     name: 'Community voices',
-    role: 'Details coming soon',
     description: 'Meet the people helping make YNS D6 a welcoming place to belong.',
   },
 ]

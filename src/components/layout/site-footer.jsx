@@ -33,7 +33,6 @@ function SiteFooter() {
       </div>
       <div className="page-frame footer-bottom">
         <span>© {new Date().getFullYear()} {community.name}</span>
-        <span>Built for a growing community.</span>
       </div>
     </footer>
   )

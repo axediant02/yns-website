@@ -12,17 +12,17 @@ function ContactSection() {
     <section ref={elementRef} id="contact" className={`contact-section section-frame section-coral reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
       <div className="page-frame contact-grid">
         <div>
-          <Badge className="eyebrow-badge eyebrow-dark">05 / Say hello</Badge>
+          <Badge className="eyebrow-badge eyebrow-dark">Contact</Badge>
           <h2>Questions are<br /><em>welcome here.</em></h2>
         </div>
         <div className="contact-copy">
           <p>Want to know more before Sunday? Need directions when the venue is confirmed? We would love to hear from you.</p>
-          <Button disabled={!community.contact.href} size="lg" className="contact-button" title="Facebook/Messenger link coming soon">
+          <Button disabled={!community.contact.href} size="lg" className="contact-button">
             <MessageCircle aria-hidden="true" />
-            {community.contact.href ? 'Message us' : 'Messenger link coming soon'}
+            {community.contact.href ? 'Message us' : 'Contact link coming soon'}
             <ArrowUpRight aria-hidden="true" />
           </Button>
-          <span className="contact-status"><Link2 aria-hidden="true" /> Official Facebook / Messenger link will be added soon.</span>
+          <span className="contact-status"><Link2 aria-hidden="true" /> Contact link will be added soon.</span>
         </div>
       </div>
     </section>

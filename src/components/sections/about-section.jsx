@@ -12,7 +12,7 @@ function AboutSection() {
     <section ref={elementRef} id="about" className={`about-section section-frame section-dark reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
       <div className="page-frame">
         <div className="section-heading section-heading-wide">
-          <Badge className="eyebrow-badge eyebrow-light">01 / The why</Badge>
+          <Badge className="eyebrow-badge eyebrow-light">About</Badge>
           <h2>There is room<br /><em>for you here.</em></h2>
           <p>
             You do not need to have everything figured out before you show up. YNS D6 is a place to ask honest questions, meet people, and take the next step together.
