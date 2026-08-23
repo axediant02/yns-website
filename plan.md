@@ -102,6 +102,7 @@ Future changes must preserve the frontend-only scope and shadcn CLI requirement.
 
 - Mission statement
 - Vision statement
+- Core values
 - Gathering venue
 - Facebook/Messenger URL
 - Instagram or other social links

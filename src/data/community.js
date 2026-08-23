@@ -8,8 +8,13 @@ export const community = {
     time: '10:00 AM–12:00 noon',
     venue: 'Venue details coming soon',
   },
-  mission: null,
-  vision: null,
+  mission: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at feugiat aliquet, lorem ipsum dolor sit amet.',
+  vision: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae sem sed neque facilisis vulputate, integer posuere lorem at sapien.',
+  coreValues: [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'Integer posuere lorem at sapien feugiat, consectetur adipiscing elit.',
+    'Donec vitae sem sed neque vulputate, integer posuere sapien at feugiat.',
+  ],
   contact: {
     label: 'Facebook / Messenger',
     href: null,

@@ -34,8 +34,10 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 
 - [x] Explain the community in welcoming, accessible language.
 - [x] Show the three identity pillars.
-- [~] Replace mission placeholder with an approved mission statement.
-- [~] Replace vision placeholder with an approved vision statement.
+- [x] Show temporary lorem mission content.
+- [x] Show temporary lorem vision content.
+- [x] Show temporary lorem core value content.
+- [~] Replace temporary lorem content with approved mission, vision, and core values.
 
 ### Weekly Gathering
 
@@ -124,6 +126,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 
 - [~] Mission statement verified.
 - [~] Vision statement verified.
+- [~] Core values verified.
 - [~] Gathering venue verified.
 - [~] Facebook/Messenger URL verified.
 - [ ] Instagram and other social URLs verified.

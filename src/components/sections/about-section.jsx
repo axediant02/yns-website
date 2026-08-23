@@ -35,11 +35,24 @@ function AboutSection() {
           </div>
         </div>
 
-        <div className="mission-placeholder">
-          <span className="footer-label">Mission + vision</span>
-          <p>Our mission and vision are being shaped now. Check back soon for the story behind YNS D6.</p>
-          <a href="#contact">Ask us about it <ArrowUpRight aria-hidden="true" /></a>
+        <div className="about-statements">
+          <article className="about-statement">
+            <span className="footer-label">Mission</span>
+            <p>{community.mission}</p>
+          </article>
+          <article className="about-statement">
+            <span className="footer-label">Vision</span>
+            <p>{community.vision}</p>
+          </article>
+          <article className="about-statement">
+            <span className="footer-label">Core values</span>
+            <ul>
+              {community.coreValues.map((value) => <li key={value}>{value}</li>)}
+            </ul>
+          </article>
         </div>
+
+        <a className="about-statements-link" href="#contact">Ask us about it <ArrowUpRight aria-hidden="true" /></a>
 
         <div className="about-marquee" aria-hidden="true">
           <span>{community.shortName}</span><span>—</span><span>TOLEDO CITY</span><span>—</span><span>CEBU</span><span>—</span>
