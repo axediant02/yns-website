@@ -19,8 +19,8 @@ The design takes structural inspiration from Street Level Ministries, especially
 The homepage uses anchor navigation with these sections:
 
 1. **Hero** — YNS D6 name, welcoming statement, Sunday details, and the primary CTA.
-2. **About YNS D6** — Community identity with placeholders for mission and vision.
-3. **Weekly Gathering** — Sunday schedule, Toledo City, Cebu location, placeholder venue, and first-time visitor guidance.
+2. **About YNS D6** — Community identity with temporary lorem placeholders for mission, vision, and core values.
+3. **Weekly Gathering** — Sunday schedule, first-time visitor guidance, and a directory of eight approximate YNS D6 locations across Cebu with map previews and directions links.
 4. **Stories** — Content-ready structure; publish only verified stories, testimonials, and photos.
 5. **Leadership** — Content-ready structure; publish only verified names, roles, biographies, and photos.
 6. **Contact** — Facebook/Messenger CTA, temporary placeholder destination, and future social links.
@@ -104,6 +104,7 @@ Future changes must preserve the frontend-only scope and shadcn CLI requirement.
 - Vision statement
 - Core values
 - Gathering venue
+- Exact coordinates or verified map pins for the eight temporary locations
 - Facebook/Messenger URL
 - Instagram or other social links
 - Final brand colors

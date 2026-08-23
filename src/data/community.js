@@ -6,7 +6,7 @@ export const community = {
   gathering: {
     day: 'Every Sunday',
     time: '10:00 AM–12:00 noon',
-    venue: 'Venue details coming soon',
+    venue: '8 locations across Cebu',
   },
   mission: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at feugiat aliquet, lorem ipsum dolor sit amet.',
   vision: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae sem sed neque facilisis vulputate, integer posuere lorem at sapien.',
@@ -20,6 +20,57 @@ export const community = {
     href: null,
   },
 }
+
+export const locations = [
+  {
+    id: 'bato-toledo-city',
+    name: 'Bato',
+    area: 'Toledo City, Cebu',
+    mapQuery: 'Bato, Toledo City, Cebu',
+  },
+  {
+    id: 'mainggit-toledo-city',
+    name: 'Mainggit',
+    area: 'Toledo City, Cebu',
+    mapQuery: 'Mainggit, Toledo City, Cebu',
+  },
+  {
+    id: 'nangka-balamban',
+    name: 'Nangka',
+    area: 'Balamban, Cebu',
+    mapQuery: 'Nangka, Balamban, Cebu',
+  },
+  {
+    id: 'bairan-asturias',
+    name: 'Bairan',
+    area: 'Asturias, Cebu',
+    mapQuery: 'Bairan, Asturias, Cebu',
+  },
+  {
+    id: 'camp-3-talisay',
+    name: 'Camp 3',
+    area: 'Talisay, Cebu',
+    mapQuery: 'Camp 3, Talisay, Cebu',
+  },
+  {
+    id: 'minolos-matab-ang',
+    name: 'Minolos',
+    area: 'Matab-ang, Toledo City, Cebu',
+    mapQuery: 'Minolos, Matab-ang, Toledo City, Cebu',
+  },
+  {
+    id: 'ylaya-toledo-city',
+    name: 'Ylaya',
+    area: 'Toledo City, Cebu',
+    mapQuery: 'Ylaya, Toledo City, Cebu',
+  },
+  {
+    id: 'pandacan-pinamungajan',
+    name: 'Pandacan',
+    area: 'Pinamungajan, Cebu',
+    mapQuery: 'Pandacan, Pinamungajan, Cebu',
+  },
+]
 
 export const navigationItems = [
   { label: 'About', href: '#about' },

@@ -1,10 +1,18 @@
-import { ArrowUpRight, CalendarDays, Clock3, MapPin, UsersRound } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, Clock3, ExternalLink, MapPin, UsersRound } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { community } from '@/data/community'
+import { community, locations } from '@/data/community'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
+
+function getGoogleMapsUrl(query) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+}
+
+function getGoogleMapsEmbedUrl(query) {
+  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`
+}
 
 function GatheringSection() {
   const { elementRef, isVisible } = useRevealOnScroll()
@@ -57,6 +65,48 @@ function GatheringSection() {
             </Button>
           </div>
         </Card>
+
+        <div className="locations-directory">
+          <div className="locations-directory-heading">
+            <div>
+              <Badge className="eyebrow-badge eyebrow-dark">Find your place</Badge>
+              <h3>Gather with us<br /><em>near you.</em></h3>
+            </div>
+            <p>Choose the location closest to you. These map previews are approximate and will be updated with verified venue details.</p>
+          </div>
+
+          <div className="location-grid">
+            {locations.map((location) => (
+              <Card className="location-card" key={location.id}>
+                <CardContent className="location-card-content">
+                  <div className="location-map-wrap">
+                    <iframe
+                      title={`Map showing ${location.name}, ${location.area}`}
+                      src={getGoogleMapsEmbedUrl(location.mapQuery)}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                    <span className="location-map-label">Approximate location</span>
+                  </div>
+                  <div className="location-card-details">
+                    <div>
+                      <span className="footer-label">Location</span>
+                      <h3>{location.name}</h3>
+                      <p>{location.area}</p>
+                    </div>
+                    <div className="location-card-schedule">
+                      <span className="footer-label">{community.gathering.day}</span>
+                      <strong>{community.gathering.time}</strong>
+                    </div>
+                    <a className="location-directions" href={getGoogleMapsUrl(location.mapQuery)} target="_blank" rel="noreferrer">
+                      Open directions <ExternalLink aria-hidden="true" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
 
         <div className="gathering-note">
           <span>FIRST TIME?</span>

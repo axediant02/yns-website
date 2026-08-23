@@ -9,8 +9,9 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 ## Current page map
 
 - [x] Hero — welcome message, YNS D6 identity, Sunday details, and primary CTA.
-- [x] About YNS D6 — community identity, pillars, and mission/vision placeholders.
-- [x] Weekly Gathering — Sunday schedule, location, venue placeholder, and first-time guidance.
+- [x] About YNS D6 — community identity, pillars, mission, vision, and core values.
+- [x] Weekly Gathering — Sunday schedule, multi-location directory, map previews, and first-time guidance.
+- [x] Location directory — eight approximate Cebu locations with directions links.
 - [x] Gallery preview — responsive event-album preview with stacked thumbnails.
 - [x] Full Gallery — dedicated `#gallery-all` event index with event-specific photo views.
 - [x] Stories — content-ready cards for verified community stories.
@@ -48,6 +49,9 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Show who the gathering is for.
 - [x] Show first-time visitor guidance.
 - [x] Link “Ask a question” to Contact.
+- [x] Show all eight temporary YNS D6 locations.
+- [x] Show a map preview and directions link for each location.
+- [~] Replace approximate location searches with verified venue names and map pins.
 
 ### Gallery
 
@@ -128,6 +132,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [~] Vision statement verified.
 - [~] Core values verified.
 - [~] Gathering venue verified.
+- [~] Eight location names, venue details, and map pins verified.
 - [~] Facebook/Messenger URL verified.
 - [ ] Instagram and other social URLs verified.
 - [ ] Final brand colors approved.
@@ -188,3 +193,5 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - 2026-08-22 — Approved replacing Kids/Youth gallery categories with event-based albums and dedicated event views.
 - 2026-08-22 — Implemented event-based gallery albums with stacked thumbnails and event-scoped photo lightboxes.
 - 2026-08-22 — Created this checklist as the ongoing guide for page scope, feature status, content readiness, and release checks.
+- 2026-08-23 — Added temporary lorem mission, vision, and core value content to the About section.
+- 2026-08-23 — Added the eight-location directory with map previews and directions links.

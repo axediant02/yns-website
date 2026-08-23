@@ -124,6 +124,27 @@ body { background: var(--paper); color: var(--ink); }
 .gathering-fact small, .footer-label { color: rgba(25, 25, 25, 0.56); font-size: 10px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
 .gathering-fact strong { font-size: 14px; line-height: 1.2; }
 .gathering-card-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 34px; background: var(--acid); font-size: 13px; font-weight: 800; }
+.locations-directory { margin-top: 112px; }
+.locations-directory-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr); align-items: end; gap: 48px; }
+.locations-directory-heading h3 { margin: 24px 0 0; font-family: var(--display); font-size: clamp(3rem, 6vw, 5.8rem); font-weight: 900; letter-spacing: -0.1em; line-height: 0.86; }
+.locations-directory-heading h3 em { color: var(--coral); font-style: normal; }
+.locations-directory-heading > p { max-width: 420px; margin: 0 0 10px auto; color: rgba(25, 25, 25, 0.64); font-size: 16px; line-height: 1.5; }
+.location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 52px; }
+.location-card { overflow: hidden; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); box-shadow: 6px 6px 0 var(--ink); }
+.location-card-content { height: 100%; padding: 0; }
+.location-map-wrap { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--lavender); }
+.location-map-wrap iframe { display: block; width: 100%; height: 100%; border: 0; }
+.location-map-label { position: absolute; right: 10px; bottom: 10px; padding: 7px 9px; border: 1px solid var(--ink); background: var(--acid); color: var(--ink); font-size: 9px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.location-card-details { display: grid; gap: 24px; padding: 22px; }
+.location-card-details .footer-label { display: block; margin-bottom: 10px; }
+.location-card-details h3 { margin: 0; font-family: var(--display); font-size: 30px; font-weight: 900; letter-spacing: -0.09em; line-height: 0.9; }
+.location-card-details p { margin: 8px 0 0; color: rgba(25, 25, 25, 0.62); font-size: 13px; line-height: 1.4; }
+.location-card-schedule { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-top: 16px; border-top: 1px solid var(--line); }
+.location-card-schedule .footer-label { margin: 0; color: var(--coral); }
+.location-card-schedule strong { font-size: 12px; text-align: right; }
+.location-directions { display: inline-flex; align-items: center; gap: 7px; color: var(--ink); font-size: 12px; font-weight: 900; text-decoration: none; }
+.location-directions:hover { opacity: 0.62; }
+.location-directions svg { width: 15px; height: 15px; }
 .gathering-note { display: grid; grid-template-columns: 130px 1fr; gap: 26px; max-width: 650px; margin-top: 78px; }
 .gathering-note > span { color: var(--coral); font-size: 11px; font-weight: 900; letter-spacing: 0.12em; }
 .gathering-note p { margin: 0; color: rgba(25, 25, 25, 0.65); }
@@ -270,6 +291,9 @@ body { background: var(--paper); color: var(--ink); }
   .section-heading > p, .contact-copy > p { margin-left: 0; }
   .gallery-section .section-heading > div:last-child > p { margin-left: 0; }
   .gathering-card-content { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .locations-directory-heading { grid-template-columns: 1fr; gap: 34px; }
+  .locations-directory-heading > p { margin-left: 0; }
+  .location-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-event-grid, .gallery-event-index-grid { grid-template-columns: repeat(2, 1fr); }
   .gallery-page-heading, .gallery-group-heading { grid-template-columns: 1fr; gap: 34px; }
   .gallery-page-heading p, .gallery-group-heading p { margin-left: 0; }
@@ -300,6 +324,9 @@ body { background: var(--paper); color: var(--ink); }
   .gathering-card-arrow { display: none; }
   .gathering-card-content { grid-template-columns: 1fr; padding: 24px 22px; }
   .gathering-card-footer { padding: 18px 22px 22px; }
+  .locations-directory { margin-top: 82px; }
+  .locations-directory-heading h3 { font-size: clamp(3rem, 14vw, 5rem); }
+  .location-grid { grid-template-columns: 1fr; margin-top: 38px; }
   .gathering-note { grid-template-columns: 1fr; gap: 12px; margin-top: 56px; }
   .gallery-event-grid, .gallery-event-index-grid { grid-template-columns: 1fr; margin-top: 54px; }
   .event-album-stack { height: 230px; }
