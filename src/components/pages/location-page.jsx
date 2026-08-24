@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3, ExternalLink, MapPin } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, CalendarDays, ChevronsDown, Clock3, ExternalLink, MapPin } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -39,10 +39,14 @@ function LocationPage({ slug }) {
             </div>
             <p>{location.welcomeMessage || 'Local welcome message coming soon. Everyone interested is welcome to learn more and ask questions.'}</p>
           </div>
+          <a className="location-scroll-hint" href="#location-content" aria-label="Scroll to gathering details">
+            <span>Scroll down</span>
+            <ChevronsDown aria-hidden="true" strokeWidth={1.4} />
+          </a>
         </div>
       </section>
 
-      <section className="location-page-content section-frame">
+      <section id="location-content" className="location-page-content section-frame">
         <div className="page-frame">
           <div className="location-detail-grid">
             <Card className="location-detail-card">
@@ -82,6 +86,13 @@ function LocationPage({ slug }) {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <LocationPhotoTimeline location={location} />
+
+      <section className="location-page-content location-page-followup section-frame">
+        <div className="page-frame">
 
           {location.image?.src ? <img className="location-page-photo" src={location.image.src} alt={location.image.alt || `Gathering in ${location.name}`} loading="lazy" /> : null}
 
@@ -104,7 +115,6 @@ function LocationPage({ slug }) {
           </div>
         </div>
       </section>
-      <LocationPhotoTimeline location={location} />
     </main>
   )
 }

@@ -100,6 +100,11 @@ body { background: var(--paper); color: var(--ink); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes location-scroll-pulse {
+  0%, 100% { opacity: 0.34; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(12px); }
+}
+
 .section-heading { position: relative; z-index: 1; }
 .section-heading-wide { max-width: 780px; }
 .section-heading-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr); align-items: end; gap: 48px; }
@@ -262,6 +267,10 @@ body { background: var(--paper); color: var(--ink); }
 .location-page-heading h1 { margin: 24px 0 0; color: var(--ink); font-family: var(--display); font-size: clamp(4rem, 8.2vw, 7.8rem); font-weight: 900; letter-spacing: -0.1em; line-height: 0.84; }
 .location-page-heading h1 em, .location-detail-card h2 em { color: var(--coral); font-style: normal; }
 .location-page-heading p { max-width: 420px; margin: 0 0 10px auto; font-size: 17px; line-height: 1.5; }
+.location-scroll-hint { display: flex; align-items: center; justify-content: center; gap: 2px; width: 100%; margin-top: 64px; color: rgba(25, 25, 25, 0.42); font-size: 11px; font-weight: 900; letter-spacing: 0.16em; text-decoration: none; text-transform: uppercase; animation: location-scroll-pulse 1800ms ease-in-out infinite; }
+.location-scroll-hint svg { width: 48px; height: 48px; }
+.location-scroll-hint:hover { color: var(--ink); }
+.location-scroll-hint:focus-visible { outline: 3px solid var(--coral); outline-offset: 6px; }
 .location-page-content { background: var(--paper); }
 .location-detail-grid { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 18px; }
 .location-detail-card { border: 2px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--paper); box-shadow: 10px 10px 0 var(--coral); }
@@ -297,6 +306,8 @@ body { background: var(--paper); color: var(--ink); }
 .location-not-found h1 em { color: var(--coral); font-style: normal; }
 .location-not-found p { max-width: 420px; margin-bottom: 30px; font-size: 17px; line-height: 1.5; }
 .location-photo-timeline { background: var(--ink); color: var(--paper); }
+.location-photo-timeline .eyebrow-badge { border: 1px solid var(--acid); background: var(--acid); color: var(--ink); }
+.location-photo-timeline .eyebrow-badge.eyebrow-dark { border-color: var(--coral); background: var(--coral); color: var(--ink); }
 .location-timeline-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr); align-items: end; gap: 48px; }
 .location-timeline-heading h2 { margin: 24px 0 0; color: var(--paper); font-family: var(--display); font-size: clamp(3.6rem, 7vw, 7rem); font-weight: 900; letter-spacing: -0.1em; line-height: 0.84; }
 .location-timeline-heading h2 em { color: var(--acid); font-style: normal; }
@@ -424,6 +435,8 @@ body { background: var(--paper); color: var(--ink); }
   .location-page-hero { padding-top: 128px; }
   .location-page-heading { margin-top: 54px; }
   .location-page-heading h1 { font-size: clamp(3.8rem, 14vw, 6.4rem); }
+  .location-scroll-hint { margin-top: 48px; }
+  .location-scroll-hint svg { width: 42px; height: 42px; }
   .location-detail-card > div { padding: 24px 22px; }
   .location-detail-card h2 { margin: 26px 0 34px; }
   .location-map-card { box-shadow: 6px 6px 0 var(--ink); }
