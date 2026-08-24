@@ -1,8 +1,12 @@
 import { ArrowUpRight } from 'lucide-react'
 
 import { navigationItems, community } from '@/data/community'
+import { getLocationBySlug, getLocationRoute, getSiteHref } from '@/lib/location-routes'
 
 function SiteFooter() {
+  const route = getLocationRoute(window.location.pathname)
+  const activeLocation = route ? getLocationBySlug(route.slug) : null
+
   return (
     <footer className="site-footer">
       <div className="page-frame footer-grid">
@@ -20,15 +24,15 @@ function SiteFooter() {
         <div className="footer-links">
           <span className="footer-label">Explore</span>
           {navigationItems.map((item) => (
-            <a key={item.href} href={item.href}>{item.label}</a>
+            <a key={item.href} href={getSiteHref(item.href)}>{item.label}</a>
           ))}
-          <a href="#contact">Contact <ArrowUpRight aria-hidden="true" /></a>
+          <a href="/#contact">Contact <ArrowUpRight aria-hidden="true" /></a>
         </div>
 
         <div className="footer-gathering">
           <span className="footer-label">See you Sunday</span>
           <strong>{community.gathering.time}</strong>
-          <span>{community.location}</span>
+          <span>{activeLocation ? `${activeLocation.name}, ${activeLocation.area}` : community.location}</span>
         </div>
       </div>
       <div className="page-frame footer-bottom">

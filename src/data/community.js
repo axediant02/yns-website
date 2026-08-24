@@ -7,6 +7,8 @@ export const community = {
     day: 'Every Sunday',
     time: '10:00 AM–12:00 noon',
     venue: '8 locations across Cebu',
+    welcome: 'Everyone is invited.',
+    firstTimeGuidance: 'Look for a friendly face, introduce yourself, and let us know it is your first Sunday. We will help you find your way.',
   },
   mission: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at feugiat aliquet, lorem ipsum dolor sit amet.',
   vision: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae sem sed neque facilisis vulputate, integer posuere lorem at sapien.',
@@ -21,50 +23,68 @@ export const community = {
   },
 }
 
+const draftLocationDetails = {
+  status: 'draft',
+  venue: null,
+  address: null,
+  arrivalNotes: null,
+  contact: null,
+  welcomeMessage: null,
+  image: null,
+}
+
 export const locations = [
   {
+    ...draftLocationDetails,
     id: 'bato-toledo-city',
     name: 'Bato',
     area: 'Toledo City, Cebu',
     mapQuery: 'Bato, Toledo City, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'mainggit-toledo-city',
     name: 'Mainggit',
     area: 'Toledo City, Cebu',
     mapQuery: 'Mainggit, Toledo City, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'nangka-balamban',
     name: 'Nangka',
     area: 'Balamban, Cebu',
     mapQuery: 'Nangka, Balamban, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'bairan-asturias',
     name: 'Bairan',
     area: 'Asturias, Cebu',
     mapQuery: 'Bairan, Asturias, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'camp-3-talisay',
     name: 'Camp 3',
     area: 'Talisay, Cebu',
     mapQuery: 'Camp 3, Talisay, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'minolos-matab-ang',
     name: 'Minolos',
     area: 'Matab-ang, Toledo City, Cebu',
     mapQuery: 'Minolos, Matab-ang, Toledo City, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'ylaya-toledo-city',
     name: 'Ylaya',
     area: 'Toledo City, Cebu',
     mapQuery: 'Ylaya, Toledo City, Cebu',
   },
   {
+    ...draftLocationDetails,
     id: 'pandacan-pinamungajan',
     name: 'Pandacan',
     area: 'Pinamungajan, Cebu',
@@ -216,6 +236,9 @@ export const galleryEvents = [
     id: 'youth-camp-2026',
     label: 'Preview',
     title: 'Youth Camp 2026',
+    date: null,
+    locationIds: [],
+    isIllustrative: true,
     description: 'A preview of the friendships, learning, and shared moments that belong in this event album.',
     photos: galleryPhotoPool.slice(0, 6),
   },
@@ -223,6 +246,9 @@ export const galleryEvents = [
     id: 'event-album-coming-soon-01',
     label: 'Coming soon',
     title: 'More moments coming soon',
+    date: null,
+    locationIds: [],
+    isIllustrative: true,
     description: 'Verified event details and approved photos will be added here when available.',
     photos: galleryPhotoPool.slice(6, 11),
   },
@@ -230,10 +256,36 @@ export const galleryEvents = [
     id: 'event-album-coming-soon-02',
     label: 'Coming soon',
     title: 'Another album coming soon',
+    date: null,
+    locationIds: [],
+    isIllustrative: true,
     description: 'This space is ready for another verified YNS D6 event and its shared memories.',
     photos: galleryPhotoPool.slice(11),
   },
 ]
+
+function getIllustrativePreviewPhotos(startIndex) {
+  return Array.from({ length: 3 }, (_, offset) => {
+    const photo = galleryPhotoPool[(startIndex + offset) % galleryPhotoPool.length]
+
+    return {
+      ...photo,
+      id: `illustrative-${startIndex}-${photo.id}`,
+      title: 'Illustrative preview',
+    }
+  })
+}
+
+export const locationPhotoPreviews = locations.map((location, index) => ({
+  id: `${location.id}-illustrative-preview`,
+  label: 'Illustrative preview',
+  title: 'Moments from here',
+  date: null,
+  locationIds: [location.id],
+  isIllustrative: true,
+  description: 'These temporary images show the intended layout and are not photos from this location.',
+  photos: getIllustrativePreviewPhotos(index * 2),
+}))
 
 export const storyPlaceholders = [
   {

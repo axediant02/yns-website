@@ -20,6 +20,8 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Footer — identity, navigation links, gathering details, and copyright text.
 - [x] Label hierarchy — direct section labels with consolidated status and metadata copy.
 
+- [~] Location pages — route scaffold and shared layout are ready; verified local content is pending.
+
 ## Homepage sections
 
 ### Hero
@@ -101,6 +103,78 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [x] Include gathering time and location.
 - [x] Include copyright text.
 - [ ] Add verified social links when available.
+
+## Location pages
+
+### Page structure
+
+- [x] Create location-specific URLs such as `/locations/bato-toledo-city`.
+- [x] Add location selection to the desktop and mobile navigation.
+- [x] Close the location dropdown after selection.
+- [x] Show a location-specific page shell with map, schedule, and CTA.
+- [ ] Replace draft location-page copy with approved local content.
+- [x] Add a unique title and meta description for every location page.
+- [ ] Add a canonical URL strategy for location pages after the final domain is confirmed.
+- [ ] Add location-specific Open Graph metadata when final social preview assets are available.
+- [x] Show a useful not-found state for invalid location URLs.
+
+### Required information for every location
+
+- [ ] Verify the location name.
+- [ ] Verify the city or municipality.
+- [ ] Verify the exact venue name.
+- [ ] Verify the complete public address.
+- [ ] Verify the Google Maps pin or directions query.
+- [ ] Verify the weekly gathering day.
+- [ ] Verify the weekly gathering time.
+- [ ] Verify arrival, parking, access, or meeting-point instructions.
+- [ ] Verify the local contact person or official contact link.
+- [ ] Approve the short local welcome message.
+- [ ] Approve descriptive image alt text if local photos are added.
+
+### Location content matrix
+
+- [ ] Bato â€” Toledo City, Cebu
+- [ ] Mainggit â€” Toledo City, Cebu
+- [ ] Nangka â€” Balamban, Cebu
+- [ ] Bairan â€” Asturias, Cebu
+- [ ] Camp 3 â€” Talisay, Cebu
+- [ ] Minolos â€” Matab-ang, Toledo City, Cebu
+- [ ] Ylaya â€” Toledo City, Cebu
+- [ ] Pandacan â€” Pinamungajan, Cebu
+
+### Location events and photos
+
+- [x] Add a location-specific photo timeline to each location page.
+- [x] Filter future real events by `locationIds`.
+- [x] Reuse the accessible photo lightbox for location photos.
+- [x] Show a clearly labeled illustrative preview until real local albums are available.
+- [ ] Add verified event names and dates for each location.
+- [ ] Add approved local event photos for each location.
+- [ ] Confirm photo permissions, licensing, and community consent.
+- [ ] Add descriptive alt text for every approved local photo.
+- [ ] Sort verified local events newest first.
+- [ ] Show an empty state when a location has no verified event photos.
+
+### Optional enhancements
+
+- [ ] Add one approved local gathering photo.
+- [ ] Add a verified local leader or coordinator.
+- [ ] Add local accessibility or transportation notes.
+- [ ] Add a location-specific FAQ only when real recurring questions are known.
+- [ ] Add location-specific events only after event details are verified.
+- [ ] Add local gallery albums only with approved community photos and permissions.
+
+### Acceptance checks
+
+- [x] Selecting a location updates the URL and page content without a full reload.
+- [x] The selected location is visibly identified in the navigation.
+- [ ] Every location page displays verified venue and schedule information.
+- [ ] Every map and directions link points to the correct location.
+- [x] Every page has one clear `h1`.
+- [ ] Every page works on phone, tablet, and desktop.
+- [ ] No invented venue, leader, event, testimonial, or community claim is published.
+- [ ] Draft placeholders are removed before public launch.
 
 ## Full gallery event groups
 
@@ -188,6 +262,10 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [ ] Do not add an events calendar, news system, resources hub, or membership flow unless added to this checklist first.
 
 ## Change log
+
+- 2026-08-24 — Added location-specific photo timelines, illustrative preview rules, and event-photo verification checks.
+
+- 2026-08-24 — Added the location-page content plan, verification matrix, optional enhancements, and acceptance checks.
 
 - 2026-08-22 — Added the responsive Gallery preview, full gallery view, Kids/Youth categories, bento grids, and gallery CTAs.
 - 2026-08-22 — Added the accessible gallery lightbox with close, previous/next, and keyboard arrow controls.

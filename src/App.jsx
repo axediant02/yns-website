@@ -12,7 +12,9 @@ import GallerySection from '@/components/sections/gallery-section'
 import HeroSection from '@/components/sections/hero-section'
 import LeadershipSection from '@/components/sections/leadership-section'
 import StoriesSection from '@/components/sections/stories-section'
-import { galleryEvents } from '@/data/community'
+import { galleryEvents, locations } from '@/data/community'
+import LocationPage from '@/components/pages/location-page'
+import { getLocationRoute } from '@/lib/location-routes'
 
 function getGalleryRoute(hash) {
   if (hash === '#gallery-all') return { type: 'index' }
@@ -22,18 +24,30 @@ function getGalleryRoute(hash) {
 
 function App() {
   const [galleryRoute, setGalleryRoute] = useState(() => getGalleryRoute(window.location.hash))
+  const [locationRoute, setLocationRoute] = useState(() => getLocationRoute(window.location.pathname))
 
   useEffect(() => {
     const handleHashChange = () => setGalleryRoute(getGalleryRoute(window.location.hash))
+    const handlePopState = () => setLocationRoute(getLocationRoute(window.location.pathname))
 
     window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+      window.removeEventListener('popstate', handlePopState)
+    }
   }, [])
 
   useEffect(() => {
     const description = document.querySelector('meta[name="description"]')
 
-    if (galleryRoute) {
+    if (locationRoute) {
+      const location = locations.find((communityLocation) => communityLocation.id === locationRoute.slug)
+      document.title = location ? `YNS D6 — ${location.name}, ${location.area}` : 'YNS D6 — Location not found'
+      description?.setAttribute('content', location ? `Find gathering details and directions for YNS D6 in ${location.name}, ${location.area}.` : 'The requested YNS D6 location could not be found.')
+      window.scrollTo(0, 0)
+    } else if (galleryRoute) {
       const event = galleryEvents.find((galleryEvent) => galleryEvent.id === galleryRoute.eventId)
       document.title = event ? `YNS D6 Gallery — ${event.title}` : 'YNS D6 Gallery — See the life around here.'
       description?.setAttribute('content', event ? event.description : 'Explore illustrative event albums from the welcoming community of YNS D6.')
@@ -47,12 +61,14 @@ function App() {
         window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ block: 'start' }))
       }
     }
-  }, [galleryRoute])
+  }, [galleryRoute, locationRoute])
 
   return (
     <div className="site-shell">
       <SiteHeader />
-      {galleryRoute ? (
+      {locationRoute ? (
+        <LocationPage slug={locationRoute.slug} />
+      ) : galleryRoute ? (
         <GalleryPage route={galleryRoute} />
       ) : (
         <main>

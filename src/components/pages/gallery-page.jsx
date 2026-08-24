@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 
 import EventAlbumCard from '@/components/common/event-album-card'
+import PhotoLightbox from '@/components/common/photo-lightbox'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import { galleryEvents } from '@/data/community'
 
 function GalleryPhotoCard({ photo, eventTitle, onOpen }) {
@@ -33,34 +33,6 @@ function GalleryPhotoCard({ photo, eventTitle, onOpen }) {
         </div>
       </CardContent>
     </Card>
-  )
-}
-
-function GalleryLightbox({ photo, eventTitle, onClose, onPrevious, onNext }) {
-  if (!photo) return null
-
-  return (
-    <Dialog open={Boolean(photo)} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="gallery-lightbox">
-        <div className="gallery-lightbox-image-wrap">
-          <img src={photo.src} alt={photo.alt} />
-          <button type="button" className="gallery-lightbox-nav gallery-lightbox-previous" onClick={onPrevious} aria-label="View previous photo">
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <button type="button" className="gallery-lightbox-nav gallery-lightbox-next" onClick={onNext} aria-label="View next photo">
-            <ChevronRight aria-hidden="true" />
-          </button>
-        </div>
-        <div className="gallery-lightbox-caption">
-          <div>
-            <span>{eventTitle}</span>
-            <DialogTitle>{photo.title}</DialogTitle>
-            <DialogDescription>{photo.alt}</DialogDescription>
-          </div>
-          <ArrowRight aria-hidden="true" />
-        </div>
-      </DialogContent>
-    </Dialog>
   )
 }
 
@@ -123,18 +95,6 @@ function GalleryEventNotFound() {
 function GalleryEventView({ event }) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null)
 
-  useEffect(() => {
-    if (selectedPhotoIndex === null) return undefined
-
-    const handleKeyDown = (keyboardEvent) => {
-      if (keyboardEvent.key === 'ArrowLeft') setSelectedPhotoIndex((index) => (index - 1 + event.photos.length) % event.photos.length)
-      if (keyboardEvent.key === 'ArrowRight') setSelectedPhotoIndex((index) => (index + 1) % event.photos.length)
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [event.photos.length, selectedPhotoIndex])
-
   const selectedPhoto = selectedPhotoIndex === null ? null : event.photos[selectedPhotoIndex]
   const openPhoto = (photoId) => setSelectedPhotoIndex(event.photos.findIndex((photo) => photo.id === photoId))
   const closePhoto = () => setSelectedPhotoIndex(null)
@@ -178,9 +138,9 @@ function GalleryEventView({ event }) {
           </div>
         </div>
       </div>
-      <GalleryLightbox
+      <PhotoLightbox
         photo={selectedPhoto}
-        eventTitle={event.title}
+        collectionTitle={event.title}
         onClose={closePhoto}
         onPrevious={showPreviousPhoto}
         onNext={showNextPhoto}

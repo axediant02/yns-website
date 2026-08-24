@@ -5,14 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { community, locations } from '@/data/community'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
-
-function getGoogleMapsUrl(query) {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
-}
-
-function getGoogleMapsEmbedUrl(query) {
-  return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`
-}
+import { getGoogleMapsEmbedUrl, getGoogleMapsUrl } from '@/lib/location-routes'
 
 function GatheringSection() {
   const { elementRef, isVisible } = useRevealOnScroll()
@@ -36,7 +29,7 @@ function GatheringSection() {
             </div>
             <div>
               <Badge variant="outline">Sunday gathering</Badge>
-              <h3>Everyone is invited.</h3>
+              <h3>{community.gathering.welcome}</h3>
             </div>
             <span className="gathering-card-arrow"><ArrowUpRight aria-hidden="true" /></span>
           </CardHeader>
@@ -108,7 +101,7 @@ function GatheringSection() {
 
         <div className="gathering-note">
           <span>FIRST TIME?</span>
-          <p>Look for a friendly face, introduce yourself, and let us know it is your first Sunday. We will help you find your way.</p>
+          <p>{community.gathering.firstTimeGuidance}</p>
         </div>
       </div>
     </section>
