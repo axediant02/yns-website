@@ -55,10 +55,15 @@ function LocationPhotoTimeline({ location }) {
                 <p>{event.description}</p>
                 <div className="location-timeline-grid" aria-label={`${event.title} photos`}>
                   {event.photos.map((photo, photoIndex) => (
-                    <button type="button" className="location-timeline-photo" key={photo.id} onClick={() => openPhoto(event, photoIndex)} aria-label={`Open ${event.title} photo: ${photo.title}`}>
-                      <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
-                      <span>{photo.title}</span>
-                    </button>
+                    <div className="location-timeline-photo-item" key={photo.id}>
+                      <button type="button" className="location-timeline-photo" onClick={() => openPhoto(event, photoIndex)} aria-label={`Open ${event.title} photo: ${photo.title}`}>
+                        <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+                      </button>
+                      <div className="location-timeline-photo-caption">
+                        <strong>{photo.title}</strong>
+                        <time dateTime={event.date || undefined}>{event.isIllustrative ? 'Date to be confirmed' : formatEventDate(event.date)}</time>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </article>

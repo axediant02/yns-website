@@ -266,7 +266,10 @@ body { background: var(--paper); color: var(--ink); }
 .location-page-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr); align-items: end; gap: 48px; margin-top: 74px; }
 .location-page-heading h1 { margin: 24px 0 0; color: var(--ink); font-family: var(--display); font-size: clamp(4rem, 8.2vw, 7.8rem); font-weight: 900; letter-spacing: -0.1em; line-height: 0.84; }
 .location-page-heading h1 em, .location-detail-card h2 em { color: var(--coral); font-style: normal; }
-.location-page-heading p { max-width: 420px; margin: 0 0 10px auto; font-size: 17px; line-height: 1.5; }
+.location-page-heading p { margin: 0; font-size: 17px; line-height: 1.5; }
+.location-welcome-block { max-width: 420px; margin: 0 0 10px auto; }
+.location-welcome-block.is-placeholder { padding: 18px 20px; border-left: 3px solid var(--coral); background: rgba(246, 244, 238, 0.3); }
+.location-welcome-label { display: block; margin-bottom: 10px; color: var(--coral); font-size: 10px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; }
 .location-scroll-hint { display: flex; align-items: center; justify-content: center; gap: 2px; width: 100%; margin-top: 64px; color: rgba(25, 25, 25, 0.42); font-size: 11px; font-weight: 900; letter-spacing: 0.16em; text-decoration: none; text-transform: uppercase; animation: location-scroll-pulse 1800ms ease-in-out infinite; }
 .location-scroll-hint svg { width: 48px; height: 48px; }
 .location-scroll-hint:hover { color: var(--ink); }
@@ -320,10 +323,12 @@ body { background: var(--paper); color: var(--ink); }
 .location-timeline-item-heading time { flex: 0 0 auto; padding-top: 5px; color: var(--acid); font-size: 11px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; }
 .location-timeline-item > p { max-width: 540px; margin-top: 18px; color: rgba(246, 244, 238, 0.66); font-size: 14px; line-height: 1.5; }
 .location-timeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
-.location-timeline-photo { position: relative; aspect-ratio: 4 / 3; overflow: hidden; padding: 0; border: 1px solid var(--dark-line); background: var(--paper); color: var(--paper); cursor: pointer; text-align: left; }
-.location-timeline-photo::after { position: absolute; inset: 0; background: linear-gradient(transparent 45%, rgba(25, 25, 25, 0.88)); content: ''; }
+.location-timeline-photo-item { min-width: 0; }
+.location-timeline-photo { display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; padding: 0; border: 1px solid var(--dark-line); background: var(--paper); color: var(--paper); cursor: pointer; text-align: left; }
 .location-timeline-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1); }
-.location-timeline-photo span { position: absolute; z-index: 1; right: 14px; bottom: 12px; left: 14px; font-size: 11px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.location-timeline-photo-caption { display: grid; gap: 6px; padding: 14px 2px 0; }
+.location-timeline-photo-caption strong { color: var(--paper); font-size: 13px; font-weight: 900; line-height: 1.2; }
+.location-timeline-photo-caption time { color: rgba(246, 244, 238, 0.52); font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .location-timeline-photo:hover img { transform: scale(1.04); }
 .location-timeline-photo:focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
 .location-timeline-empty { margin-top: 54px; padding: 26px; border: 1px solid var(--dark-line); color: rgba(246, 244, 238, 0.66); font-size: 14px; }
@@ -390,6 +395,7 @@ body { background: var(--paper); color: var(--ink); }
   .gallery-page-heading p, .gallery-group-heading p { margin-left: 0; }
   .location-page-heading { grid-template-columns: 1fr; gap: 34px; }
   .location-page-heading p { margin-left: 0; }
+  .location-welcome-block { margin-left: 0; }
   .location-timeline-heading { grid-template-columns: 1fr; gap: 34px; }
   .location-timeline-heading > p { margin-left: 0; }
   .location-detail-grid { grid-template-columns: 1fr; }

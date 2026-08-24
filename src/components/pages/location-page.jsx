@@ -37,7 +37,10 @@ function LocationPage({ slug }) {
               <Badge className="eyebrow-badge eyebrow-dark">Your local gathering</Badge>
               <h1>{location.name}<br /><em>{location.area.split(',')[0]}.</em></h1>
             </div>
-            <p>{location.welcomeMessage || 'Local welcome message coming soon. Everyone interested is welcome to learn more and ask questions.'}</p>
+            <div className={`location-welcome-block ${location.welcomeMessage ? '' : 'is-placeholder'}`}>
+              {!location.welcomeMessage ? <span className="location-welcome-label">Draft location copy</span> : null}
+              <p>{location.welcomeMessage || 'Local welcome message coming soon. Everyone interested is welcome to learn more and ask questions.'}</p>
+            </div>
           </div>
           <a className="location-scroll-hint" href="#location-content" aria-label="Scroll to gathering details">
             <span>Scroll down</span>
