@@ -100,6 +100,9 @@ function SiteHeader() {
               {item.label}
             </a>
           ))}
+          <a href="/events" onClick={closeMenu}>
+            Events
+          </a>
           <LocationMenu activeLocation={activeLocation} closeMenu={closeMenu} />
           <Button asChild size="sm" className="header-cta">
             <a href="#gathering" onClick={closeMenu}>
@@ -128,6 +131,9 @@ function SiteHeader() {
               {item.label}
             </a>
           ))}
+          <a href="/events" onClick={closeMenu}>
+            Events
+          </a>
           <LocationMenu activeLocation={activeLocation} closeMenu={closeMenu} mobile />
           <a className="mobile-nav-cta" href="/#gathering" onClick={closeMenu}>
             Join us this Sunday <ArrowUpRight aria-hidden="true" />

@@ -106,6 +106,8 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 
 ## Location pages
 
+- [x] Add a dedicated `/events` page for global event discovery.
+
 ### Page structure
 
 - [x] Create location-specific URLs such as `/locations/bato-toledo-city`.
@@ -146,6 +148,7 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 ### Location events and photos
 
 - [x] Add a location-specific photo timeline to each location page.
+- [x] Add a placeholder events section to each location page.
 - [x] Filter future real events by `locationIds`.
 - [x] Reuse the accessible photo lightbox for location photos.
 - [x] Show a clearly labeled illustrative preview until real local albums are available.

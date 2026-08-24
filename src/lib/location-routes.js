@@ -6,6 +6,10 @@ export function getLocationRoute(pathname) {
   return match ? { slug: decodeURIComponent(match[1]) } : null
 }
 
+export function isEventsPath(pathname) {
+  return /^\/events\/?$/.test(pathname)
+}
+
 export function getLocationBySlug(slug) {
   return locations.find((location) => location.id === slug)
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 import GalleryPage from '@/components/pages/gallery-page'
+import EventsPage from '@/components/pages/events-page'
 import SiteFooter from '@/components/layout/site-footer'
 import SiteHeader from '@/components/layout/site-header'
 import AboutSection from '@/components/sections/about-section'
@@ -14,7 +15,7 @@ import LeadershipSection from '@/components/sections/leadership-section'
 import StoriesSection from '@/components/sections/stories-section'
 import { galleryEvents, locations } from '@/data/community'
 import LocationPage from '@/components/pages/location-page'
-import { getLocationRoute } from '@/lib/location-routes'
+import { getLocationRoute, isEventsPath } from '@/lib/location-routes'
 
 function getGalleryRoute(hash) {
   if (hash === '#gallery-all') return { type: 'index' }
@@ -25,10 +26,14 @@ function getGalleryRoute(hash) {
 function App() {
   const [galleryRoute, setGalleryRoute] = useState(() => getGalleryRoute(window.location.hash))
   const [locationRoute, setLocationRoute] = useState(() => getLocationRoute(window.location.pathname))
+  const [isEventsPage, setIsEventsPage] = useState(() => isEventsPath(window.location.pathname))
 
   useEffect(() => {
     const handleHashChange = () => setGalleryRoute(getGalleryRoute(window.location.hash))
-    const handlePopState = () => setLocationRoute(getLocationRoute(window.location.pathname))
+    const handlePopState = () => {
+      setLocationRoute(getLocationRoute(window.location.pathname))
+      setIsEventsPage(isEventsPath(window.location.pathname))
+    }
 
     window.addEventListener('hashchange', handleHashChange)
     window.addEventListener('popstate', handlePopState)
@@ -42,7 +47,11 @@ function App() {
   useEffect(() => {
     const description = document.querySelector('meta[name="description"]')
 
-    if (locationRoute) {
+    if (isEventsPage) {
+      document.title = 'YNS D6 — Events'
+      description?.setAttribute('content', 'Discover upcoming YNS D6 gatherings, community events, and shared moments across Cebu.')
+      window.scrollTo(0, 0)
+    } else if (locationRoute) {
       const location = locations.find((communityLocation) => communityLocation.id === locationRoute.slug)
       document.title = location ? `YNS D6 — ${location.name}, ${location.area}` : 'YNS D6 — Location not found'
       description?.setAttribute('content', location ? `Find gathering details and directions for YNS D6 in ${location.name}, ${location.area}.` : 'The requested YNS D6 location could not be found.')
@@ -61,12 +70,14 @@ function App() {
         window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ block: 'start' }))
       }
     }
-  }, [galleryRoute, locationRoute])
+  }, [galleryRoute, isEventsPage, locationRoute])
 
   return (
     <div className="site-shell">
       <SiteHeader />
-      {locationRoute ? (
+      {isEventsPage ? (
+        <EventsPage />
+      ) : locationRoute ? (
         <LocationPage slug={locationRoute.slug} />
       ) : galleryRoute ? (
         <GalleryPage route={galleryRoute} />

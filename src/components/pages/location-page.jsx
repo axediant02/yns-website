@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight, CalendarDays, ChevronsDown, Clock3, ExternalLi
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import LocationEventsSection from '@/components/sections/location-events-section'
 import LocationPhotoTimeline from '@/components/sections/location-photo-timeline'
 import { community } from '@/data/community'
 import { getGoogleMapsEmbedUrl, getGoogleMapsUrl, getLocationBySlug } from '@/lib/location-routes'
@@ -92,6 +93,7 @@ function LocationPage({ slug }) {
         </div>
       </section>
 
+      <LocationEventsSection location={location} />
       <LocationPhotoTimeline location={location} />
 
       <section className="location-page-content location-page-followup section-frame">
