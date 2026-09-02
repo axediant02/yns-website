@@ -14,6 +14,16 @@ The website advertises the community and invites visitors to attend the weekly g
 
 The design takes structural inspiration from Street Level Ministries, especially its identity statement, weekly gathering information, leadership, and community-focused sections. It does not copy its content or visual assets.
 
+## System integration
+
+The website is the public read-only client in a three-application YNS system:
+
+- `yns-cms` manages editorial content such as photos, events, stories, leadership, and public links.
+- `backend` is the Laravel API, persistence layer, and source of truth for publication state and media metadata.
+- `yns-website` retrieves published content from the backend API and presents it publicly.
+
+The website and CMS do not communicate directly, and the website does not access the backend database. API URLs are environment-configured so the site remains suitable for static deployment.
+
 ## Planned Sections
 
 The homepage uses anchor navigation with these sections:
@@ -30,7 +40,7 @@ The homepage uses anchor navigation with these sections:
 
 The Gallery includes a homepage event-album preview and a full event index with responsive bento photo grids, stacked event thumbnails, dedicated event views, and an accessible lightbox/photo detail view with close and previous/next controls scoped to each event.
 
-Missions, resources, an events calendar, news, membership forms, and CMS functionality are not part of the first release unless documented here later.
+Missions, resources, news, membership forms, and other new content types are not part of the first release unless documented here later. Event and gallery content may be CMS-managed through the shared backend as the integration is implemented.
 
 ### Label clarity pass
 
@@ -63,8 +73,9 @@ The interface uses direct section labels instead of numbered metaphors. Repeated
     assets/        # supplied logo and community photos
   ```
 
-- Keep content separate from visual components using structured local data modules.
-- Design the data boundary so editorial content can later be replaced by a CMS.
+- Keep content separate from visual components using API/service modules and structured temporary fixture data where needed.
+- Treat the backend API as the production source of truth for CMS-managed content; do not duplicate production content in frontend data modules.
+- Display published records only and provide loading, empty, unavailable-API, and error states for remote content.
 - Do not add backend code, authentication, database logic, custom forms, analytics, or server routes.
 - Avoid god components. The page composes focused sections rather than containing all content and behavior in one file.
 - Use supplied logo and community photos when provided. Do not invent branding assets, testimonials, leaders, or events.
@@ -100,7 +111,7 @@ Before implementing any feature:
 3. Update `plan.md` with the approved feature and decisions.
 4. Only then implement the feature.
 
-Future changes must preserve the frontend-only scope and shadcn CLI requirement.
+Future changes must preserve the frontend-only scope, shared backend API boundary, published-content rule, and shadcn CLI requirement.
 
 ## Current Pending Information
 
@@ -136,7 +147,7 @@ Future changes must preserve the frontend-only scope and shadcn CLI requirement.
 
 - The audience is anyone interested in YNS D6; there is no defined age restriction.
 - The primary conversion goal is attending the Sunday gathering.
-- Content is initially maintained by a developer through local data files.
-- A CMS may be added later, but no CMS is implemented in v1.
+- Temporary content may be maintained through local fixture data until API integration is implemented.
+- Production editorial content is managed through `yns-cms`, stored by `backend`, and consumed by the website through published API responses.
 - The site remains deployment-agnostic and suitable for static hosting.
 - Official links and factual content are supplied before public launch.

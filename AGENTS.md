@@ -3,15 +3,18 @@
 ## Project purpose
 
 - This is a frontend-only React/Vite website for advertising and representing a Christian community of young people who follow Jesus.
+- This is the public, read-only client of the shared backend API. CMS-managed content such as photos and events must be retrieved from the backend API once the integration is implemented.
 - The site should feel welcoming, hopeful, honest, modern, and Christ-centered.
 - Keep content respectful and accessible to people who are curious about the community, regardless of their current level of faith.
-- Do not add a backend, database, authentication system, server routes, payment processing, or other product functionality unless explicitly requested.
+- Do not add a backend, database, authentication system, server routes, payment processing, or other server-side product functionality inside this application. Use the shared backend API for remote content.
 
 ## Technology rules
 
 - Use React with Vite, JavaScript/JSX, Tailwind CSS, and shadcn/ui.
 - Prefer the existing project dependencies and patterns before introducing a new dependency.
 - Keep the application client-side and suitable for a static frontend deployment.
+- Read public content through dedicated API/service modules using environment-configured API URLs; never access the CMS source or database directly.
+- Render published content only and provide meaningful loading, empty, unavailable-API, and error states for remote content.
 - Use Tailwind utility classes for styling. Keep custom CSS limited to global tokens, typography, resets, animations, and styles that cannot be expressed clearly with utilities.
 
 ## shadcn/ui rules
@@ -56,11 +59,12 @@
     lib/           # browser-facing libraries, integrations, and adapters
     utils/         # pure helpers such as formatting and validation
     constants/     # shared static values and configuration
-    data/          # structured marketing/content data
+    data/          # temporary fixtures/placeholders only; production content comes from the API
     assets/        # images, icons, and other imported assets
   ```
 
 - Do not place hooks, utility functions, data, or service code inside visual component files unless it is truly local and trivial.
+- Keep API calls, response mapping, and remote-content state outside visual components where they can be reused and tested.
 - Use the `@/` alias for imports from `src`.
 - Keep page-specific components close to their page when they are not reusable elsewhere.
 
@@ -99,4 +103,4 @@
 - Do not rewrite unrelated existing styles, content, or components.
 - Before adding a dependency, explain why an existing dependency or browser API is insufficient.
 - After meaningful changes, run the relevant checks, at minimum `npm run build`; run `npm run lint` when the current lint baseline allows it.
-- Do not add backend or server-side code under the assumption that it may be useful later.
+- Do not add backend or server-side code under the assumption that it may be useful later; backend changes belong in `backend/`.
