@@ -6,6 +6,8 @@ When a new feature is requested, update this file first with the approved scope 
 
 Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or waiting for verified content
 
+Release target: **Public launch for v1**. This checklist is complete only when the public-launch gate at the end is satisfied.
+
 ## Current page map
 
 - [x] Hero — welcome message, YNS D6 identity, Sunday details, and primary CTA.
@@ -253,6 +255,52 @@ Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or wa
 - [ ] Check external image loading and replace any failed URLs.
 - [ ] Confirm all factual public content before launch.
 - [ ] Confirm the primary CTA has a verified destination before launch.
+
+## Public-launch readiness
+
+### Content and factual accuracy
+
+- [ ] Replace mission, vision, and core-value placeholders with approved copy.
+- [ ] Confirm the Sunday schedule and Toledo City, Cebu information are accurate.
+- [ ] Verify all eight location names, venues, addresses, map pins, and directions links.
+- [ ] Add the official Facebook/Messenger destination.
+- [ ] Add only verified leadership information and approved community stories.
+- [ ] Replace stock and illustrative images with approved community photos, or remove those public-facing items.
+- [ ] Confirm photo permissions, licensing, community consent, and descriptive alt text.
+- [ ] Remove draft or “coming soon” wording that should not appear on the public site.
+
+### Brand and metadata
+
+- [ ] Add the approved logo, brand colors, and final visual assets.
+- [ ] Confirm the final domain and static-hosting target.
+- [ ] Replace `example.com` canonical and Open Graph URLs with the final domain.
+- [ ] Approve the final page title, meta description, social metadata, and preview image.
+- [ ] Add structured data only for verified organization, location, or event information.
+
+### Functional and accessibility QA
+
+- [ ] Verify all homepage navigation anchors on desktop and mobile.
+- [ ] Verify gallery index, event views, lightbox controls, and browser back/forward behavior.
+- [ ] Verify location URLs, selected-location navigation state, invalid-location handling, and directions links.
+- [ ] Verify mobile-menu behavior, keyboard access, and visible focus states.
+- [ ] Verify semantic landmarks, image alt text, and one primary `h1` per rendered view.
+- [ ] Verify reduced-motion behavior.
+- [ ] Test phone, tablet, and desktop layouts.
+- [ ] Confirm all external images and links load correctly.
+
+### Build and deployment verification
+
+- [ ] Run `npm run build` successfully.
+- [ ] Run `npm run lint` successfully.
+- [ ] Confirm the production build serves correctly from the selected static host.
+- [ ] Confirm no backend, database, authentication, payment, CMS, calendar, news, resources, or membership functionality has been added.
+- [ ] Confirm no invented claims, events, leaders, testimonials, locations, statistics, or unverified links remain.
+- [ ] Record the final deployment URL and release date.
+
+### Final v1 deployment gate
+
+- [ ] Mark **Ready for Deployment** only when every required item in this checklist is checked, all public placeholders and illustrative assets intended for replacement are resolved, factual content is approved, manual QA passes on supported screen sizes, and both production commands succeed.
+- [ ] If any required item remains unchecked, mark the version **Not Ready for Deployment** and keep the unresolved item visible here.
 
 ## Scope guardrails
 
