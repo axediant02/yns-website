@@ -293,7 +293,7 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [ ] Run `npm run build` successfully.
 - [ ] Run `npm run lint` successfully.
 - [ ] Confirm the production build serves correctly from the selected static host.
-- [ ] Confirm no backend, database, authentication, payment, CMS, calendar, news, resources, or membership functionality has been added.
+- [ ] Confirm no backend, database, authentication, payment, or CMS implementation has been added inside this frontend; remote content is consumed only through the approved backend API.
 - [ ] Confirm no invented claims, events, leaders, testimonials, locations, statistics, or unverified links remain.
 - [ ] Record the final deployment URL and release date.
 
@@ -305,10 +305,10 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 ## Scope guardrails
 
 - [x] Keep the project frontend-only and suitable for static hosting.
-- [x] Keep content in local data modules until a CMS is explicitly approved.
+- [~] Keep local data limited to explicit fixtures, placeholders, migration input, and approved outage essentials while modules move to the already-approved backend/CMS system.
 - [x] Use React, Vite, Tailwind CSS, and shadcn/ui.
 - [x] Keep generated shadcn primitives in `src/components/ui`.
-- [ ] Do not add backend routes, databases, authentication, payments, or CMS functionality without explicit approval.
+- [ ] Do not add backend routes, databases, authentication, payments, or CMS functionality inside this frontend; implement server behavior in the backend through an approved cross-application feature.
 - [ ] Do not publish invented events, leaders, testimonials, locations, statistics, or community claims.
 - [ ] Do not add an events calendar, news system, resources hub, or membership flow unless added to this checklist first.
 

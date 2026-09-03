@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { defineConfig } from 'vite'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -11,5 +13,9 @@ export default defineConfig({
     alias: {
       '@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), './src'),
     },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
   },
 })

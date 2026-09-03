@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "yns-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,16 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "contract:lint": "spectral lint docs/contracts/backend-api-v1.yaml",
+    "contract:verify": "node scripts/verify-contract.mjs",
+    "contract:generate": "openapi-typescript docs/contracts/backend-api-v1.yaml -o src/api/generated/backend-api-v1.d.ts",
+    "contract:check": "npm run contract:lint && npm run contract:verify && npm run contract:generate && git diff --exit-code -- src/api/generated/backend-api-v1.d.ts",
     "preview": "vite preview"
+  },
+  "engines": {
+    "node": ">=24 <25"
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.3.0",
@@ -26,6 +35,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@stoplight/spectral-cli": "^6.16.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
@@ -33,6 +45,9 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
-    "vite": "^8.2.0"
+    "jsdom": "^29.1.1",
+    "openapi-typescript": "^7.13.0",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.11"
   }
 }

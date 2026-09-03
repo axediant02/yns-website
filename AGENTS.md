@@ -104,3 +104,13 @@
 - Before adding a dependency, explain why an existing dependency or browser API is insufficient.
 - After meaningful changes, run the relevant checks, at minimum `npm run build`; run `npm run lint` when the current lint baseline allows it.
 - Do not add backend or server-side code under the assumption that it may be useful later; backend changes belong in `backend/`.
+
+## Evidence-first, risk-based workflow
+
+- This repository must be safe when checked out independently. Resolve guidance in this order: this `AGENTS.md`, an approved feature checklist and frozen acceptance test, the vendored OpenAPI contract snapshot, `plan.md`/`CHECKLIST.md`, then existing code conventions. Stop and report contradictions instead of guessing.
+- Inspect current code, tests, lockfiles, environment examples, and contracts before proposing implementation. Record verified facts separately from assumptions.
+- Behavior, API, data, security, publication, dependency, and runtime-configuration changes require an approved feature checklist and an explicitly approved failing acceptance test. Freeze the approved test before implementation.
+- Documentation and demonstrably behavior-neutral mechanical changes may use ordinary review and verification.
+- Never invent endpoints, response fields, community facts, publication status, links, consent, licensing, deployment values, or package APIs.
+- If a required tool, skill, or documentation source is unavailable, disclose it and use repository evidence plus official documentation. Never fabricate results.
+- Work is complete only when relevant tests, lint, and build checks pass; API snapshots are synchronized when applicable; public unpublished-content boundaries are tested; and documentation and remaining risks are current.

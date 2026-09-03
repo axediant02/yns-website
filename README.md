@@ -1,38 +1,31 @@
-# YNS D6 Community Website
+# YNS Public Website
 
-This is the frontend-only React/Vite website for Youth Nation Shakers District 6 in Toledo City, Cebu.
+Public, read-only React/Vite client for Youth Nation Shakers District 6. It is suitable for static deployment and may render only published content returned by the backend API.
 
-Use [CHECKLIST.md](./CHECKLIST.md) as the current working checklist for page sections, features, gallery categories, content readiness, and release checks. Update it whenever a new feature is approved, implemented, or deferred.
+## Requirements and setup
 
-The broader product scope and implementation rules are documented in [plan.md](./plan.md).
+- Node.js 24 LTS and npm
+- A local YNS backend URL when testing API-backed modules
 
-## Development
-
-```bash
-npm install
+```powershell
+npm ci
+Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Run the production checks with:
+Set `VITE_API_BASE_URL` to the backend origin. Never put credentials in frontend environment variables.
 
-```bash
-npm run build
+## Required reading
+
+Read `AGENTS.md`, `docs/DEVELOPMENT.md`, `plan.md`, and `CHECKLIST.md`. `docs/contracts/backend-api-v1.yaml` is the reviewed frontend snapshot of the backend contract. Local data is limited to explicit fixtures, placeholders, and approved outage essentials; it is not a second production source of truth.
+
+## Verification
+
+```powershell
 npm run lint
+npm run test:run
+npm run contract:check
+npm run build
 ```
 
-## Original Vite notes
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Do not publish placeholder facts, illustrative media, or unverified links. Track factual readiness in `docs/VERIFIED_CONTENT.md`.
