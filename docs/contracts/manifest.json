@@ -1,7 +1,6 @@
 {
-  "revision": "readiness-1",
-  "sha256": "D44F25C560889041095B69013C8C166FA410D49ADAE42286C6638D7538975D09",
+  "revision": "auth-1",
+  "sha256": "155F7071DEF2314E8F22F906DC9BAF095E61C5078843785AE0B1AA69F27CF841",
   "upstreamRepository": "axediant02/yns-cms-api",
   "upstreamCommit": null
 }
-

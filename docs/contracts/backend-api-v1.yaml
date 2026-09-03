@@ -2,33 +2,260 @@ openapi: 3.1.0
 info:
   title: YNS API
   version: 1.0.0
-  description: >-
-    Canonical contract for the YNS public website and authenticated CMS.
-    Paths are added only through approved feature records; an empty paths object
-    means that no product API endpoint has been approved yet.
-x-yns-contract-revision: readiness-1
+  description: Canonical contract for the YNS public website and authenticated CMS.
+x-yns-contract-revision: auth-1
+tags:
+  - name: Authentication
+    description: CMS browser authentication and account activation.
+  - name: Administration
+    description: Administrator-only team access management.
 servers:
-  - url: "{origin}/api/v1"
+  - url: "{origin}"
     variables:
       origin:
         default: http://localhost:8000
-        description: Environment-configured backend origin; never hard-code production origins.
-paths: {}
+        description: Environment-configured backend origin.
+security:
+  - cookieAuth: []
+paths:
+  /sanctum/csrf-cookie:
+    post:
+      operationId: initializeCsrf
+      summary: Initialize CSRF protection for the browser session
+      description: Initialize CSRF protection for the browser session.
+      tags: [Authentication]
+      security: []
+      responses:
+        "204": { description: CSRF cookie initialized }
+  /api/v1/auth/login:
+    post:
+      operationId: login
+      summary: Create a CMS browser session
+      description: Create a CMS browser session.
+      tags: [Authentication]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LoginRequest" }
+      responses:
+        "200": { $ref: "#/components/responses/UserResponse" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "429": { description: Too many attempts }
+  /api/v1/auth/session:
+    get:
+      operationId: getSession
+      summary: Restore the authenticated CMS session
+      description: Restore the authenticated CMS session.
+      tags: [Authentication]
+      responses:
+        "200": { $ref: "#/components/responses/UserResponse" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+  /api/v1/auth/logout:
+    post:
+      operationId: logout
+      summary: Destroy the current CMS session
+      description: Destroy the current CMS session.
+      tags: [Authentication]
+      responses:
+        "204": { description: Session destroyed }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+  /api/v1/auth/forgot-password:
+    post:
+      operationId: forgotPassword
+      summary: Request a password reset without revealing account existence
+      description: Request a password reset without revealing account existence.
+      tags: [Authentication]
+      security: []
+      requestBody: { $ref: "#/components/requestBodies/Email" }
+      responses:
+        "202": { description: Request accepted }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "503": { $ref: "#/components/responses/MailUnavailable" }
+  /api/v1/auth/reset-password:
+    post:
+      operationId: resetPassword
+      summary: Reset a password and revoke all existing sessions
+      description: Reset a password and revoke all existing sessions.
+      tags: [Authentication]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ResetPasswordRequest" }
+      responses:
+        "200": { description: Password reset }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/auth/invitations/inspect:
+    post:
+      operationId: inspectInvitation
+      summary: Inspect an invitation token
+      description: Inspect an invitation token.
+      tags: [Authentication]
+      security: []
+      requestBody: { $ref: "#/components/requestBodies/Token" }
+      responses:
+        "200": { description: Invitation details }
+        "404": { description: "Invitation invalid, used, or revoked" }
+        "410": { description: Invitation expired }
+  /api/v1/auth/invitations/accept:
+    post:
+      operationId: acceptInvitation
+      summary: Create an editor account from an invitation
+      description: Create an editor account from an invitation.
+      tags: [Authentication]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AcceptInvitationRequest" }
+      responses:
+        "201": { $ref: "#/components/responses/UserResponse" }
+        "404": { description: "Invitation invalid, used, or revoked" }
+        "410": { description: Invitation expired }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/admin/users:
+    get:
+      operationId: listUsers
+      summary: List CMS users
+      description: List CMS users.
+      tags: [Administration]
+      responses:
+        "200": { description: User list }
+        "403": { $ref: "#/components/responses/Forbidden" }
+  /api/v1/admin/users/{user}/status:
+    patch:
+      operationId: updateUserStatus
+      summary: Disable or reactivate an editor
+      description: Disable or reactivate an editor.
+      tags: [Administration]
+      parameters: [{ $ref: "#/components/parameters/UserId" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, required: [active], properties: { active: { type: boolean } } }
+      responses:
+        "200": { $ref: "#/components/responses/UserResponse" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+  /api/v1/admin/invitations:
+    get:
+      operationId: listInvitations
+      summary: List editor invitations
+      description: List editor invitations.
+      tags: [Administration]
+      responses:
+        "200": { description: Invitation list }
+        "403": { $ref: "#/components/responses/Forbidden" }
+    post:
+      operationId: inviteEditor
+      summary: Invite an editor
+      description: Invite an editor.
+      tags: [Administration]
+      requestBody: { $ref: "#/components/requestBodies/Email" }
+      responses:
+        "201": { description: Invitation sent }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "503": { $ref: "#/components/responses/MailUnavailable" }
+  /api/v1/admin/invitations/{invitation}/resend:
+    post:
+      operationId: resendInvitation
+      summary: Replace and resend an invitation token
+      description: Replace and resend an invitation token.
+      tags: [Administration]
+      parameters: [{ $ref: "#/components/parameters/InvitationId" }]
+      responses:
+        "200": { description: Invitation resent }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "422": { $ref: "#/components/responses/ValidationError" }
+        "503": { $ref: "#/components/responses/MailUnavailable" }
+  /api/v1/admin/invitations/{invitation}:
+    delete:
+      operationId: revokeInvitation
+      summary: Revoke an editor invitation
+      description: Revoke an editor invitation.
+      tags: [Administration]
+      parameters: [{ $ref: "#/components/parameters/InvitationId" }]
+      responses:
+        "204": { description: Invitation revoked }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "422": { $ref: "#/components/responses/ValidationError" }
 components:
+  securitySchemes:
+    cookieAuth: { type: apiKey, in: cookie, name: laravel_session }
+  parameters:
+    UserId: { name: user, in: path, required: true, schema: { type: integer } }
+    InvitationId: { name: invitation, in: path, required: true, schema: { type: integer } }
+  requestBodies:
+    Email:
+      required: true
+      content:
+        application/json:
+          schema: { type: object, required: [email], properties: { email: { type: string, format: email } } }
+    Token:
+      required: true
+      content:
+        application/json:
+          schema: { type: object, required: [token], properties: { token: { type: string } } }
+  responses:
+    UserResponse:
+      description: Safe CMS user
+      content:
+        application/json:
+          schema: { type: object, required: [data], properties: { data: { $ref: "#/components/schemas/User" } } }
+    Unauthenticated: { description: Authentication required }
+    Forbidden: { description: Account disabled or insufficient permission }
+    MailUnavailable: { description: Email delivery unavailable }
+    ValidationError:
+      description: Invalid input
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/LaravelValidationError" }
   schemas:
-    LaravelValidationError:
+    User:
       type: object
       additionalProperties: false
-      required:
-        - message
-        - errors
+      required: [id, name, email, role, active]
       properties:
-        message:
-          type: string
+        id: { type: integer }
+        name: { type: string }
+        email: { type: string, format: email }
+        role: { type: string, enum: [administrator, editor] }
+        active: { type: boolean }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, format: password }
+    ResetPasswordRequest:
+      type: object
+      required: [email, token, password, password_confirmation]
+      properties:
+        email: { type: string, format: email }
+        token: { type: string }
+        password: { type: string, format: password, minLength: 12 }
+        password_confirmation: { type: string, format: password }
+    AcceptInvitationRequest:
+      type: object
+      required: [token, name, password, password_confirmation]
+      properties:
+        token: { type: string }
+        name: { type: string, maxLength: 255 }
+        password: { type: string, format: password, minLength: 12 }
+        password_confirmation: { type: string, format: password }
+    LaravelValidationError:
+      type: object
+      required: [message, errors]
+      properties:
+        message: { type: string }
         errors:
           type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-
+          additionalProperties: { type: array, items: { type: string } }
