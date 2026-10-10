@@ -2,7 +2,7 @@
 
 This is the working checklist for the YNS D6 community website. Use it to decide what to build next and to keep completed work visible.
 
-When a new feature is requested, update this file first with the approved scope and acceptance checks. Keep the checklist updated in the same change as the implementation.
+When a new feature is requested, record its scope and acceptance checks here. Safe work within the request proceeds without extra approval; crucial actions follow the approval policy in `AGENTS.md`. Keep the checklist updated in the same change as the implementation.
 
 Status: `[x]` complete · `[ ]` pending · `[~]` intentionally placeholder or waiting for verified content
 

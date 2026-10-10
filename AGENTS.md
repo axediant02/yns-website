@@ -1,5 +1,12 @@
 # Community Website Project Rules
 
+## Workspace rules and required reading
+
+- Before editing, read this file and [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md), plus any feature or content documents required below.
+- When this repository is part of the YNS workspace, also read [the shared rules index](../docs/rules/README.md), [architecture rules](../docs/rules/architecture.md), and [approval rules](../docs/rules/approvals.md). Read [testing rules](../docs/rules/testing.md) before changing behavior or choosing verification.
+- These workspace links are documentation references, not application dependencies. In an independent checkout where they are absent, follow the local policies in this file and the development guide; report the missing workspace context for cross-application work.
+- Keep future detailed shared procedures in the workspace rules folder and update its index. Retain essential local policies for standalone use; report material conflicts instead of assuming an exception.
+
 ## Project purpose
 
 - This is a frontend-only React/Vite website for advertising and representing a Christian community of young people who follow Jesus.
@@ -107,10 +114,23 @@
 
 ## Evidence-first, risk-based workflow
 
-- This repository must be safe when checked out independently. Resolve guidance in this order: this `AGENTS.md`, an approved feature checklist and frozen acceptance test, the vendored OpenAPI contract snapshot, `plan.md`/`CHECKLIST.md`, then existing code conventions. Stop and report contradictions instead of guessing.
+- This repository must be safe when checked out independently. Resolve guidance in this order: the user's current instructions and existing authorization, this `AGENTS.md`, the applicable feature record and acceptance criteria, the vendored OpenAPI contract snapshot, `plan.md`/`CHECKLIST.md`, then existing code conventions. Historical feature records preserve past decisions; their old approval gates do not override the current approval policy. Report material contradictions instead of guessing.
 - Inspect current code, tests, lockfiles, environment examples, and contracts before proposing implementation. Record verified facts separately from assumptions.
-- Behavior, API, data, security, publication, dependency, and runtime-configuration changes require an approved feature checklist and an explicitly approved failing acceptance test. Freeze the approved test before implementation.
+- For substantial features and crucial changes, document evidence, scope, consumers, acceptance criteria, tests, risks, and rollback in a feature record. Routine safe work does not need a separate record. Follow the risk-based approval policy below; no separate test approval is required unless the user requests it. Never weaken tests merely to make implementation pass; material changes to approved outcomes require renewed approval.
 - Documentation and demonstrably behavior-neutral mechanical changes may use ordinary review and verification.
 - Never invent endpoints, response fields, community facts, publication status, links, consent, licensing, deployment values, or package APIs.
 - If a required tool, skill, or documentation source is unavailable, disclose it and use repository evidence plus official documentation. Never fabricate results.
 - Work is complete only when relevant tests, lint, and build checks pass; API snapshots are synchronized when applicable; public unpublished-content boundaries are tested; and documentation and remaining risks are current.
+
+## Risk-based approval policy
+
+- Safe actions are pre-authorized within the user's requested scope. Proceed without asking for a checklist approval or separate test approval.
+- Safe actions include reading files and documentation, repository searches, read-only Git inspection, read-only local diagnostics, planning, and drafting reviewable proposals or patches without applying crucial changes to implementation files. Avoid exposing secrets in diagnostic output.
+- Also proceed with documentation updates, creating or editing relevant frontend tests, running local tests/lint/typecheck/build/contract validation, and reversible frontend UI, styling, accessibility, or refactoring work that preserves existing API contracts and security behavior. Verification must use local or isolated test resources, not mutate shared or production data.
+- Routine local frontend configuration changes, such as assigning development ports, are safe only when they do not broaden network exposure or change backend trust, authentication, or deployment settings. Restoring locked dependencies is safe; adding, removing, or upgrading dependencies requires approval.
+- Obtain explicit approval before deleting existing project files or tests; destructive Git operations; changing API endpoints, methods, payloads, schemas, or contracts; changing backend implementation, tests, dependencies, configuration, migrations, jobs, storage, or persisted data; or changing authentication, authorization, CORS/CSRF, secrets, publication rules, or privacy boundaries in any application.
+- Also obtain approval before deployments, production configuration changes, publishing, external writes or messages, or actions with irreversible effects. Creating/editing backend documentation and reading backend files are safe; exercising existing APIs read-only is safe when it does not expose private information or change data.
+- Approval already given for an exact action or clearly bounded scope remains valid. An explicit instruction to perform a crucial action counts as authorization for that stated action; a broad goal does not authorize incidental destructive or backend changes. Do not ask again unless the scope or risk materially changes.
+- Before requesting approval, complete all safe preparation and present the concrete affected files/actions, acceptance criteria or test plan, risks, and rollback. One approval may cover that entire bounded change; do not impose a second test-approval gate unless the user requests it.
+- Cleanup of temporary artifacts created by the agent during the current task is safe when confined to the verified task location and cannot remove pre-existing files. Other file deletion requires approval.
+- This policy does not override tool, sandbox, network, or operating-system restrictions. Use the normal sandbox first. If escalation is required, explain the actual restriction or error rather than implying that ordinary reading needs project approval.

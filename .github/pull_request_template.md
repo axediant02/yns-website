@@ -6,8 +6,9 @@
 
 ## Change control
 
-- [ ] A feature checklist is linked when this changes behavior, contracts, data, security, publication, dependencies, or runtime configuration.
-- [ ] The approved failing test is unchanged, or this PR is behavior-neutral.
+- [ ] A feature record is linked for substantial features or crucial changes; routine safe work needs no separate record.
+- [ ] Crucial actions are explicitly authorized; safe work follows `AGENTS.md` without extra approval.
+- [ ] Relevant tests prove the acceptance criteria and were not weakened merely to pass; separate test approval is required only if requested by the user.
 - [ ] API changes update the canonical contract and all affected snapshots without an undocumented breaking change.
 - [ ] No secret, private record, unpublished content, invented fact, or unapproved media was added.
 

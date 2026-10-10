@@ -100,16 +100,13 @@ The first release must include:
 
 Pending information must use explicit placeholders rather than fabricated content.
 
-## Documentation Gate
+## Documentation and approval policy
 
-`plan.md` is the source of truth for the project.
+`plan.md` records product direction; `AGENTS.md` governs boundaries and risk-based approval.
 
-Before implementing any feature:
+Before implementation, inspect this plan and the checklist. Safe frontend work within the user's requested scope may proceed without a separate approval gate; update the plan when that request establishes new product direction. Missing documentation alone is not a reason to request permission for safe work. Clarify genuinely unresolved product decisions while continuing independent safe work.
 
-1. Check whether the feature is documented in `plan.md`.
-2. If it is not documented, stop and ask for clarification.
-3. Update `plan.md` with the approved feature and decisions.
-4. Only then implement the feature.
+For crucial actions defined in `AGENTS.md`, prepare the concrete scope, acceptance criteria or test plan, risks, and rollback and obtain explicit authorization unless already given. One approval covers the bounded implementation and tests; no mandatory separate test approval applies.
 
 Future changes must preserve the frontend-only scope, shared backend API boundary, published-content rule, and shadcn CLI requirement.
 
