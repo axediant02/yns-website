@@ -1,5 +1,11 @@
 # Community Website Project Rules
 
+## Active frontend-only agreement
+
+- Follow the user's frontend-only scope and [shared frontend rules](../docs/rules/README.md). Do not modify the backend or move authoritative security into this client.
+- Keep JSX focused on UI; extract reusable hooks, services, data preparation, and form orchestration. Keep files short through clear responsibilities and reuse, not compressed formatting.
+- For implementation use [YNS frontend architecture](.agents/skills/yns-frontend-architecture/SKILL.md); for UI composition use [YNS shadcn UI](.agents/skills/yns-shadcn-ui/SKILL.md); for review/verification use [YNS frontend verification](.agents/skills/yns-frontend-verification/SKILL.md). Read only the relevant skills.
+
 ## Workspace rules and required reading
 
 - Before editing, read this file and [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md), plus any feature or content documents required below.
