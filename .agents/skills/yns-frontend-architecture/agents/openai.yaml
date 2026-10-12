@@ -1,0 +1,6 @@
+interface:
+  display_name: "YNS Frontend Architecture"
+  short_description: "Build focused YNS frontend components and hooks"
+  default_prompt: "Use $yns-frontend-architecture for this YNS frontend task."
+policy:
+  allow_implicit_invocation: true

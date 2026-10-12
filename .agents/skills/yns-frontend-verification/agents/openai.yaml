@@ -1,0 +1,6 @@
+interface:
+  display_name: "YNS Frontend Verification"
+  short_description: "Review YNS frontend behavior and performance"
+  default_prompt: "Use $yns-frontend-verification for this YNS frontend task."
+policy:
+  allow_implicit_invocation: true
