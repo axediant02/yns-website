@@ -13,6 +13,8 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
+The development server uses `http://localhost:5174`; `npm run preview` uses `http://localhost:4174` after a build. Both commands fail if their port is occupied instead of selecting another port. The CMS uses ports `5173` and `4173`, so both apps can run together.
+
 Set `VITE_API_BASE_URL` to the backend origin. Never put credentials in frontend environment variables.
 
 ## Required reading
