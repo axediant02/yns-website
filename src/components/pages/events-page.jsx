@@ -4,9 +4,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { locations } from '@/data/community'
+import EventDetails from '@/components/common/event-details'
 import { getLocationHref } from '@/lib/location-routes'
 
-function EventsPage() {
+function EventsPage({ events = [], items = locations }) {
   return (
     <main className="events-page" id="events-top">
       <section className="events-page-hero section-frame">
@@ -15,7 +16,7 @@ function EventsPage() {
           <div className="events-page-heading">
             <div>
               <Badge className="eyebrow-badge eyebrow-dark">Events</Badge>
-              <h1>More events<br /><em>coming soon.</em></h1>
+              {events.length ? <h1>Community<br /><em>events.</em></h1> : <h1>More events<br /><em>coming soon.</em></h1>}
             </div>
             <p>We are making room for verified gatherings, camps, and shared moments from across the YNS D6 community.</p>
           </div>
@@ -24,7 +25,7 @@ function EventsPage() {
 
       <section className="events-page-content section-frame">
         <div className="page-frame">
-          <Card className="events-coming-soon-card">
+          {events.length ? events.map((event, index) => <EventDetails key={index} event={event} />) : <Card className="events-coming-soon-card">
             <CardContent>
               <div className="events-coming-soon-icon" aria-hidden="true"><CalendarDays /></div>
               <div>
@@ -33,7 +34,7 @@ function EventsPage() {
                 <p>Event names, dates, locations, and photos will be added once they are confirmed by the community.</p>
               </div>
             </CardContent>
-          </Card>
+          </Card>}
 
           <div className="events-location-directory">
             <div className="events-location-heading">
@@ -45,7 +46,7 @@ function EventsPage() {
             </div>
 
             <div className="events-location-grid">
-              {locations.map((location) => (
+              {items.map((location) => (
                 <a className="events-location-card" key={location.id} href={getLocationHref(location)}>
                   <span className="events-location-card-icon"><MapPin aria-hidden="true" /></span>
                   <span>

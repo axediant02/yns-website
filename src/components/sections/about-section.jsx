@@ -3,9 +3,10 @@ import { ArrowUpRight, HeartHandshake, Sparkles } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { community } from '@/data/community'
+import { aboutCopy } from '@/data/section-copy'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 
-function AboutSection() {
+function AboutSection({ content = aboutCopy, identity = community }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -13,9 +14,9 @@ function AboutSection() {
       <div className="page-frame">
         <div className="section-heading section-heading-wide">
           <Badge className="eyebrow-badge eyebrow-light">About</Badge>
-          <h2>There is room<br /><em>for you here.</em></h2>
+          <h2>{content.heading}<br /><em>{content.emphasis}</em></h2>
           <p>
-            You do not need to have everything figured out before you show up. YNS D6 is a place to ask honest questions, meet people, and take the next step together.
+            {content.description}
           </p>
         </div>
 
@@ -23,31 +24,31 @@ function AboutSection() {
           <div className="about-pillar">
             <span className="pillar-icon"><HeartHandshake aria-hidden="true" /></span>
             <span className="pillar-number">01</span>
-            <h3>Come as you are</h3>
-            <p>Everyone interested is welcome. Start with a conversation, a Sunday, or simply a question.</p>
+            <h3>{content.pillarOneTitle}</h3>
+            <p>{content.pillarOneBody}</p>
           </div>
           <Separator orientation="vertical" className="about-separator" />
           <div className="about-pillar">
             <span className="pillar-icon"><Sparkles aria-hidden="true" /></span>
             <span className="pillar-number">02</span>
-            <h3>Grow with others</h3>
-            <p>Faith is not a solo project. We are learning to follow Jesus with courage, honesty, and joy.</p>
+            <h3>{content.pillarTwoTitle}</h3>
+            <p>{content.pillarTwoBody}</p>
           </div>
         </div>
 
         <div className="about-statements">
           <article className="about-statement">
             <span className="footer-label">Mission</span>
-            <p>{community.mission}</p>
+            <p>{identity.mission}</p>
           </article>
           <article className="about-statement">
             <span className="footer-label">Vision</span>
-            <p>{community.vision}</p>
+            <p>{identity.vision}</p>
           </article>
           <article className="about-statement">
             <span className="footer-label">Core values</span>
             <ul>
-              {community.coreValues.map((value) => <li key={value}>{value}</li>)}
+              {identity.coreValues.map((value, index) => <li key={index}>{value}</li>)}
             </ul>
           </article>
         </div>
@@ -55,7 +56,7 @@ function AboutSection() {
         <a className="about-statements-link" href="#contact">Ask us about it <ArrowUpRight aria-hidden="true" /></a>
 
         <div className="about-marquee" aria-hidden="true">
-          <span>{community.shortName}</span><span>—</span><span>TOLEDO CITY</span><span>—</span><span>CEBU</span><span>—</span>
+          <span>{identity.shortName}</span><span>—</span><span>TOLEDO CITY</span><span>—</span><span>CEBU</span><span>—</span>
         </div>
       </div>
     </section>

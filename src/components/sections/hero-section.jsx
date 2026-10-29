@@ -3,28 +3,29 @@ import { ArrowDownRight, ArrowUpRight, CalendarDays, MapPin } from 'lucide-react
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { community } from '@/data/community'
+import { heroCopy } from '@/data/section-copy'
 
-function HeroSection() {
+function HeroSection({ content = heroCopy, gathering = community.gathering, location = community.location }) {
   return (
     <section id="top" className="hero-section section-frame">
       <div className="hero-grid page-frame">
         <div className="hero-copy">
-          <Badge className="eyebrow-badge">A community in Toledo City</Badge>
-          <h1>Find your people.<br /><em>Follow Jesus.</em></h1>
+          <Badge className="eyebrow-badge">{content.badge}</Badge>
+          <h1>{content.heading}<br /><em>{content.emphasis}</em></h1>
           <p className="hero-description">
-            YNS D6 is a growing community for everyone interested in discovering what it looks like to follow Jesus together.
+            {content.description}
           </p>
           <div className="hero-actions">
             <Button asChild size="lg" className="primary-action">
-              <a href="#gathering">Join us this Sunday <ArrowUpRight aria-hidden="true" /></a>
+              <a href={content.primaryHref}>{content.primaryLabel} <ArrowUpRight aria-hidden="true" /></a>
             </Button>
-            <a className="text-action" href="#about">
-              Get to know us <ArrowDownRight aria-hidden="true" />
+            <a className="text-action" href={content.secondaryHref}>
+              {content.secondaryLabel} <ArrowDownRight aria-hidden="true" />
             </a>
           </div>
           <div className="hero-details" aria-label="Gathering details">
-            <span><CalendarDays aria-hidden="true" /> {community.gathering.day}</span>
-            <span><MapPin aria-hidden="true" /> {community.location}</span>
+            <span><CalendarDays aria-hidden="true" /> {gathering.day}</span>
+            <span><MapPin aria-hidden="true" /> {location}</span>
           </div>
         </div>
 

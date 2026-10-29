@@ -8,8 +8,8 @@ import LocationPhotoTimeline from '@/components/sections/location-photo-timeline
 import { community } from '@/data/community'
 import { getGoogleMapsEmbedUrl, getGoogleMapsUrl, getLocationBySlug } from '@/lib/location-routes'
 
-function LocationPage({ slug }) {
-  const location = getLocationBySlug(slug)
+function LocationPage({ slug, content, gathering = community.gathering, albums }) {
+  const location = content ?? getLocationBySlug(slug)
 
   if (!location) {
     return (
@@ -58,8 +58,8 @@ function LocationPage({ slug }) {
                 <Badge className="eyebrow-badge">Gathering details</Badge>
                 <h2>See you<br /><em>Sunday.</em></h2>
                 <div className="location-detail-facts">
-                  <div><CalendarDays aria-hidden="true" /><span><small>When</small><strong>{community.gathering.day}</strong></span></div>
-                  <div><Clock3 aria-hidden="true" /><span><small>Time</small><strong>{community.gathering.time}</strong></span></div>
+                  <div><CalendarDays aria-hidden="true" /><span><small>When</small><strong>{gathering.day}</strong></span></div>
+                  <div><Clock3 aria-hidden="true" /><span><small>Time</small><strong>{gathering.time}</strong></span></div>
                   <div><MapPin aria-hidden="true" /><span><small>Where</small><strong>{location.venue || 'Verified venue details coming soon.'}</strong><small>{location.address || `${location.name}, ${location.area}`}</small></span></div>
                 </div>
                 <p className="location-draft-note">Draft content: local venue, arrival, and contact details will be added once verified.</p>
@@ -94,7 +94,7 @@ function LocationPage({ slug }) {
       </section>
 
       <LocationEventsSection location={location} />
-      <LocationPhotoTimeline location={location} />
+      <LocationPhotoTimeline location={location} events={albums} />
 
       <section className="location-page-content location-page-followup section-frame">
         <div className="page-frame">
@@ -104,10 +104,10 @@ function LocationPage({ slug }) {
           <div className="location-expectations">
             <div>
               <Badge className="eyebrow-badge eyebrow-dark">What to expect</Badge>
-              <h2>{community.gathering.welcome}</h2>
+              <h2>{gathering.welcome}</h2>
             </div>
             <div className="location-expectations-copy">
-              <p>{community.gathering.firstTimeGuidance}</p>
+              <p>{gathering.firstTimeGuidance}</p>
               {location.arrivalNotes ? <p><strong>Arrival notes:</strong> {location.arrivalNotes}</p> : null}
               {location.contact?.href ? <a className="location-directions" href={location.contact.href} target="_blank" rel="noreferrer">Contact the local coordinator <ExternalLink aria-hidden="true" /></a> : null}
               {!location.arrivalNotes && !location.contact?.href ? <p className="location-draft-note-light">Local arrival notes and contact details will be added after verification.</p> : null}

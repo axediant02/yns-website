@@ -13,7 +13,7 @@ import {
 import { navigationItems, community, locations } from '@/data/community'
 import { getLocationBySlug, getLocationHref, getLocationRoute, getSiteHref } from '@/lib/location-routes'
 
-function LocationMenu({ activeLocation, closeMenu, mobile = false }) {
+function LocationMenu({ activeLocation, closeMenu, mobile = false, items = locations }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const handleLocationSelect = (event, location) => {
@@ -38,7 +38,7 @@ function LocationMenu({ activeLocation, closeMenu, mobile = false }) {
       <DropdownMenuContent align={mobile ? 'start' : 'end'} className="location-menu-content">
         <DropdownMenuLabel>Choose a location</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {locations.map((location) => (
+        {items.map((location) => (
           <DropdownMenuItem key={location.id} asChild>
             <a className={activeLocation?.id === location.id ? 'location-menu-item-active' : ''} href={getLocationHref(location)} onClick={(event) => handleLocationSelect(event, location)}>
               <span>
@@ -54,7 +54,7 @@ function LocationMenu({ activeLocation, closeMenu, mobile = false }) {
   )
 }
 
-function SiteHeader() {
+function SiteHeader({ items = locations, location, identity = community, showEditorialCopy = true }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeLocation, setActiveLocation] = useState(() => {
@@ -90,7 +90,7 @@ function SiteHeader() {
           <span className="brand-mark" aria-hidden="true">D6</span>
           <span>
             <span className="brand-name">YNS D6</span>
-            <span className="brand-location">{community.location}</span>
+            {showEditorialCopy && <span className="brand-location">{identity.location}</span>}
           </span>
         </a>
 
@@ -103,12 +103,12 @@ function SiteHeader() {
           <a href="/events" onClick={closeMenu}>
             Events
           </a>
-          <LocationMenu activeLocation={activeLocation} closeMenu={closeMenu} />
-          <Button asChild size="sm" className="header-cta">
+          {showEditorialCopy && <LocationMenu activeLocation={location ?? activeLocation} closeMenu={closeMenu} items={items} />}
+          {showEditorialCopy && <Button asChild size="sm" className="header-cta">
             <a href="#gathering" onClick={closeMenu}>
               Join us <ArrowUpRight aria-hidden="true" />
             </a>
-          </Button>
+          </Button>}
         </nav>
 
         <Button
@@ -134,10 +134,10 @@ function SiteHeader() {
           <a href="/events" onClick={closeMenu}>
             Events
           </a>
-          <LocationMenu activeLocation={activeLocation} closeMenu={closeMenu} mobile />
-          <a className="mobile-nav-cta" href="/#gathering" onClick={closeMenu}>
+          {showEditorialCopy && <LocationMenu activeLocation={location ?? activeLocation} closeMenu={closeMenu} mobile items={items} />}
+          {showEditorialCopy && <a className="mobile-nav-cta" href="/#gathering" onClick={closeMenu}>
             Join us this Sunday <ArrowUpRight aria-hidden="true" />
-          </a>
+          </a>}
         </div>
       </nav>
     </header>

@@ -36,7 +36,7 @@ function GalleryPhotoCard({ photo, eventTitle, onOpen }) {
   )
 }
 
-function GalleryEventIndex() {
+function GalleryEventIndex({ events = galleryEvents }) {
   return (
     <main className="gallery-page" id="gallery-top">
       <section className="gallery-page-hero section-frame">
@@ -59,7 +59,7 @@ function GalleryEventIndex() {
             <p>Illustrative previews will be replaced with approved YNS D6 photos as albums become available.</p>
           </div>
           <div className="gallery-event-index-grid" aria-label="Event albums">
-            {galleryEvents.map((event) => (
+            {events.map((event) => (
               <EventAlbumCard key={event.id} event={event} href={`#gallery-event-${event.id}`} />
             ))}
           </div>
@@ -92,7 +92,7 @@ function GalleryEventNotFound() {
   )
 }
 
-function GalleryEventView({ event }) {
+export function GalleryEventView({ event }) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(null)
 
   const selectedPhoto = selectedPhotoIndex === null ? null : event.photos[selectedPhotoIndex]
@@ -149,10 +149,10 @@ function GalleryEventView({ event }) {
   )
 }
 
-function GalleryPage({ route }) {
-  if (route.type === 'index') return <GalleryEventIndex />
+function GalleryPage({ route, events = galleryEvents }) {
+  if (route.type === 'index') return <GalleryEventIndex events={events} />
 
-  const event = galleryEvents.find((galleryEvent) => galleryEvent.id === route.eventId)
+  const event = events.find((galleryEvent) => galleryEvent.id === route.eventId)
   return event ? <GalleryEventView event={event} /> : <GalleryEventNotFound />
 }
 

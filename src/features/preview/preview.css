@@ -1,0 +1,12 @@
+/* A long section must remain visible inside a short embedded viewport. */
+.cms-preview .reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.cms-preview section[id],
+.cms-preview #locations,
+.cms-preview [id^="preview-"] {
+  scroll-margin-top: 96px;
+}

@@ -6,7 +6,7 @@ function EventAlbumCard({ event, href, className = '' }) {
   const previewPhotos = event.photos.slice(0, 3)
 
   return (
-    <Card className={`event-album-card ${className}`}>
+    <Card id={event.previewId} className={`event-album-card ${className}`}>
       <CardContent>
         <a className="event-album-card-link" href={href} aria-label={`Open ${event.title} photo album`}>
           <div className="event-album-stack" aria-hidden="true">

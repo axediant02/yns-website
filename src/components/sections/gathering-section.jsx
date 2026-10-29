@@ -4,10 +4,11 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { community, locations } from '@/data/community'
+import { gatheringCopy } from '@/data/section-copy'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 import { getGoogleMapsEmbedUrl, getGoogleMapsUrl } from '@/lib/location-routes'
 
-function GatheringSection() {
+function GatheringSection({ content = gatheringCopy, gathering = community.gathering, audience = community.audience, items = locations }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -16,9 +17,9 @@ function GatheringSection() {
         <div className="section-heading section-heading-split">
           <div>
             <Badge className="eyebrow-badge">Gathering</Badge>
-            <h2>Start with<br /><em>Sunday.</em></h2>
+            <h2>{content.heading}<br /><em>{content.emphasis}</em></h2>
           </div>
-          <p>Come for the gathering. Stay for the people, the questions, and the possibility of a life shaped by Jesus.</p>
+          <p>{content.description}</p>
         </div>
 
         <Card className="gathering-card">
@@ -29,26 +30,26 @@ function GatheringSection() {
             </div>
             <div>
               <Badge variant="outline">Sunday gathering</Badge>
-              <h3>{community.gathering.welcome}</h3>
+              <h3>{gathering.welcome}</h3>
             </div>
             <span className="gathering-card-arrow"><ArrowUpRight aria-hidden="true" /></span>
           </CardHeader>
           <CardContent className="gathering-card-content">
             <div className="gathering-fact">
               <CalendarDays aria-hidden="true" />
-              <span><small>When</small><strong>{community.gathering.day}</strong></span>
+              <span><small>When</small><strong>{gathering.day}</strong></span>
             </div>
             <div className="gathering-fact">
               <Clock3 aria-hidden="true" />
-              <span><small>Time</small><strong>{community.gathering.time}</strong></span>
+              <span><small>Time</small><strong>{gathering.time}</strong></span>
             </div>
             <div className="gathering-fact">
               <MapPin aria-hidden="true" />
-              <span><small>Where</small><strong>{community.gathering.venue}</strong></span>
+              <span><small>Where</small><strong>{gathering.venue}</strong></span>
             </div>
             <div className="gathering-fact">
               <UsersRound aria-hidden="true" />
-              <span><small>Who</small><strong>{community.audience}</strong></span>
+              <span><small>Who</small><strong>{audience}</strong></span>
             </div>
           </CardContent>
           <div className="gathering-card-footer">
@@ -59,7 +60,7 @@ function GatheringSection() {
           </div>
         </Card>
 
-        <div className="locations-directory">
+        <div id="locations" className="locations-directory">
           <div className="locations-directory-heading">
             <div>
               <Badge className="eyebrow-badge eyebrow-dark">Locations</Badge>
@@ -69,8 +70,8 @@ function GatheringSection() {
           </div>
 
           <div className="location-grid">
-            {locations.map((location) => (
-              <Card className="location-card" key={location.id}>
+            {items.map((location) => (
+              <Card id={location.previewId} className="location-card" key={location.id}>
                 <CardContent className="location-card-content">
                   <div className="location-map-wrap">
                     <iframe
@@ -86,8 +87,8 @@ function GatheringSection() {
                       <p>{location.area}</p>
                     </div>
                     <div className="location-card-schedule">
-                      <span className="footer-label">{community.gathering.day}</span>
-                      <strong>{community.gathering.time}</strong>
+                      <span className="footer-label">{gathering.day}</span>
+                      <strong>{gathering.time}</strong>
                     </div>
                     <a className="location-directions" href={getGoogleMapsUrl(location.mapQuery)} target="_blank" rel="noreferrer">
                       Open directions <ExternalLink aria-hidden="true" />
@@ -101,7 +102,7 @@ function GatheringSection() {
 
         <div className="gathering-note">
           <span>FIRST TIME?</span>
-          <p>{community.gathering.firstTimeGuidance}</p>
+          <p>{gathering.firstTimeGuidance}</p>
         </div>
       </div>
     </section>

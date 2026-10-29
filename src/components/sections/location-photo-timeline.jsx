@@ -10,9 +10,9 @@ function formatEventDate(date) {
   return new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(new Date(`${date}T00:00:00`))
 }
 
-function LocationPhotoTimeline({ location }) {
+function LocationPhotoTimeline({ location, events = galleryEvents }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null)
-  const verifiedEvents = galleryEvents.filter((event) => event.locationIds?.includes(location.id))
+  const verifiedEvents = events.filter((event) => event.locationIds?.includes(location.id))
   const preview = locationPhotoPreviews.find((event) => event.locationIds.includes(location.id))
   const timelineEvents = [...verifiedEvents, ...(preview ? [preview] : [])]
 

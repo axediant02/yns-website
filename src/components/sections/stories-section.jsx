@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { storyPlaceholders } from '@/data/community'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 
-function StoriesSection() {
+function StoriesSection({ stories = storyPlaceholders }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -20,8 +20,8 @@ function StoriesSection() {
         </div>
 
         <div className="story-grid">
-          {storyPlaceholders.map((story) => (
-            <Card key={story.accent} className="story-card">
+          {stories.map((story, index) => (
+            <Card id={story.previewId} key={story.id ?? index} className="story-card">
               <CardContent>
                 <div className="story-card-top">
                   <span className="story-accent">{story.accent}</span>

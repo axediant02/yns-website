@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { galleryEvents } from '@/data/community'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 
-function GallerySection() {
+function GallerySection({ events = galleryEvents }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -24,7 +24,7 @@ function GallerySection() {
         </div>
 
         <div className="gallery-event-grid" aria-label="Event album previews">
-          {galleryEvents.map((event) => (
+          {events.map((event) => (
             <EventAlbumCard key={event.id} event={event} href={`#gallery-event-${event.id}`} />
           ))}
         </div>

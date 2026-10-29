@@ -3,9 +3,10 @@ import { ArrowUpRight, Link2, MessageCircle } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { community } from '@/data/community'
+import { contactCopy } from '@/data/section-copy'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 
-function ContactSection() {
+function ContactSection({ content = contactCopy, contact = community.contact }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -13,16 +14,18 @@ function ContactSection() {
       <div className="page-frame contact-grid">
         <div>
           <Badge className="eyebrow-badge eyebrow-dark">Contact</Badge>
-          <h2>Questions are<br /><em>welcome here.</em></h2>
+          <h2>{content.heading}<br /><em>{content.emphasis}</em></h2>
         </div>
         <div className="contact-copy">
-          <p>Want to know more before Sunday? Need directions when the venue is confirmed? We would love to hear from you.</p>
-          <Button disabled={!community.contact.href} size="lg" className="contact-button">
+          <p>{content.description}</p>
+          <Button asChild={Boolean(contact.href)} disabled={!contact.href} size="lg" className="contact-button">
+            {contact.href ? <a href={contact.href} target="_blank" rel="noreferrer"><MessageCircle aria-hidden="true" />{contact.label}<ArrowUpRight aria-hidden="true" /></a> : <>
             <MessageCircle aria-hidden="true" />
-            {community.contact.href ? 'Message us' : 'Contact link coming soon'}
+            Contact link coming soon
             <ArrowUpRight aria-hidden="true" />
+            </>}
           </Button>
-          <span className="contact-status"><Link2 aria-hidden="true" /> Contact link will be added soon.</span>
+          <span className="contact-status"><Link2 aria-hidden="true" /> {contact.href ? contact.label : 'Contact link will be added soon.'}</span>
         </div>
       </div>
     </section>

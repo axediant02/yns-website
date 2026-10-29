@@ -3,9 +3,9 @@ import { ArrowUpRight } from 'lucide-react'
 import { navigationItems, community } from '@/data/community'
 import { getLocationBySlug, getLocationRoute, getSiteHref } from '@/lib/location-routes'
 
-function SiteFooter() {
+function SiteFooter({ identity = community, location, showEditorialCopy = true }) {
   const route = getLocationRoute(window.location.pathname)
-  const activeLocation = route ? getLocationBySlug(route.slug) : null
+  const activeLocation = location ?? (route ? getLocationBySlug(route.slug) : null)
 
   return (
     <footer className="site-footer">
@@ -15,10 +15,10 @@ function SiteFooter() {
             <span className="brand-mark" aria-hidden="true">D6</span>
             <span>
               <span className="brand-name">YNS D6</span>
-              <span className="brand-location">{community.location}</span>
+              {showEditorialCopy && <span className="brand-location">{identity.location}</span>}
             </span>
           </a>
-          <p className="footer-note">A community for everyone interested in following Jesus together.</p>
+          {showEditorialCopy && <p className="footer-note">A community for everyone interested in following Jesus together.</p>}
         </div>
 
         <div className="footer-links">
@@ -29,14 +29,15 @@ function SiteFooter() {
           <a href="/#contact">Contact <ArrowUpRight aria-hidden="true" /></a>
         </div>
 
-        <div className="footer-gathering">
+        <div className="footer-gathering">{showEditorialCopy ? <>
           <span className="footer-label">See you Sunday</span>
-          <strong>{community.gathering.time}</strong>
-          <span>{activeLocation ? `${activeLocation.name}, ${activeLocation.area}` : community.location}</span>
+          <strong>{identity.gathering.time}</strong>
+          <span>{activeLocation ? `${activeLocation.name}, ${activeLocation.area}` : identity.location}</span>
+        </> : <span>Gathering details are currently unavailable.</span>}
         </div>
       </div>
       <div className="page-frame footer-bottom">
-        <span>© {new Date().getFullYear()} {community.name}</span>
+        <span>© {new Date().getFullYear()} {identity.name}</span>
       </div>
     </footer>
   )

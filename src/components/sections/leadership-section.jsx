@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { leadershipPlaceholders } from '@/data/community'
 import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
 
-function LeadershipSection() {
+function LeadershipSection({ leaders = leadershipPlaceholders }) {
   const { elementRef, isVisible } = useRevealOnScroll()
 
   return (
@@ -20,8 +20,8 @@ function LeadershipSection() {
         </div>
 
         <div className="leadership-grid">
-          {leadershipPlaceholders.map((leader) => (
-            <Card key={leader.name} className="leader-card">
+          {leaders.map((leader, index) => (
+            <Card id={leader.previewId} key={leader.id ?? index} className="leader-card">
               <CardContent>
                 <div className="leader-avatar"><UserRound aria-hidden="true" /></div>
                 <h3>{leader.name}</h3>
