@@ -10,6 +10,12 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 
 ## Current page map
 
+- [x] Remove local editorial content/media from the public homepage while retaining its section frames/navigation and explicit unavailable states; see feature-checklists/2026-10-29-public-homepage-content.md.
+- [~] Connect public homepage transport/mapping after the public contents endpoint and response schema exist. Current backend routes/OpenAPI contain no public contents API. The section checklists below describe retained templates, not a completed live homepage API integration.
+
+- [x] Add website-owned CMS preview templates and field descriptors without changing default public content; see feature-checklists/2026-10-29-website-content-preview.md. Persisted draft APIs remain unimplemented.
+- [x] Share the complete homepage between public and preview views; apply all draft edits together and support selection scrolling and complete page navigation inside the preview.
+
 - [x] Hero — welcome message, YNS D6 identity, Sunday details, and primary CTA.
 - [x] About YNS D6 — community identity, pillars, mission, vision, and core values.
 - [x] Weekly Gathering — Sunday schedule, multi-location directory, map previews, and first-time guidance.

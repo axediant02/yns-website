@@ -6,6 +6,8 @@ When working in the YNS workspace, follow the [shared rules index](../../docs/ru
 
 ## Sources of truth
 
+The [CMS preview guide](CONTENT_PREVIEW.md) covers website templates, local setup, the browser-message interface, and its unsaved-only boundary.
+
 1. `AGENTS.md` for boundaries and workflow.
 2. The applicable feature record, authorization, and acceptance criteria.
 3. `docs/contracts/backend-api-v1.yaml` for HTTP interfaces.
@@ -27,6 +29,8 @@ Obtain approval for existing-file deletion, destructive Git operations, API or b
 For substantial features and crucial changes, record scope, evidence, acceptance criteria or test plan, risks, and rollback. Prepare a concrete proposal before asking. One approval covers the bounded implementation and its tests; there is no mandatory separate test approval. Use meaningful tests, confirm expected failures when practical, and never weaken tests just to pass. Renew approval only for material scope or risk changes.
 
 ## Public-content rule
+
+Current homepage cutover: local homepage editorial content/media is no longer used as a production fallback. Contract dashboard-1 and backend routes define no public contents endpoint. The homepage therefore shows explicit unavailable states, with no guessed endpoint or fake API success. Confirm the public route and response schema before adding its transport/mapping; see [the feature record](../feature-checklists/2026-10-29-public-homepage-content.md). CMS preview templates and other website pages remain independent.
 
 Only backend responses satisfying the published/current public contract may render as production content. Local modules are fixtures, placeholders, or explicitly approved outage essentials and must be labeled accordingly. API failures render explicit unavailable states; they do not silently promote draft fixtures.
 

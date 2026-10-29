@@ -24,6 +24,10 @@ The website is the public read-only client in a three-application YNS system:
 
 The website and CMS do not communicate directly, and the website does not access the backend database. API URLs are environment-configured so the site remains suitable for static deployment.
 
+Exception for unsaved previews: the CMS embeds `/cms-preview` and exchanges temporary drafts through validated browser messages. The website owns rendering. This does not supply production content or retrieve private saved drafts; see `docs/CONTENT_PREVIEW.md`.
+
+Homepage cutover status: public homepage editorial fixtures and schedule/location claims are no longer rendered. Until the public contents endpoint and schema are confirmed, this route retains its section frames/navigation with unavailable-content states. CMS preview keeps its authoring templates, and other website pages retain their existing behavior. See `feature-checklists/2026-10-29-public-homepage-content.md`.
+
 ## Planned Sections
 
 The homepage uses anchor navigation with these sections:

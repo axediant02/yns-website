@@ -6,13 +6,7 @@ import GalleryPage from '@/components/pages/gallery-page'
 import EventsPage from '@/components/pages/events-page'
 import SiteFooter from '@/components/layout/site-footer'
 import SiteHeader from '@/components/layout/site-header'
-import AboutSection from '@/components/sections/about-section'
-import ContactSection from '@/components/sections/contact-section'
-import GatheringSection from '@/components/sections/gathering-section'
-import GallerySection from '@/components/sections/gallery-section'
-import HeroSection from '@/components/sections/hero-section'
-import LeadershipSection from '@/components/sections/leadership-section'
-import StoriesSection from '@/components/sections/stories-section'
+import PublicHomepage from '@/features/homepage/public-homepage'
 import { galleryEvents, locations } from '@/data/community'
 import LocationPage from '@/components/pages/location-page'
 import { getLocationRoute, isEventsPath } from '@/lib/location-routes'
@@ -62,8 +56,8 @@ function App() {
       description?.setAttribute('content', event ? event.description : 'Explore illustrative event albums from the welcoming community of YNS D6.')
       window.scrollTo(0, 0)
     } else {
-      document.title = 'YNS D6 — Find your people. Follow Jesus.'
-      description?.setAttribute('content', 'Youth Nation Shakers District 6 is a welcoming community in Toledo City, Cebu. Join us every Sunday from 10:00 AM to 12:00 noon.')
+      document.title = 'Youth Nation Shakers District 6 | YNS D6'
+      description?.setAttribute('content', 'Youth Nation Shakers District 6 (YNS D6).')
 
       const targetId = window.location.hash.slice(1)
       if (targetId) {
@@ -71,6 +65,8 @@ function App() {
       }
     }
   }, [galleryRoute, isEventsPage, locationRoute])
+
+  if (!isEventsPage && !locationRoute && !galleryRoute) return <PublicHomepage />
 
   return (
     <div className="site-shell">
@@ -82,15 +78,7 @@ function App() {
       ) : galleryRoute ? (
         <GalleryPage route={galleryRoute} />
       ) : (
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <GatheringSection />
-          <GallerySection />
-          <StoriesSection />
-          <LeadershipSection />
-          <ContactSection />
-        </main>
+        null
       )}
       <SiteFooter />
     </div>
