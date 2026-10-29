@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+    "/api/v1/admin/dashboard": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get the current CMS dashboard
+         * @description Return real team aggregates to Superadmin and no team data to Admin. Unimplemented editorial sections and counts are null with explicit section errors; they are never fabricated empty datasets.
+         */
+        get: operations["getDashboard"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/sanctum/csrf-cookie": {
         parameters: {
             query?: never;
@@ -154,8 +174,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * Create an editor account from an invitation
-         * @description Create an editor account from an invitation.
+         * Create an admin account from an invitation
+         * @description Create an admin account from an invitation.
          */
         post: operations["acceptInvitation"];
         delete?: never;
@@ -198,8 +218,8 @@ export interface paths {
         options?: never;
         head?: never;
         /**
-         * Disable or reactivate an editor
-         * @description Disable or reactivate an editor.
+         * Disable or reactivate a CMS user
+         * @description Disable or reactivate a CMS user.
          */
         patch: operations["updateUserStatus"];
         trace?: never;
@@ -212,16 +232,16 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * List editor invitations
-         * @description List editor invitations.
+         * List admin invitations
+         * @description List admin invitations.
          */
         get: operations["listInvitations"];
         put?: never;
         /**
-         * Invite an editor
-         * @description Invite an editor.
+         * Invite an admin
+         * @description Invite an admin.
          */
-        post: operations["inviteEditor"];
+        post: operations["inviteAdmin"];
         delete?: never;
         options?: never;
         head?: never;
@@ -259,8 +279,8 @@ export interface paths {
         put?: never;
         post?: never;
         /**
-         * Revoke an editor invitation
-         * @description Revoke an editor invitation.
+         * Revoke a CMS user invitation
+         * @description Revoke a CMS user invitation.
          */
         delete: operations["revokeInvitation"];
         options?: never;
@@ -278,7 +298,7 @@ export interface components {
             /** Format: email */
             email: string;
             /** @enum {string} */
-            role: "administrator" | "editor";
+            role: "superadmin" | "admin";
             active: boolean;
         };
         LoginRequest: {
@@ -308,6 +328,71 @@ export interface components {
             message: string;
             errors: {
                 [key: string]: string[];
+            };
+        };
+        DashboardPerson: {
+            id: string;
+            name: string;
+            /** @enum {string} */
+            role: "superadmin" | "admin";
+        };
+        DashboardContent: {
+            id: string;
+            title: string;
+            /** @enum {string} */
+            kind: "story" | "event" | "page" | "album";
+            /** @enum {string} */
+            status: "published" | "draft" | "scheduled";
+            author: components["schemas"]["DashboardPerson"] | null;
+            /** Format: date-time */
+            updated_at: string;
+            summary: string;
+        };
+        DashboardEvent: {
+            id: string;
+            title: string;
+            /** Format: date-time */
+            starts_at: string;
+            location: string | null;
+        };
+        DashboardUpdate: {
+            id: string;
+            person: components["schemas"]["DashboardPerson"] | null;
+            action: string;
+            title: string;
+            /** Format: date-time */
+            occurred_at: string;
+        };
+        DashboardActivityDay: {
+            /** Format: date */
+            date: string;
+            count: number;
+        };
+        DashboardSnapshot: {
+            /** Format: date-time */
+            as_of: string;
+            /** @constant */
+            timezone: "Asia/Manila";
+            summary: {
+                published: number | null;
+                drafts: number | null;
+                upcoming_events: number | null;
+                active_members: number | null;
+                pending_invitations: number | null;
+            };
+            content: components["schemas"]["DashboardContent"][] | null;
+            events: components["schemas"]["DashboardEvent"][] | null;
+            updates: components["schemas"]["DashboardUpdate"][] | null;
+            team: components["schemas"]["DashboardPerson"][] | null;
+            activity: {
+                last_7_days: components["schemas"]["DashboardActivityDay"][];
+                previous_7_days: components["schemas"]["DashboardActivityDay"][];
+            } | null;
+            unavailable: {
+                content: string | null;
+                events: string | null;
+                updates: string | null;
+                activity: string | null;
             };
         };
     };
@@ -380,6 +465,43 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    getDashboard: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Role-aware dashboard snapshot, possibly with unavailable sections */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["DashboardSnapshot"];
+                    };
+                };
+            };
+            401: components["responses"]["Unauthenticated"];
+            403: components["responses"]["Forbidden"];
+            /** @description Dashboard data could not be read */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                        /** @constant */
+                        code: "dashboard_unavailable";
+                    };
+                };
+            };
+        };
+    };
     initializeCsrf: {
         parameters: {
             query?: never;
@@ -622,7 +744,7 @@ export interface operations {
             403: components["responses"]["Forbidden"];
         };
     };
-    inviteEditor: {
+    inviteAdmin: {
         parameters: {
             query?: never;
             header?: never;

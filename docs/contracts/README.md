@@ -2,8 +2,8 @@
 
 `backend-api-v1.yaml` is a reviewed snapshot of the canonical backend `docs/api/openapi.yaml`.
 
-- Contract revision: `readiness-1`
-- SHA-256: `D44F25C560889041095B69013C8C166FA410D49ADAE42286C6638D7538975D09`
+- Contract revision: `dashboard-1`
+- SHA-256: `BDB4388922096C5E1A690DBF906AAA070BE80BDE9D6D5A1CCA66B5ACC8FAA1B1`
 - Upstream repository: `axediant02/yns-cms-api`
 - Upstream commit: pending the first coordinated contract release
 

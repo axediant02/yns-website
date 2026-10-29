@@ -3,12 +3,14 @@ info:
   title: YNS API
   version: 1.0.0
   description: Canonical contract for the YNS public website and authenticated CMS.
-x-yns-contract-revision: auth-1
+x-yns-contract-revision: dashboard-1
 tags:
   - name: Authentication
     description: CMS browser authentication and account activation.
   - name: Administration
-    description: Administrator-only team access management.
+    description: Superadmin-only team access management.
+  - name: Dashboard
+    description: Role-aware dashboard data for active CMS accounts.
 servers:
   - url: "{origin}"
     variables:
@@ -18,6 +20,35 @@ servers:
 security:
   - cookieAuth: []
 paths:
+  /api/v1/admin/dashboard:
+    get:
+      operationId: getDashboard
+      summary: Get the current CMS dashboard
+      description: Return real team aggregates to Superadmin and no team data to Admin. Unimplemented editorial sections and counts are null with explicit section errors; they are never fabricated empty datasets.
+      tags: [Dashboard]
+      responses:
+        "200":
+          description: Role-aware dashboard snapshot, possibly with unavailable sections
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required: [data]
+                properties:
+                  data: { $ref: "#/components/schemas/DashboardSnapshot" }
+        "401": { $ref: "#/components/responses/Unauthenticated" }
+        "403": { $ref: "#/components/responses/Forbidden" }
+        "503":
+          description: Dashboard data could not be read
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message, code]
+                properties:
+                  message: { type: string }
+                  code: { type: string, const: dashboard_unavailable }
   /sanctum/csrf-cookie:
     post:
       operationId: initializeCsrf
@@ -105,8 +136,8 @@ paths:
   /api/v1/auth/invitations/accept:
     post:
       operationId: acceptInvitation
-      summary: Create an editor account from an invitation
-      description: Create an editor account from an invitation.
+      summary: Create an admin account from an invitation
+      description: Create an admin account from an invitation.
       tags: [Authentication]
       security: []
       requestBody:
@@ -131,8 +162,8 @@ paths:
   /api/v1/admin/users/{user}/status:
     patch:
       operationId: updateUserStatus
-      summary: Disable or reactivate an editor
-      description: Disable or reactivate an editor.
+      summary: Disable or reactivate a CMS user
+      description: Disable or reactivate a CMS user.
       tags: [Administration]
       parameters: [{ $ref: "#/components/parameters/UserId" }]
       requestBody:
@@ -147,16 +178,16 @@ paths:
   /api/v1/admin/invitations:
     get:
       operationId: listInvitations
-      summary: List editor invitations
-      description: List editor invitations.
+      summary: List admin invitations
+      description: List admin invitations.
       tags: [Administration]
       responses:
         "200": { description: Invitation list }
         "403": { $ref: "#/components/responses/Forbidden" }
     post:
-      operationId: inviteEditor
-      summary: Invite an editor
-      description: Invite an editor.
+      operationId: inviteAdmin
+      summary: Invite an admin
+      description: Invite an admin.
       tags: [Administration]
       requestBody: { $ref: "#/components/requestBodies/Email" }
       responses:
@@ -179,8 +210,8 @@ paths:
   /api/v1/admin/invitations/{invitation}:
     delete:
       operationId: revokeInvitation
-      summary: Revoke an editor invitation
-      description: Revoke an editor invitation.
+      summary: Revoke a CMS user invitation
+      description: Revoke a CMS user invitation.
       tags: [Administration]
       parameters: [{ $ref: "#/components/parameters/InvitationId" }]
       responses:
@@ -227,7 +258,7 @@ components:
         id: { type: integer }
         name: { type: string }
         email: { type: string, format: email }
-        role: { type: string, enum: [administrator, editor] }
+        role: { type: string, enum: [superadmin, admin] }
         active: { type: boolean }
     LoginRequest:
       type: object
@@ -259,3 +290,112 @@ components:
         errors:
           type: object
           additionalProperties: { type: array, items: { type: string } }
+    DashboardPerson:
+      type: object
+      additionalProperties: false
+      required: [id, name, role]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        role: { type: string, enum: [superadmin, admin] }
+    DashboardContent:
+      type: object
+      additionalProperties: false
+      required: [id, title, kind, status, author, updated_at, summary]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        kind: { type: string, enum: [story, event, page, album] }
+        status: { type: string, enum: [published, draft, scheduled] }
+        author:
+          anyOf:
+            - { $ref: "#/components/schemas/DashboardPerson" }
+            - { type: "null" }
+        updated_at: { type: string, format: date-time }
+        summary: { type: string }
+    DashboardEvent:
+      type: object
+      additionalProperties: false
+      required: [id, title, starts_at, location]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        starts_at: { type: string, format: date-time }
+        location: { type: [string, "null"] }
+    DashboardUpdate:
+      type: object
+      additionalProperties: false
+      required: [id, person, action, title, occurred_at]
+      properties:
+        id: { type: string }
+        person:
+          anyOf:
+            - { $ref: "#/components/schemas/DashboardPerson" }
+            - { type: "null" }
+        action: { type: string }
+        title: { type: string }
+        occurred_at: { type: string, format: date-time }
+    DashboardActivityDay:
+      type: object
+      additionalProperties: false
+      required: [date, count]
+      properties:
+        date: { type: string, format: date }
+        count: { type: integer, minimum: 0 }
+    DashboardSnapshot:
+      type: object
+      additionalProperties: false
+      required: [as_of, timezone, summary, content, events, updates, activity, team, unavailable]
+      properties:
+        as_of: { type: string, format: date-time }
+        timezone: { type: string, const: Asia/Manila }
+        summary:
+          type: object
+          additionalProperties: false
+          required: [published, drafts, upcoming_events, active_members, pending_invitations]
+          properties:
+            published: { type: [integer, "null"], minimum: 0 }
+            drafts: { type: [integer, "null"], minimum: 0 }
+            upcoming_events: { type: [integer, "null"], minimum: 0 }
+            active_members: { type: [integer, "null"], minimum: 0 }
+            pending_invitations: { type: [integer, "null"], minimum: 0 }
+        content:
+          type: [array, "null"]
+          maxItems: 6
+          items: { $ref: "#/components/schemas/DashboardContent" }
+        events:
+          type: [array, "null"]
+          maxItems: 3
+          items: { $ref: "#/components/schemas/DashboardEvent" }
+        updates:
+          type: [array, "null"]
+          maxItems: 3
+          items: { $ref: "#/components/schemas/DashboardUpdate" }
+        team:
+          type: [array, "null"]
+          maxItems: 3
+          items: { $ref: "#/components/schemas/DashboardPerson" }
+        activity:
+          type: [object, "null"]
+          additionalProperties: false
+          required: [last_7_days, previous_7_days]
+          properties:
+            last_7_days:
+              type: array
+              minItems: 7
+              maxItems: 7
+              items: { $ref: "#/components/schemas/DashboardActivityDay" }
+            previous_7_days:
+              type: array
+              minItems: 7
+              maxItems: 7
+              items: { $ref: "#/components/schemas/DashboardActivityDay" }
+        unavailable:
+          type: object
+          additionalProperties: false
+          required: [content, events, updates, activity]
+          properties:
+            content: { type: [string, "null"] }
+            events: { type: [string, "null"] }
+            updates: { type: [string, "null"] }
+            activity: { type: [string, "null"] }
