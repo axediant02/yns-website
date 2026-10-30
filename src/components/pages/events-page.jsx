@@ -1,67 +1,71 @@
-import { ArrowLeft, ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import ClientLink from '@/components/common/client-link'
+import Container from '@/components/common/container'
+import PillLink from '@/components/common/pill-link'
+import PageHero from '@/components/common/page-hero'
+import Reveal from '@/components/common/reveal'
+import SectionHeading from '@/components/common/section-heading'
 import { locations } from '@/data/community'
 import { getLocationHref } from '@/lib/location-routes'
 
 function EventsPage() {
   return (
-    <main className="events-page" id="events-top">
-      <section className="events-page-hero section-frame">
-        <div className="page-frame">
-          <a className="events-back-link" href="/"><ArrowLeft aria-hidden="true" /> Back to home</a>
-          <div className="events-page-heading">
+    <main id="events-top">
+      <PageHero
+        backHref="/"
+        backLabel="Back to home"
+        eyebrow="Events"
+        title="More events"
+        accent="coming soon."
+        description="We are making room for verified gatherings, camps, and shared moments from across the YNS D6 community."
+      />
+
+      <section className="bg-cream py-20 sm:py-28">
+        <Container>
+          <Reveal className="relative flex flex-col gap-8 overflow-hidden rounded-[2rem] bg-white p-8 ring-1 ring-ink/10 sm:flex-row sm:items-center sm:p-12">
+            <div className="grid size-20 shrink-0 place-items-center rounded-3xl bg-linear-to-br from-ember via-dawn to-iris text-ink" aria-hidden="true">
+              <CalendarDays className="size-9" />
+            </div>
             <div>
-              <Badge className="eyebrow-badge eyebrow-dark">Events</Badge>
-              <h1>More events<br /><em>coming soon.</em></h1>
+              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Verified event details will be here.</h2>
+              <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+                Event names, dates, locations, and photos will be added once they are confirmed by the community.
+              </p>
             </div>
-            <p>We are making room for verified gatherings, camps, and shared moments from across the YNS D6 community.</p>
-          </div>
-        </div>
-      </section>
+          </Reveal>
 
-      <section className="events-page-content section-frame">
-        <div className="page-frame">
-          <Card className="events-coming-soon-card">
-            <CardContent>
-              <div className="events-coming-soon-icon" aria-hidden="true"><CalendarDays /></div>
-              <div>
-                <Badge className="eyebrow-badge">Coming soon</Badge>
-                <h2>Verified event details<br /><em>will be here.</em></h2>
-                <p>Event names, dates, locations, and photos will be added once they are confirmed by the community.</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="events-location-directory">
-            <div className="events-location-heading">
-              <div>
-                <Badge className="eyebrow-badge eyebrow-dark">Find your location</Badge>
-                <h2>Start<br /><em>near you.</em></h2>
-              </div>
-              <p>Choose a YNS D6 location to see its gathering details, photo timeline, and future local events.</p>
-            </div>
-
-            <div className="events-location-grid">
-              {locations.map((location) => (
-                <a className="events-location-card" key={location.id} href={getLocationHref(location)}>
-                  <span className="events-location-card-icon"><MapPin aria-hidden="true" /></span>
-                  <span>
-                    <strong>{location.name}</strong>
-                    <small>{location.area}</small>
-                  </span>
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
+          <div className="mt-28">
+            <SectionHeading
+              eyebrow="Find your location"
+              title="Start"
+              accent="near you."
+              description="Choose a YNS D6 location to see its gathering details, photo timeline, and future local events."
+            />
+            <ul className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {locations.map((location, index) => (
+                <Reveal as="li" key={location.id} delay={(index % 4) * 80}>
+                  <ClientLink
+                    href={getLocationHref(location)}
+                    className="group flex h-full flex-col justify-between gap-10 rounded-3xl bg-white p-6 ring-1 ring-ink/10 transition-all duration-500 hover:-translate-y-1 hover:bg-ink hover:text-cream"
+                  >
+                    <span className="flex items-center justify-between">
+                      <MapPin className="size-5 text-dawn transition-colors group-hover:text-ember" aria-hidden="true" />
+                      <ArrowUpRight className="size-5 transition-transform duration-500 group-hover:rotate-45" aria-hidden="true" />
+                    </span>
+                    <span>
+                      <strong className="block text-xl font-semibold tracking-tight">{location.name}</strong>
+                      <span className="mt-1 block text-sm opacity-60">{location.area}</span>
+                    </span>
+                  </ClientLink>
+                </Reveal>
               ))}
-            </div>
-
-            <Button asChild className="events-home-action">
-              <a href="/#gathering">View all gathering locations <ArrowUpRight aria-hidden="true" /></a>
-            </Button>
+            </ul>
+            <PillLink href="/#gathering" className="mt-12">
+              View all gathering locations
+            </PillLink>
           </div>
-        </div>
+        </Container>
       </section>
     </main>
   )

@@ -1,109 +1,72 @@
-import { ArrowUpRight, CalendarDays, Clock3, ExternalLink, MapPin, UsersRound } from 'lucide-react'
+import { CalendarDays, Clock3, MapPin, UsersRound } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { community, locations } from '@/data/community'
-import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
-import { getGoogleMapsEmbedUrl, getGoogleMapsUrl } from '@/lib/location-routes'
+import contoursUrl from '@/assets/art/contours.svg'
+import Container from '@/components/common/container'
+import DraftNote from '@/components/common/draft-note'
+import PillLink from '@/components/common/pill-link'
+import Reveal from '@/components/common/reveal'
+import SectionHeading from '@/components/common/section-heading'
+import GatheringCountdown from '@/components/sections/gathering-countdown'
+import LocationExplorer from '@/components/sections/location-explorer'
+import { gatheringContent } from '@/constants/home-content'
+import { community } from '@/data/community'
+
+const facts = [
+  { icon: CalendarDays, label: 'When', value: community.gathering.day },
+  { icon: Clock3, label: 'Time', value: community.gathering.time },
+  { icon: MapPin, label: 'Where', value: community.gathering.venue },
+  { icon: UsersRound, label: 'Who', value: community.audience },
+]
 
 function GatheringSection() {
-  const { elementRef, isVisible } = useRevealOnScroll()
-
   return (
-    <section ref={elementRef} id="gathering" className={`gathering-section section-frame reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
-      <div className="page-frame">
-        <div className="section-heading section-heading-split">
-          <div>
-            <Badge className="eyebrow-badge">Gathering</Badge>
-            <h2>Start with<br /><em>Sunday.</em></h2>
-          </div>
-          <p>Come for the gathering. Stay for the people, the questions, and the possibility of a life shaped by Jesus.</p>
-        </div>
+    <section id="gathering" aria-labelledby="gathering-heading" className="relative isolate overflow-hidden bg-ink py-24 text-cream sm:py-36">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-ember/25"
+        style={{ maskImage: `url(${contoursUrl})`, maskSize: 'cover', maskPosition: 'center', WebkitMaskImage: `url(${contoursUrl})`, WebkitMaskSize: 'cover' }}
+      />
+      <Container>
+        <SectionHeading id="gathering-heading" tone="light" eyebrow={gatheringContent.eyebrow} title={gatheringContent.title} accent={gatheringContent.accent} description={gatheringContent.description} />
 
-        <Card className="gathering-card">
-          <CardHeader className="gathering-card-top">
-            <div className="gathering-date-mark">
-              <span>SUN</span>
-              <strong>01</strong>
+        <div className="mt-16 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+          <Reveal className="glow-border rounded-[2rem] bg-ink-soft/80 p-6 backdrop-blur sm:p-10">
+            <GatheringCountdown />
+            <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-8 sm:grid-cols-4">
+              {facts.map(({ icon: Icon, label, value }) => (
+                <div key={label}>
+                  <dt className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] text-cream/50 uppercase">
+                    <Icon className="size-3.5 text-ember" aria-hidden="true" />
+                    {label}
+                  </dt>
+                  <dd className="mt-2 font-medium">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+
+          <Reveal delay={120} className="flex flex-col justify-between gap-8 rounded-[2rem] bg-linear-to-br from-ember via-dawn to-iris p-8 text-ink sm:p-10">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase opacity-70">First time?</p>
+              <p className="mt-5 text-xl leading-snug font-medium tracking-tight">{community.gathering.firstTimeGuidance}</p>
             </div>
             <div>
-              <Badge variant="outline">Sunday gathering</Badge>
-              <h3>{community.gathering.welcome}</h3>
+              <p className="text-sm opacity-80">{gatheringContent.reassurance}</p>
+              <PillLink href="#contact" variant="ink" className="mt-4">
+                Ask a question
+              </PillLink>
             </div>
-            <span className="gathering-card-arrow"><ArrowUpRight aria-hidden="true" /></span>
-          </CardHeader>
-          <CardContent className="gathering-card-content">
-            <div className="gathering-fact">
-              <CalendarDays aria-hidden="true" />
-              <span><small>When</small><strong>{community.gathering.day}</strong></span>
-            </div>
-            <div className="gathering-fact">
-              <Clock3 aria-hidden="true" />
-              <span><small>Time</small><strong>{community.gathering.time}</strong></span>
-            </div>
-            <div className="gathering-fact">
-              <MapPin aria-hidden="true" />
-              <span><small>Where</small><strong>{community.gathering.venue}</strong></span>
-            </div>
-            <div className="gathering-fact">
-              <UsersRound aria-hidden="true" />
-              <span><small>Who</small><strong>{community.audience}</strong></span>
-            </div>
-          </CardContent>
-          <div className="gathering-card-footer">
-            <span>Not sure what to expect? That is okay.</span>
-            <Button asChild variant="secondary">
-              <a href="#contact">Ask a question <ArrowUpRight aria-hidden="true" /></a>
-            </Button>
-          </div>
-        </Card>
-
-        <div className="locations-directory">
-          <div className="locations-directory-heading">
-            <div>
-              <Badge className="eyebrow-badge eyebrow-dark">Locations</Badge>
-              <h3>Gather with us<br /><em>near you.</em></h3>
-            </div>
-            <p>Choose the location closest to you. These map previews are approximate and will be updated with verified venue details.</p>
-          </div>
-
-          <div className="location-grid">
-            {locations.map((location) => (
-              <Card className="location-card" key={location.id}>
-                <CardContent className="location-card-content">
-                  <div className="location-map-wrap">
-                    <iframe
-                      title={`Map showing ${location.name}, ${location.area}`}
-                      src={getGoogleMapsEmbedUrl(location.mapQuery)}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    />
-                  </div>
-                  <div className="location-card-details">
-                    <div>
-                      <h3>{location.name}</h3>
-                      <p>{location.area}</p>
-                    </div>
-                    <div className="location-card-schedule">
-                      <span className="footer-label">{community.gathering.day}</span>
-                      <strong>{community.gathering.time}</strong>
-                    </div>
-                    <a className="location-directions" href={getGoogleMapsUrl(location.mapQuery)} target="_blank" rel="noreferrer">
-                      Open directions <ExternalLink aria-hidden="true" />
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          </Reveal>
         </div>
 
-        <div className="gathering-note">
-          <span>FIRST TIME?</span>
-          <p>{community.gathering.firstTimeGuidance}</p>
+        <div className="mt-28">
+          <Reveal className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <h3 className="max-w-md text-[clamp(2rem,4vw,3.25rem)] leading-none font-semibold tracking-[-0.04em]">{gatheringContent.locationsTitle}</h3>
+            <DraftNote tone="light" className="max-w-sm">{gatheringContent.locationsNote}</DraftNote>
+          </Reveal>
+          <LocationExplorer />
         </div>
-      </div>
+      </Container>
     </section>
   )
 }

@@ -1,98 +1,53 @@
-import { useEffect, useState } from 'react'
-
 import './App.css'
 
-import GalleryPage from '@/components/pages/gallery-page'
-import EventsPage from '@/components/pages/events-page'
+import IntroOverlay from '@/components/layout/intro-overlay'
 import SiteFooter from '@/components/layout/site-footer'
 import SiteHeader from '@/components/layout/site-header'
-import AboutSection from '@/components/sections/about-section'
-import ContactSection from '@/components/sections/contact-section'
-import GatheringSection from '@/components/sections/gathering-section'
-import GallerySection from '@/components/sections/gallery-section'
-import HeroSection from '@/components/sections/hero-section'
-import LeadershipSection from '@/components/sections/leadership-section'
-import StoriesSection from '@/components/sections/stories-section'
-import { galleryEvents, locations } from '@/data/community'
+import EventsPage from '@/components/pages/events-page'
+import GalleryPage from '@/components/pages/gallery-page'
+import HomePage from '@/components/pages/home-page'
 import LocationPage from '@/components/pages/location-page'
-import { getLocationRoute, isEventsPath } from '@/lib/location-routes'
+import useIntro from '@/hooks/use-intro'
+import usePageMeta from '@/hooks/use-page-meta'
+import useSiteRoute from '@/hooks/use-site-route'
 
-function getGalleryRoute(hash) {
-  if (hash === '#gallery-all') return { type: 'index' }
-  if (hash.startsWith('#gallery-event-')) return { type: 'event', eventId: hash.replace('#gallery-event-', '') }
-  return null
+// Hash links double as routes here, so move focus without changing the hash.
+function focusMainContent(event) {
+  event.preventDefault()
+  document.getElementById('main-content')?.focus()
+}
+
+function RoutedPage({ route, isReady }) {
+  switch (route.type) {
+    case 'events':
+      return <EventsPage />
+    case 'location':
+      return <LocationPage slug={route.slug} />
+    case 'gallery-index':
+    case 'gallery-event':
+      return <GalleryPage route={route} />
+    default:
+      return <HomePage isReady={isReady} />
+  }
 }
 
 function App() {
-  const [galleryRoute, setGalleryRoute] = useState(() => getGalleryRoute(window.location.hash))
-  const [locationRoute, setLocationRoute] = useState(() => getLocationRoute(window.location.pathname))
-  const [isEventsPage, setIsEventsPage] = useState(() => isEventsPath(window.location.pathname))
+  const route = useSiteRoute()
+  const intro = useIntro()
 
-  useEffect(() => {
-    const handleHashChange = () => setGalleryRoute(getGalleryRoute(window.location.hash))
-    const handlePopState = () => {
-      setLocationRoute(getLocationRoute(window.location.pathname))
-      setIsEventsPage(isEventsPath(window.location.pathname))
-    }
-
-    window.addEventListener('hashchange', handleHashChange)
-    window.addEventListener('popstate', handlePopState)
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange)
-      window.removeEventListener('popstate', handlePopState)
-    }
-  }, [])
-
-  useEffect(() => {
-    const description = document.querySelector('meta[name="description"]')
-
-    if (isEventsPage) {
-      document.title = 'YNS D6 — Events'
-      description?.setAttribute('content', 'Discover upcoming YNS D6 gatherings, community events, and shared moments across Cebu.')
-      window.scrollTo(0, 0)
-    } else if (locationRoute) {
-      const location = locations.find((communityLocation) => communityLocation.id === locationRoute.slug)
-      document.title = location ? `YNS D6 — ${location.name}, ${location.area}` : 'YNS D6 — Location not found'
-      description?.setAttribute('content', location ? `Find gathering details and directions for YNS D6 in ${location.name}, ${location.area}.` : 'The requested YNS D6 location could not be found.')
-      window.scrollTo(0, 0)
-    } else if (galleryRoute) {
-      const event = galleryEvents.find((galleryEvent) => galleryEvent.id === galleryRoute.eventId)
-      document.title = event ? `YNS D6 Gallery — ${event.title}` : 'YNS D6 Gallery — See the life around here.'
-      description?.setAttribute('content', event ? event.description : 'Explore illustrative event albums from the welcoming community of YNS D6.')
-      window.scrollTo(0, 0)
-    } else {
-      document.title = 'YNS D6 — Find your people. Follow Jesus.'
-      description?.setAttribute('content', 'Youth Nation Shakers District 6 is a welcoming community in Toledo City, Cebu. Join us every Sunday from 10:00 AM to 12:00 noon.')
-
-      const targetId = window.location.hash.slice(1)
-      if (targetId) {
-        window.requestAnimationFrame(() => document.getElementById(targetId)?.scrollIntoView({ block: 'start' }))
-      }
-    }
-  }, [galleryRoute, isEventsPage, locationRoute])
+  usePageMeta(route)
 
   return (
-    <div className="site-shell">
-      <SiteHeader />
-      {isEventsPage ? (
-        <EventsPage />
-      ) : locationRoute ? (
-        <LocationPage slug={locationRoute.slug} />
-      ) : galleryRoute ? (
-        <GalleryPage route={galleryRoute} />
-      ) : (
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <GatheringSection />
-          <GallerySection />
-          <StoriesSection />
-          <LeadershipSection />
-          <ContactSection />
-        </main>
-      )}
-      <SiteFooter />
+    <div className="min-h-svh overflow-x-clip bg-background">
+      <a href="#main-content" onClick={focusMainContent} className="sr-only z-[110] rounded-full bg-cream px-4 py-2 font-semibold text-ink focus:not-sr-only focus:fixed focus:top-4 focus:left-4">
+        Skip to content
+      </a>
+      <IntroOverlay phase={intro.phase} onSkip={intro.skip} />
+      <SiteHeader route={route} />
+      <div id="main-content" tabIndex={-1} className="outline-none">
+        <RoutedPage route={route} isReady={intro.isReady} />
+      </div>
+      <SiteFooter route={route} />
     </div>
   )
 }

@@ -46,6 +46,17 @@ Missions, resources, news, membership forms, and other new content types are not
 
 The interface uses direct section labels instead of numbered metaphors. Repeated status, placeholder, and metadata labels should be consolidated so the main headings and actions carry the hierarchy. Temporary content remains unchanged.
 
+### Visual redesign (2026-10-30)
+
+The interface was rebuilt for a modern, professional feel while keeping the same pages, routes, and content rules:
+
+- Dark midnight heroes with animated aurora light, a generated halo artwork, and grain texture; cream and sand content sections.
+- A once-per-session intro on load (wordmark, rising light, progress line) with a visible skip control; reduced-motion visitors skip it.
+- Word-by-word hero headline, scroll reveals, a scroll-linked statement highlight, and a location ticker.
+- A live countdown to the next Sunday gathering derived from the verified schedule (Philippine time).
+- One shared map with a location selector instead of eight embedded maps.
+- The "dawn" gradient palette and text mark are temporary until brand colors and the logo are approved. Generated artwork in `src/assets/art/` is decorative only.
+
 ## Implementation Rules
 
 - Use React, Vite, Tailwind CSS, and shadcn/ui.
@@ -83,7 +94,7 @@ The interface uses direct section labels instead of numbered metaphors. Repeated
 - Use English for the first release.
 - Use a bold, youthful editorial design direction with strong typography, energetic composition, and mobile-first responsiveness.
 - Keep the primary navigation fixed at the top while scrolling, with a compact visual state after the page moves away from the hero.
-- Use a restrained load-in animation for the hero and scroll-triggered reveal animations for sections. Respect `prefers-reduced-motion` by disabling movement and showing content immediately.
+- Use a short, skippable load intro and hero entrance, scroll-triggered reveal animations for sections, and subtle ambient effects. Respect `prefers-reduced-motion` by skipping the intro, disabling movement, and showing content immediately.
 
 ## SEO and Accessibility
 
