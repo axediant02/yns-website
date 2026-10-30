@@ -206,6 +206,11 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [x] Respect `prefers-reduced-motion`.
 - [x] Keep event index and event detail navigation stateful through URL hashes.
 - [x] Reduce repeated section, status, and placeholder labels without changing page scope.
+- [x] Play a skippable, once-per-session intro on first load; skip it entirely for reduced-motion visitors.
+- [x] Highlight the active home section in the header and show page scroll progress.
+- [x] Show a live countdown to the next Sunday gathering, computed in Philippine time from the verified schedule.
+- [x] Replace the eight per-location map iframes with one shared map driven by a location selector.
+- [~] Replace the temporary text mark and "dawn" palette once the official logo and brand colors are approved.
 
 ## Content and brand readiness
 
@@ -313,6 +318,8 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [ ] Do not add an events calendar, news system, resources hub, or membership flow unless added to this checklist first.
 
 ## Change log
+
+- 2026-10-30 — Rebuilt the UI with a new visual system (midnight/cream with a temporary dawn gradient), load intro, word-by-word hero, aurora/halo effects, scroll-linked text, live gathering countdown, shared location map explorer, and redesigned inner pages. Content, routes, and placeholder rules are unchanged.
 
 - 2026-08-24 — Added location-specific photo timelines, illustrative preview rules, and event-photo verification checks.
 

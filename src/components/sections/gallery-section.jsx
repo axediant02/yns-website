@@ -1,41 +1,39 @@
 import { ArrowUpRight } from 'lucide-react'
 
+import Container from '@/components/common/container'
+import DraftNote from '@/components/common/draft-note'
 import EventAlbumCard from '@/components/common/event-album-card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import PillLink from '@/components/common/pill-link'
+import Reveal from '@/components/common/reveal'
+import SectionHeading from '@/components/common/section-heading'
+import { galleryContent } from '@/constants/home-content'
 import { galleryEvents } from '@/data/community'
-import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
+import { getGalleryHref } from '@/lib/site-route'
 
 function GallerySection() {
-  const { elementRef, isVisible } = useRevealOnScroll()
-
   return (
-    <section ref={elementRef} id="gallery" className={`gallery-section section-frame reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
-      <div className="page-frame">
-        <div className="section-heading section-heading-split">
-          <div>
-            <Badge className="eyebrow-badge eyebrow-light">Gallery</Badge>
-            <h2>Room for<br /><em>the moments.</em></h2>
-          </div>
-          <div>
-            <p>Browse the welcome, worship, and ordinary in-between moments that make each YNS D6 event feel like home.</p>
-            <a className="section-text-link gallery-heading-link" href="#gallery-all">Go to gallery <ArrowUpRight aria-hidden="true" /></a>
-          </div>
-        </div>
+    <section id="gallery" aria-labelledby="gallery-heading" className="bg-cream py-24 sm:py-36">
+      <Container>
+        <SectionHeading id="gallery-heading" eyebrow={galleryContent.eyebrow} title={galleryContent.title} accent={galleryContent.accent} description={galleryContent.description}>
+          <a href={getGalleryHref()} className="group mt-6 inline-flex items-center gap-2 rounded-full font-semibold">
+            Go to gallery
+            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+          </a>
+        </SectionHeading>
 
-        <div className="gallery-event-grid" aria-label="Event album previews">
-          {galleryEvents.map((event) => (
-            <EventAlbumCard key={event.id} event={event} href={`#gallery-event-${event.id}`} />
+        <ul className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3" aria-label="Event album previews">
+          {galleryEvents.map((event, index) => (
+            <Reveal as="li" key={event.id} delay={index * 120} className={index === 1 ? 'lg:translate-y-10' : undefined}>
+              <EventAlbumCard event={event} href={getGalleryHref(event.id)} />
+            </Reveal>
           ))}
-        </div>
+        </ul>
 
-        <div className="gallery-note">
-          <p>Open an event album to see all of its moments.</p>
-          <Button asChild className="gallery-see-all">
-            <a href="#gallery-all">See all photos <ArrowUpRight aria-hidden="true" /></a>
-          </Button>
-        </div>
-      </div>
+        <Reveal className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:items-center">
+          <DraftNote>{galleryContent.draftNote}</DraftNote>
+          <PillLink href={getGalleryHref()}>See all photos</PillLink>
+        </Reveal>
+      </Container>
     </section>
   )
 }

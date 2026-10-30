@@ -1,37 +1,38 @@
 import { UserRound } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
+import Container from '@/components/common/container'
+import Reveal from '@/components/common/reveal'
+import SectionHeading from '@/components/common/section-heading'
+import { leadershipContent } from '@/constants/home-content'
 import { leadershipPlaceholders } from '@/data/community'
-import useRevealOnScroll from '@/hooks/use-reveal-on-scroll'
+
+function LeaderCard({ leader, index }) {
+  return (
+    <Reveal delay={index * 120} className="glow-border group flex items-start gap-6 rounded-[2rem] bg-white/[0.03] p-8 transition-colors duration-500 hover:bg-white/[0.06] sm:p-10">
+      <div className="relative grid size-20 shrink-0 place-items-center" aria-hidden="true">
+        <span className="halo-spin absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,var(--ember),var(--dawn),var(--iris),var(--ember))] opacity-80" />
+        <span className="absolute inset-[3px] rounded-full bg-ink" />
+        <UserRound className="relative size-8 text-cream/70" />
+      </div>
+      <div>
+        <h3 className="text-2xl font-semibold tracking-tight">{leader.name}</h3>
+        <p className="mt-3 leading-relaxed text-cream/60">{leader.description}</p>
+      </div>
+    </Reveal>
+  )
+}
 
 function LeadershipSection() {
-  const { elementRef, isVisible } = useRevealOnScroll()
-
   return (
-    <section ref={elementRef} id="leadership" className={`leadership-section section-frame section-dark reveal-on-scroll ${isVisible ? 'is-visible' : ''}`}>
-      <div className="page-frame">
-        <div className="section-heading section-heading-split">
-          <div>
-            <Badge className="eyebrow-badge eyebrow-light">Leadership</Badge>
-            <h2>People who<br /><em>make space.</em></h2>
-          </div>
-          <p>YNS D6 is shaped by people who care about making a welcoming place to meet Jesus and one another. Leadership details will be added as they are confirmed.</p>
-        </div>
-
-        <div className="leadership-grid">
-          {leadershipPlaceholders.map((leader) => (
-            <Card key={leader.name} className="leader-card">
-              <CardContent>
-                <div className="leader-avatar"><UserRound aria-hidden="true" /></div>
-                <h3>{leader.name}</h3>
-                <p>{leader.description}</p>
-              </CardContent>
-            </Card>
+    <section id="leadership" aria-labelledby="leadership-heading" className="relative overflow-hidden bg-ink py-24 text-cream sm:py-36">
+      <Container>
+        <SectionHeading id="leadership-heading" tone="light" eyebrow={leadershipContent.eyebrow} title={leadershipContent.title} accent={leadershipContent.accent} description={leadershipContent.description} />
+        <div className="mt-16 grid gap-5 md:grid-cols-2">
+          {leadershipPlaceholders.map((leader, index) => (
+            <LeaderCard key={leader.name} leader={leader} index={index} />
           ))}
         </div>
-
-      </div>
+      </Container>
     </section>
   )
 }
