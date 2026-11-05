@@ -12,6 +12,7 @@ This register prevents placeholders from being mistaken for approved editorial c
 | Leaders and stories | Placeholder structures | Not verified | None supplied | Pending | Consent required before publication |
 | Photos and albums | Illustrative/stock placeholders | Not approved community media | Existing fixture notes | Pending | Licensing and consent pending |
 | Public contact/social links | Missing or placeholder | Not verified | None supplied | Pending | Not applicable |
-| Logo, brand colors, SEO assets | Pending | Not verified | None supplied | Pending | Ownership/approval pending |
+| Logo | `src/assets/logo-1.png` emblem used for the header/footer mark and favicons (`src/assets/brand/`, `public/`); `logo-2.png` seal supplied but unused | Supplied; approval not recorded | Supplied by maintainer in `src/assets/` (2026-11-06) | Pending | Ownership/approval pending |
+| Brand colors, SEO assets | Pending | Not verified | None supplied | Pending | Ownership/approval pending |
 
 Agents and contributors must not fill pending cells from assumptions, search results, generated prose, or image interpretation. A maintainer or authorized editor must supply and approve the source.

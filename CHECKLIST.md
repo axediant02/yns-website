@@ -26,6 +26,8 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [x] Leadership — content-ready cards for verified leaders and community voices.
 - [x] Contact — contact CTA with a disabled state until the official link is available.
 - [x] Footer — identity, navigation links, gathering details, and copyright text.
+- [x] Section pages — `/about`, `/gathering`, `/stories`, `/leadership`, and `/contact` reuse the homepage sections under a page hero; the homepage keeps every section. Nav order: Home, About, Gathering, Gallery (`/#gallery-all`), Stories, Leadership, Events. Same-origin page links switch client-side with the page transition; Home on the homepage scrolls to the top. Static hosting must serve `index.html` for these paths, as it already must for `/events` and `/locations/*`.
+- [x] Motion — cinematic intro on every site visit or full reload (spark, light burst, wordmark impact, tagline, split-curtain reveal; skippable via button or Escape, not replayed on client-side page switches, omitted for reduced motion), header and page-hero entrances on every load and page switch, View Transitions page switches, sliding nav highlight, and CSS scroll-driven hero, section, card, parallax, and photo effects; all disabled for reduced motion, and the scroll effects only run in supporting browsers.
 - [x] Label hierarchy — direct section labels with consolidated status and metadata copy.
 
 - [~] Location pages — route scaffold and shared layout are ready; verified local content is pending.
@@ -212,11 +214,12 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [x] Respect `prefers-reduced-motion`.
 - [x] Keep event index and event detail navigation stateful through URL hashes.
 - [x] Reduce repeated section, status, and placeholder labels without changing page scope.
-- [x] Play a skippable, once-per-session intro on first load; skip it entirely for reduced-motion visitors.
-- [x] Highlight the active home section in the header and show page scroll progress.
+- [x] Play a skippable intro on every site visit or full reload; skip it entirely for reduced-motion visitors.
+- [x] Highlight the current page in the header (not the section being scrolled) and show page scroll progress.
 - [x] Show a live countdown to the next Sunday gathering, computed in Philippine time from the verified schedule.
 - [x] Replace the eight per-location map iframes with one shared map driven by a location selector.
-- [~] Replace the temporary text mark and "dawn" palette once the official logo and brand colors are approved.
+- [x] Replace the temporary text mark with the supplied logo-1 emblem (header, footer, `favicon.ico`, `favicon-96.png`, `apple-touch-icon.png`). Outputs are palette-snapped and area-downscaled from the source for crisp edges.
+- [~] Replace the "dawn" palette once brand colors are approved.
 
 ## Content and brand readiness
 
@@ -228,7 +231,7 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [~] Facebook/Messenger URL verified.
 - [ ] Instagram and other social URLs verified.
 - [ ] Final brand colors approved.
-- [ ] Final logo/brand assets supplied and approved.
+- [~] Final logo/brand assets supplied and approved. Logo supplied 2026-11-06; approval/ownership not yet recorded.
 - [ ] Final community photo assets supplied and approved.
 - [~] Leadership information verified.
 - [~] Community stories/testimonials verified.

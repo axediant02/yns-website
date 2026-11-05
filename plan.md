@@ -59,7 +59,7 @@ The interface was rebuilt for a modern, professional feel while keeping the same
 - Word-by-word hero headline, scroll reveals, a scroll-linked statement highlight, and a location ticker.
 - A live countdown to the next Sunday gathering derived from the verified schedule (Philippine time).
 - One shared map with a location selector instead of eight embedded maps.
-- The "dawn" gradient palette and text mark are temporary until brand colors and the logo are approved. Generated artwork in `src/assets/art/` is decorative only.
+- The "dawn" gradient palette is temporary until brand colors are approved. The header/footer mark and favicons use the supplied logo-1 emblem; its approval is still to be recorded. Generated artwork in `src/assets/art/` is decorative only.
 
 ## Implementation Rules
 
