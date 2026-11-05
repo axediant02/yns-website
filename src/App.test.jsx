@@ -158,6 +158,25 @@ describe('App', () => {
     expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page')
   })
 
+  it('shows the supplied mission, vision, and values on the homepage and About page', () => {
+    const { unmount } = render(<App />)
+
+    const expectStatements = () => {
+      expect(screen.getByRole('heading', { level: 3, name: 'Mission' })).toBeInTheDocument()
+      expect(screen.getByText(/^Activating the youth to be partakers of the Kingdom work by unleashing/)).toBeInTheDocument()
+      expect(screen.getByText(/^Multiplying the numbers of Youth Nation Shakers/)).toBeInTheDocument()
+      expect(screen.getByText('Raising young people to walk with God in integrity and dignity.')).toBeInTheDocument()
+      expect(screen.queryByText(/lorem ipsum|placeholder text/i)).toBeNull()
+    }
+
+    expectStatements()
+    unmount()
+
+    window.history.replaceState({}, '', '/about')
+    render(<App />)
+    expectStatements()
+  })
+
   it('renders a not-found state for unknown locations', () => {
     window.history.replaceState({}, '', '/locations/unknown-place')
     render(<App />)

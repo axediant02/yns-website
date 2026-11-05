@@ -26,7 +26,6 @@ export const aboutContent = {
       description: 'Faith is not a solo project. We are learning to follow Jesus with courage, honesty, and joy.',
     },
   ],
-  draftNote: 'Mission, vision, and core values are placeholder text until the approved wording is supplied.',
 }
 
 export const gatheringContent = {

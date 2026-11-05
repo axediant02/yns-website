@@ -15,7 +15,7 @@ export const previewModules = [
   },
   {
     id: 'about', label: 'About', mode: 'singleton',
-    notice: 'Mission, vision, and values currently contain placeholder text and require verification.',
+    notice: 'Mission, vision, and values come from the supplied YNS MVV document; approval is still to be recorded.',
     fields: [
       ...heading,
       text('pillarOneTitle', 'First pillar title'), long('pillarOneBody', 'First pillar text'),

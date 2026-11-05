@@ -10,12 +10,15 @@ export const community = {
     welcome: 'Everyone is invited.',
     firstTimeGuidance: 'Look for a friendly face, introduce yourself, and let us know it is your first Sunday. We will help you find your way.',
   },
-  mission: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, sapien at feugiat aliquet, lorem ipsum dolor sit amet.',
-  vision: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae sem sed neque facilisis vulputate, integer posuere lorem at sapien.',
+  // Mission, vision, and values: verbatim from "YNS MVV.docx" (supplied by the maintainer).
+  // The Values paragraph is listed one sentence per item; the wording is unchanged.
+  mission: 'Activating the youth to be partakers of the Kingdom work by unleashing the chains of bondages such as insecurities, inferiorities and all the negative attitudes of a young person. Preparing us for the future generation in leveling up the intimacy of relationship with God. Promoting the name of the Lord Jesus Christ in all things that we do, reaching the unreachable, seek and save the lost, compassionate in helping others, being fruitful in our purposes, spreading the Word of God to all nations, extending and expanding God’s territory through our hearts of obedience.',
+  vision: 'Multiplying the numbers of Youth Nation Shakers not just the local churches but throughout the whole world. Producing Missionaries, Evangelists, Prophets, Pastors, Teachers, Worshippers and Ministry of Helps, compelling the mission without fear but with confidence and tenacity to accomplish the call- crossing traditions, language, and races. Providing state-of-the-art facilities by own initiative for Evangelistic Crusades by self-supportive ministries. Producing devoted and passionate successors in the future.',
   coreValues: [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    'Integer posuere lorem at sapien feugiat, consectetur adipiscing elit.',
-    'Donec vitae sem sed neque vulputate, integer posuere sapien at feugiat.',
+    'Raising young people to walk with God in integrity and dignity.',
+    'To discern the right implementation and understanding the core shot of YNS.',
+    'Knowing the value of submission to leadership by obedience and hard work believing God’s Word that in everything we do, we do it as unto Him.',
+    'Driven by passion, commitment, humility, effectiveness and efficiency – that produces excellence.',
   ],
   contact: {
     label: 'Facebook / Messenger',

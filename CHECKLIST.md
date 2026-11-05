@@ -51,7 +51,7 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - [x] Show temporary lorem mission content.
 - [x] Show temporary lorem vision content.
 - [x] Show temporary lorem core value content.
-- [~] Replace temporary lorem content with approved mission, vision, and core values.
+- [x] Replace temporary lorem content with the supplied mission, vision, and values (`YNS MVV.docx`, verbatim; values listed one sentence per item). Approval still to be recorded.
 
 ### Weekly Gathering
 
@@ -274,7 +274,7 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 
 ### Content and factual accuracy
 
-- [ ] Replace mission, vision, and core-value placeholders with approved copy.
+- [~] Replace mission, vision, and core-value placeholders with approved copy. Supplied wording is live; approval not yet recorded.
 - [ ] Confirm the Sunday schedule and Toledo City, Cebu information are accurate.
 - [ ] Verify all eight location names, venues, addresses, map pins, and directions links.
 - [ ] Add the official Facebook/Messenger destination.
@@ -341,5 +341,6 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 - 2026-08-22 — Implemented event-based gallery albums with stacked thumbnails and event-scoped photo lightboxes.
 - 2026-08-22 — Created this checklist as the ongoing guide for page scope, feature status, content readiness, and release checks.
 - 2026-08-23 — Added temporary lorem mission, vision, and core value content to the About section.
+- 2026-11-06 — Replaced the lorem mission, vision, and values with the supplied `YNS MVV.docx` wording.
 - 2026-08-23 — Added the eight-location directory with map previews and directions links.
 - 2026-08-23 — Simplified section labels and consolidated repeated UI status copy.
