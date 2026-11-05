@@ -13,7 +13,7 @@ function PageHero({ backHref, backLabel, eyebrow, title, accent, description, ch
   return (
     <section ref={spotlightRef} className="relative isolate overflow-hidden bg-ink pt-36 pb-20 text-cream sm:pt-44 sm:pb-28">
       <AuroraBackdrop />
-      <Container className="relative">
+      <Container className="scroll-hero-exit relative">
         {backHref ? (
           <Reveal>
             <a href={backHref} className="group inline-flex items-center gap-2 rounded-full text-sm text-cream/70 transition-colors hover:text-cream">

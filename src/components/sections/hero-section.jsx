@@ -28,11 +28,11 @@ function HeroSection({ isReady }) {
       ref={spotlightRef}
       data-ready={isReady}
       aria-labelledby="hero-heading"
-      className="relative isolate flex min-h-svh flex-col overflow-hidden bg-ink text-cream"
+      className="scroll-hero-shell relative isolate flex min-h-svh flex-col overflow-hidden bg-ink text-cream"
     >
       <AuroraBackdrop showHalo haloClassName="top-[44%]" />
 
-      <Container className="relative flex flex-1 flex-col items-center justify-center pt-32 pb-12 text-center">
+      <Container className="scroll-hero-exit relative flex flex-1 flex-col items-center justify-center pt-32 pb-12 text-center">
         <div className="stage-in" style={{ '--stage-delay': '0ms' }}>
           <Eyebrow tone="light">{heroContent.eyebrow}</Eyebrow>
         </div>

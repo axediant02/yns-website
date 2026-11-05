@@ -9,6 +9,7 @@ import MobileMenu from '@/components/layout/mobile-menu'
 import { Button } from '@/components/ui/button'
 import { navigationItems } from '@/data/community'
 import useActiveSection from '@/hooks/use-active-section'
+import useNavIndicator from '@/hooks/use-nav-indicator'
 import useScrollState from '@/hooks/use-scroll-state'
 import { getLocationBySlug, getSiteHref } from '@/lib/location-routes'
 import { cn } from '@/lib/utils'
@@ -31,9 +32,10 @@ function SiteHeader({ route }) {
   const activeSectionId = useActiveSection(sectionIds, route.type === 'home')
   const activeLocation = route.type === 'location' ? getLocationBySlug(route.slug) : null
   const closeMenu = useCallback(() => setIsMenuOpen(false), [])
+  const { navRef, indicatorRef } = useNavIndicator(activeSectionId)
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 text-cream">
+    <header className="fixed inset-x-0 top-0 z-40 text-cream [view-transition-name:site-header]">
       <div ref={progressRef} aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left bg-linear-to-r from-ember via-dawn to-iris"
         style={{ transform: 'scaleX(var(--scroll-progress, 0))' }}
       />
@@ -47,7 +49,12 @@ function SiteHeader({ route }) {
         >
           <BrandLockup onClick={closeMenu} />
 
-          <nav aria-label="Primary navigation" className="hidden items-center gap-1 lg:flex">
+          <nav ref={navRef} aria-label="Primary navigation" className="relative hidden items-center gap-1 lg:flex">
+            <span
+              ref={indicatorRef}
+              aria-hidden="true"
+              className="absolute inset-y-0 left-0 w-0 rounded-full bg-white/10 opacity-0 ring-1 ring-white/10 transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+            />
             {primaryLinks.map((link) => {
               const isActive = isLinkActive(link, route, activeSectionId)
 
@@ -56,9 +63,10 @@ function SiteHeader({ route }) {
                   key={link.href}
                   href={link.href}
                   aria-current={isActive ? 'page' : undefined}
+                  data-active={isActive ? 'true' : undefined}
                   className={cn(
                     'relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors hover:text-cream',
-                    isActive ? 'bg-white/10 text-cream' : 'text-cream/70',
+                    isActive ? 'text-cream' : 'text-cream/70',
                   )}
                 >
                   {link.label}

@@ -13,7 +13,7 @@ function SectionHeading({ id, eyebrow, title, accent, description, tone = 'dark'
         <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
         <Heading id={id} className="mt-6 text-[clamp(2.6rem,6vw,5rem)] leading-[0.92] font-semibold tracking-[-0.045em] text-balance">
           {title}
-          {accent ? <> <span className="text-dawn block pb-1">{accent}</span></> : null}
+          {accent ? <> <span className="scroll-slide-x text-dawn block pb-1">{accent}</span></> : null}
         </Heading>
       </Reveal>
       {description || children ? (

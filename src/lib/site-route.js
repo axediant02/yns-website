@@ -20,6 +20,11 @@ export function resolveSiteRoute(pathname, hash = '') {
   return { type: 'home', anchor: hash.slice(1) }
 }
 
+/** Identifies the rendered page; home anchors share one key so in-page jumps are not page changes. */
+export function getRouteKey({ type, slug, eventId }) {
+  return [type, slug ?? eventId ?? ''].join(':')
+}
+
 /** Client-side navigation for path routes; keeps the static deployment model. */
 export function navigateTo(href) {
   window.history.pushState({}, '', href)

@@ -249,6 +249,164 @@
     to { opacity: 0; transform: scale(2.8); }
   }
 
+  /* ---------- Page transitions (View Transitions API) ---------- */
+  /* The old page sinks back while the new one rises with a curved edge that flattens. */
+  ::view-transition {
+    background-color: var(--ink);
+  }
+
+  ::view-transition-old(root) {
+    animation: page-out 650ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 900ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  }
+
+  ::view-transition-group(site-header) {
+    animation-duration: 650ms;
+  }
+
+  @keyframes page-out {
+    to {
+      opacity: 0.35;
+      filter: blur(6px);
+      transform: translate3d(0, -5vh, 0) scale(0.92);
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      clip-path: inset(100% 0 0 0 round 50% 50% 0 0);
+      transform: translate3d(0, 10vh, 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0 round 0 0 0 0);
+      transform: none;
+    }
+  }
+
+  /* ---------- Scroll-driven motion ---------- */
+  /*
+   * Progressive enhancement: browsers without scroll timelines keep the static
+   * layout plus the IntersectionObserver reveals. Ancestors of view() targets
+   * must use overflow: clip (not hidden) so the page stays their scroller.
+   * These animate `transform`, so never combine them with `.reveal` on one element.
+   */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      /* Hero content drifts up, shrinks, and blurs as the page scrolls away. */
+      .scroll-hero-exit {
+        animation: hero-exit linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 90vh;
+      }
+
+      /* Full-screen hero morphs into a rounded card as it leaves. */
+      .scroll-hero-shell {
+        animation: hero-shell linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+      }
+
+      /* Section expands from an inset rounded card to full bleed. */
+      .scroll-morph-in {
+        animation: section-morph linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 80%;
+      }
+
+      /* Cards lean back in 3D and stand up as they enter. */
+      .scroll-tilt-in {
+        transform-origin: 50% 100%;
+        animation: tilt-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 40%;
+      }
+
+      /* Moves between --parallax-from and --parallax-to while on screen. */
+      .scroll-parallax {
+        animation: parallax linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+
+      /* Decorative blob reshapes and turns while it crosses the viewport. */
+      .scroll-blob {
+        animation: blob-morph linear both;
+        animation-timeline: view();
+        animation-range: cover;
+      }
+
+      /* Heading accent line glides into alignment. */
+      .scroll-slide-x {
+        animation: slide-x linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 45%;
+      }
+
+      /* Photo settles from a close crop to its full frame. */
+      .scroll-zoom {
+        animation: zoom-settle linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 55%;
+      }
+    }
+  }
+
+  @keyframes hero-exit {
+    to {
+      opacity: 0.1;
+      filter: blur(6px);
+      transform: translate3d(0, -14vh, 0) scale(0.9);
+    }
+  }
+
+  @keyframes hero-shell {
+    from { clip-path: inset(0 0 0 0 round 0 0 0 0); }
+    to { clip-path: inset(0 2.5% 3% 2.5% round 0 0 3rem 3rem); }
+  }
+
+  @keyframes section-morph {
+    from { clip-path: inset(0 max(1rem, 6%) round 3rem); }
+    to { clip-path: inset(0 0 round 0); }
+  }
+
+  @keyframes tilt-in {
+    from { transform: perspective(1100px) rotateX(16deg) translate3d(0, 12%, 0) scale(0.92); }
+    to { transform: none; }
+  }
+
+  @keyframes parallax {
+    from { transform: translate3d(0, var(--parallax-from, 3rem), 0); }
+    to { transform: translate3d(0, var(--parallax-to, -3rem), 0); }
+  }
+
+  @keyframes blob-morph {
+    0% {
+      border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+      transform: rotate(-14deg) scale(0.8);
+    }
+    50% {
+      border-radius: 70% 30% 46% 54% / 30% 39% 61% 70%;
+      transform: rotate(6deg) scale(1.1);
+    }
+    100% {
+      border-radius: 30% 70% 35% 65% / 62% 38% 62% 38%;
+      transform: rotate(26deg) scale(0.9);
+    }
+  }
+
+  @keyframes slide-x {
+    from { transform: translate3d(14%, 0, 0); }
+    to { transform: none; }
+  }
+
+  @keyframes zoom-settle {
+    from { transform: scale(1.2); }
+    to { transform: scale(1); }
+  }
+
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce) {
     .reveal,

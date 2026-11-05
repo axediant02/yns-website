@@ -11,7 +11,8 @@ function usePageMeta({ type, slug, eventId, anchor }) {
     document.querySelector('meta[name="description"]')?.setAttribute('content', description)
 
     if (type !== 'home') {
-      window.scrollTo(0, 0)
+      // Jump instantly so the page transition reveals the new page from its top.
+      window.scrollTo({ top: 0, behavior: 'instant' })
     } else if (anchor) {
       window.requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ block: 'start' }))
     }

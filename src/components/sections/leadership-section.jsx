@@ -24,7 +24,7 @@ function LeaderCard({ leader, index }) {
 
 function LeadershipSection() {
   return (
-    <section id="leadership" aria-labelledby="leadership-heading" className="relative overflow-hidden bg-ink py-24 text-cream sm:py-36">
+    <section id="leadership" aria-labelledby="leadership-heading" className="scroll-morph-in relative overflow-clip bg-ink py-24 text-cream sm:py-36">
       <Container>
         <SectionHeading id="leadership-heading" tone="light" eyebrow={leadershipContent.eyebrow} title={leadershipContent.title} accent={leadershipContent.accent} description={leadershipContent.description} />
         <div className="mt-16 grid gap-5 md:grid-cols-2">

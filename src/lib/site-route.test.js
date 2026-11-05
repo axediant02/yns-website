@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { getPageMeta } from './page-meta'
-import { resolveSiteRoute } from './site-route'
+import { getRouteKey, resolveSiteRoute } from './site-route'
 
 describe('resolveSiteRoute', () => {
   it('prefers path routes over gallery hashes', () => {
@@ -17,6 +17,15 @@ describe('resolveSiteRoute', () => {
   it('treats other hashes as home anchors', () => {
     expect(resolveSiteRoute('/', '#about')).toEqual({ type: 'home', anchor: 'about' })
     expect(resolveSiteRoute('/', '')).toEqual({ type: 'home', anchor: '' })
+  })
+})
+
+describe('getRouteKey', () => {
+  it('treats home anchors as one page and distinguishes page targets', () => {
+    expect(getRouteKey(resolveSiteRoute('/', '#about'))).toBe(getRouteKey(resolveSiteRoute('/', '#contact')))
+    expect(getRouteKey(resolveSiteRoute('/', '#gallery-all'))).not.toBe(getRouteKey(resolveSiteRoute('/', '')))
+    expect(getRouteKey({ type: 'location', slug: 'a' })).not.toBe(getRouteKey({ type: 'location', slug: 'b' }))
+    expect(getRouteKey({ type: 'gallery-event', eventId: 'a' })).not.toBe(getRouteKey({ type: 'gallery-event', eventId: 'b' }))
   })
 })
 

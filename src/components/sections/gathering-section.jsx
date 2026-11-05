@@ -20,10 +20,10 @@ const facts = [
 
 function GatheringSection() {
   return (
-    <section id="gathering" aria-labelledby="gathering-heading" className="relative isolate overflow-hidden bg-ink py-24 text-cream sm:py-36">
+    <section id="gathering" aria-labelledby="gathering-heading" className="scroll-morph-in relative isolate overflow-clip bg-ink py-24 text-cream sm:py-36">
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-ember/25"
+        className="scroll-parallax absolute inset-x-0 -inset-y-16 -z-10 bg-ember/25 [--parallax-from:-4rem] [--parallax-to:4rem]"
         style={{ maskImage: `url(${contoursUrl})`, maskSize: 'cover', maskPosition: 'center', WebkitMaskImage: `url(${contoursUrl})`, WebkitMaskSize: 'cover' }}
       />
       <Container>

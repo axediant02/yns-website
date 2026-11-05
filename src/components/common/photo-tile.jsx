@@ -9,14 +9,14 @@ function PhotoTile({ photo, label, onOpen, className, children }) {
       type="button"
       onClick={onOpen}
       aria-label={label}
-      className={cn('group relative block size-full overflow-hidden rounded-2xl bg-sand text-left', className)}
+      className={cn('group relative block size-full overflow-clip rounded-2xl bg-sand text-left', className)}
     >
       <img
         src={photo.src}
         alt={photo.alt}
         loading="lazy"
         decoding="async"
-        className="size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+        className="scroll-zoom size-full object-cover transition-[scale] duration-[1200ms] ease-out group-hover:scale-105"
       />
       <span className="absolute inset-0 bg-linear-to-t from-ink/80 via-ink/0 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
       <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 text-cream">

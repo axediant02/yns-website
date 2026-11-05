@@ -24,7 +24,9 @@ function GallerySection() {
         <ul className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3" aria-label="Event album previews">
           {galleryEvents.map((event, index) => (
             <Reveal as="li" key={event.id} delay={index * 120} className={index === 1 ? 'lg:translate-y-10' : undefined}>
-              <EventAlbumCard event={event} href={getGalleryHref(event.id)} />
+              <div className="scroll-tilt-in h-full">
+                <EventAlbumCard event={event} href={getGalleryHref(event.id)} />
+              </div>
             </Reveal>
           ))}
         </ul>

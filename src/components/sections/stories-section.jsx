@@ -38,13 +38,23 @@ function StoryCard({ story, index }) {
 
 function StoriesSection() {
   return (
-    <section id="stories" aria-labelledby="stories-heading" className="relative overflow-hidden bg-sand py-24 sm:py-36">
-      <div aria-hidden="true" className="absolute top-0 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-linear-to-r from-ember/20 via-dawn/15 to-iris/20 blur-3xl" />
+    <section id="stories" aria-labelledby="stories-heading" className="relative overflow-clip bg-sand py-24 sm:py-36">
+      <div aria-hidden="true" className="scroll-blob absolute top-0 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-linear-to-r from-ember/25 via-dawn/20 to-iris/25 blur-3xl" />
       <Container className="relative">
         <SectionHeading id="stories-heading" eyebrow={storiesContent.eyebrow} title={storiesContent.title} accent={storiesContent.accent} description={storiesContent.description} />
         <div className="mt-16 grid gap-5 md:grid-cols-2">
           {storyPlaceholders.map((story, index) => (
-            <StoryCard key={story.accent} story={story} index={index} />
+            <div
+              key={story.accent}
+              className={cn(
+                'scroll-parallax grid',
+                index % 2 === 0
+                  ? '[--parallax-from:2rem] [--parallax-to:-2rem]'
+                  : 'max-md:[--parallax-from:2rem] max-md:[--parallax-to:-2rem] md:[--parallax-from:7rem] md:[--parallax-to:-5rem]',
+              )}
+            >
+              <StoryCard story={story} index={index} />
+            </div>
           ))}
         </div>
       </Container>
