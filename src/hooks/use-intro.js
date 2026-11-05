@@ -3,8 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { prefersReducedMotion } from '@/hooks/use-prefers-reduced-motion'
 
 const STORAGE_KEY = 'yns-d6-intro-seen'
-export const INTRO_DURATION = 2600
-const EXIT_DURATION = 900
+// Keep in step with the intro timings in App.css.
+export const INTRO_DURATION = 4400
+const EXIT_DURATION = 1200
 
 function hasSeenIntro() {
   try {

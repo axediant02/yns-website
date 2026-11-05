@@ -179,45 +179,164 @@
   .group:focus-visible .album-photo-3 { transform: translate3d(0, -4%, 0) scale(1.03); }
 
   /* ---------- Intro ---------- */
-  .intro-letter {
-    display: inline-block;
-    transform: translate3d(0, 105%, 0);
-    animation: word-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: calc(300ms + var(--letter-index, 0) * 70ms);
+  /*
+   * Acts: spark → horizon streak → light burst → wordmark impact → tagline,
+   * then the curtain splits while the stage zooms through (data-phase="exiting").
+   * Keep timings in step with INTRO_DURATION / EXIT_DURATION in use-intro.js.
+   */
+  .intro-curtain {
+    position: absolute;
+    inset-inline: 0;
+    background: var(--ink);
+    transition: transform 1000ms cubic-bezier(0.76, 0, 0.24, 1) 120ms;
   }
 
-  .intro-fade {
+  .intro-curtain-top { top: 0; bottom: calc(50% - 1px); }
+  .intro-curtain-bottom { top: calc(50% - 1px); bottom: 0; }
+
+  [data-phase='exiting'] .intro-curtain-top { transform: translate3d(0, -100%, 0); }
+  [data-phase='exiting'] .intro-curtain-bottom { transform: translate3d(0, 100%, 0); }
+
+  .intro-effects,
+  .intro-zoom {
+    transition:
+      opacity 700ms ease-out,
+      filter 900ms cubic-bezier(0.7, 0, 0.84, 0),
+      transform 900ms cubic-bezier(0.7, 0, 0.84, 0);
+  }
+
+  [data-phase='exiting'] .intro-effects { opacity: 0; }
+
+  [data-phase='exiting'] .intro-zoom {
     opacity: 0;
-    animation: stage-in 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: var(--stage-delay, 0ms);
+    filter: blur(14px);
+    transform: scale(2.6);
+  }
+
+  /* A point of light that stretches into a horizon streak. */
+  .intro-spark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--cream);
+    box-shadow: 0 0 18px 4px var(--dawn);
+    transform: translate(-50%, -50%) scale(0);
+    animation: intro-spark 1500ms cubic-bezier(0.65, 0, 0.35, 1) 150ms forwards;
+  }
+
+  @keyframes intro-spark {
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    70% { opacity: 1; transform: translate(-50%, -50%) scale(120, 0.3); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(220, 0.1); }
+  }
+
+  /* One soft bloom of light; no repeated flashing. */
+  .intro-flare {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(140vw, 70rem);
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: radial-gradient(circle, oklch(0.95 0.06 75 / 50%), oklch(0.78 0.155 62 / 22%) 30%, transparent 65%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    animation: intro-flare 1800ms cubic-bezier(0.22, 1, 0.36, 1) 1050ms forwards;
+  }
+
+  @keyframes intro-flare {
+    40% { opacity: 1; }
+    to { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
   }
 
   .intro-halo {
     opacity: 0;
-    transform: scale(0.6);
-    animation: intro-halo 2200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform: scale(0.35) rotate(-60deg);
+    animation: intro-halo 2000ms cubic-bezier(0.22, 1, 0.36, 1) 1100ms forwards;
   }
 
   @keyframes intro-halo {
-    to { opacity: 1; transform: scale(1); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .intro-aurora {
+    opacity: 0;
+    animation: intro-fade-in 1600ms ease-out 1200ms forwards;
+  }
+
+  @keyframes intro-fade-in {
+    to { opacity: 1; }
+  }
+
+  /* Letters drop in oversized and blurred, snap into focus, then glow in sequence. */
+  .intro-letter {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(2.8) translate3d(0, -8%, 0);
+    animation:
+      intro-slam 750ms cubic-bezier(0.2, 0.9, 0.1, 1) forwards,
+      intro-glow 1200ms ease-in-out forwards;
+    animation-delay:
+      calc(1300ms + var(--letter-index, 0) * 110ms),
+      calc(2350ms + var(--letter-index, 0) * 80ms);
+  }
+
+  @keyframes intro-slam {
+    60% { opacity: 1; }
+    to { opacity: 1; filter: blur(0); transform: none; }
+  }
+
+  /* drop-shadow (not text-shadow) so the gradient-clipped letters keep their fill. */
+  @keyframes intro-glow {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    50% { filter: drop-shadow(0 0 22px var(--dawn)); }
+  }
+
+  /* The whole stage gives one small jolt as the wordmark lands. */
+  .intro-stage {
+    animation: intro-impact 520ms cubic-bezier(0.22, 1, 0.36, 1) 2250ms both;
+  }
+
+  @keyframes intro-impact {
+    0%, 100% { transform: none; }
+    20% { transform: scale(1.035) translate3d(0, 2px, 0); }
+  }
+
+  .intro-tracking {
+    opacity: 0;
+    letter-spacing: 1.4em;
+    animation: intro-tracking 1400ms cubic-bezier(0.22, 1, 0.36, 1) 1900ms forwards;
+  }
+
+  @keyframes intro-tracking {
+    to { opacity: 1; letter-spacing: 0.4em; }
+  }
+
+  .intro-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+  }
+
+  .intro-line > span {
+    display: inline-block;
+    transform: translate3d(0, 110%, 0);
+    animation: word-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--line-delay, 0ms);
   }
 
   .intro-progress {
     transform: scaleX(0);
     transform-origin: left;
-    animation: intro-progress var(--intro-duration, 2400ms) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: intro-progress var(--intro-duration, 4400ms) cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
   @keyframes intro-progress {
     to { transform: scaleX(1); }
-  }
-
-  .intro-exit {
-    animation: intro-exit 900ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
-
-  @keyframes intro-exit {
-    to { clip-path: inset(0 0 100% 0); }
   }
 
   /* ---------- Scroll cue ---------- */
@@ -413,13 +532,21 @@
     .stage-in,
     .split-word > span,
     .intro-letter,
-    .intro-fade,
-    .intro-halo {
+    .intro-tracking,
+    .intro-line > span,
+    .intro-halo,
+    .intro-aurora,
+    .intro-stage {
       opacity: 1 !important;
       filter: none !important;
       transform: none !important;
       animation: none !important;
       transition: none !important;
+    }
+
+    .intro-spark,
+    .intro-flare {
+      display: none;
     }
 
     .aurora-blob,
