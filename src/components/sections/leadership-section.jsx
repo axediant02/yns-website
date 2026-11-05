@@ -3,6 +3,7 @@ import { UserRound } from 'lucide-react'
 import Container from '@/components/common/container'
 import Reveal from '@/components/common/reveal'
 import SectionHeading from '@/components/common/section-heading'
+import VerseCallout from '@/components/common/verse-callout'
 import { leadershipContent } from '@/constants/home-content'
 import { leadershipPlaceholders } from '@/data/community'
 
@@ -35,6 +36,7 @@ function LeadershipSection({ showHeading = true }) {
             <LeaderCard key={leader.name} leader={leader} index={index} />
           ))}
         </div>
+        <VerseCallout verseId="1-timothy-4-12" className="mt-20" />
       </Container>
     </section>
   )

@@ -6,6 +6,7 @@ import DraftNote from '@/components/common/draft-note'
 import PillLink from '@/components/common/pill-link'
 import Reveal from '@/components/common/reveal'
 import SectionHeading from '@/components/common/section-heading'
+import VerseCallout from '@/components/common/verse-callout'
 import GatheringCountdown from '@/components/sections/gathering-countdown'
 import LocationExplorer from '@/components/sections/location-explorer'
 import { gatheringContent } from '@/constants/home-content'
@@ -62,7 +63,9 @@ function GatheringSection({ showHeading = true }) {
           </Reveal>
         </div>
 
-        <div className="mt-28">
+        <VerseCallout verseId="hebrews-10-24-25" className="mt-24" />
+
+        <div className="mt-24">
           <Reveal className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <h3 className="max-w-md text-[clamp(2rem,4vw,3.25rem)] leading-none font-semibold tracking-[-0.04em]">{gatheringContent.locationsTitle}</h3>
             <DraftNote tone="light" className="max-w-sm">{gatheringContent.locationsNote}</DraftNote>

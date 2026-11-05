@@ -8,6 +8,7 @@ This register prevents placeholders from being mistaken for approved editorial c
 | Primary area | Toledo City, Cebu | Existing public baseline; reconfirm before launch | Existing approved website plan | Pending | Not applicable |
 | Gathering schedule | Sunday, 10:00 AM–12:00 noon | Existing public baseline; reconfirm before launch | Existing approved website plan | Pending | Not applicable |
 | Mission, vision, values | Verbatim from `YNS MVV.docx` in `src/data/community.js`; the Values paragraph is shown one sentence per list item | Supplied; approval not recorded | `YNS MVV.docx` supplied by maintainer (document last modified 2025-10-03) | Pending | Not applicable |
+| Scripture verses (NLT) | Nine youth/fellowship verses in `src/constants/scripture.js`, verbatim; "NLT" after each quotation and the Tyndale credit line in the footer | Text checked against Bible Gateway NLT; selection not yet approved | Holy Bible, New Living Translation (Tyndale House Ministries) | Text checked 2026-11-06; selection approval pending | Within Tyndale NLT fair use (≤ 500 verses, ≤ 25% of the work, credit line shown) |
 | Venue and map pins | Approximate or missing | Not verified | None supplied | Pending | Not applicable |
 | Leaders and stories | Placeholder structures | Not verified | None supplied | Pending | Consent required before publication |
 | Photos and albums | Illustrative/stock placeholders | Not approved community media | Existing fixture notes | Pending | Licensing and consent pending |

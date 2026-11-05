@@ -2,6 +2,7 @@ import { ArrowUp, ArrowUpRight } from 'lucide-react'
 
 import BrandLockup from '@/components/common/brand-lockup'
 import Container from '@/components/common/container'
+import { SCRIPTURE_CREDIT } from '@/constants/scripture'
 import { community } from '@/data/community'
 import { getLocationBySlug } from '@/lib/location-routes'
 import { contactLink, isCurrentPageLink, primaryLinks } from '@/lib/site-navigation'
@@ -44,6 +45,8 @@ function SiteFooter({ route }) {
             <p className="mt-2 text-cream/60">{activeLocation ? `${activeLocation.name}, ${activeLocation.area}` : community.location}</p>
           </div>
         </div>
+
+        <p className="border-b border-white/10 py-6 text-xs leading-relaxed text-cream/50">{SCRIPTURE_CREDIT}</p>
 
         <div className="flex flex-col-reverse items-start justify-between gap-4 py-6 text-sm text-cream/50 sm:flex-row sm:items-center">
           <span>
