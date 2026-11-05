@@ -8,6 +8,7 @@ import LocationDetails from '@/components/sections/location-details'
 import LocationEventsSection from '@/components/sections/location-events-section'
 import LocationExpectations from '@/components/sections/location-expectations'
 import LocationPhotoTimeline from '@/components/sections/location-photo-timeline'
+import { community } from '@/data/community'
 import { getLocationBySlug } from '@/lib/location-routes'
 
 function LocationPage({ slug, content, gathering = community.gathering, albums }) {

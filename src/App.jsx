@@ -37,8 +37,6 @@ function App() {
 
   usePageMeta(route)
 
-  if (!isEventsPage && !locationRoute && !galleryRoute) return <PublicHomepage />
-
   return (
     <div className="min-h-svh overflow-x-clip bg-background">
       <a href="#main-content" onClick={focusMainContent} className="sr-only z-[110] rounded-full bg-cream px-4 py-2 font-semibold text-ink focus:not-sr-only focus:fixed focus:top-4 focus:left-4">
