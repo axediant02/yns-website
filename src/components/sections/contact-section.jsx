@@ -34,27 +34,30 @@ function ContactAction() {
   )
 }
 
-function ContactSection() {
+/** `showHeading={false}` lets the standalone Contact page supply its own hero heading and copy. */
+function ContactSection({ showHeading = true }) {
   const spotlightRef = usePointerSpotlight()
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="bg-cream py-16 sm:py-24">
+    <section id="contact" aria-labelledby={showHeading ? 'contact-heading' : undefined} className="bg-cream py-16 sm:py-24">
       <Container>
         <Reveal>
           <div ref={spotlightRef} className="relative isolate overflow-hidden rounded-[2.5rem] bg-ink px-6 py-20 text-cream sm:px-14 sm:py-28">
             <AuroraBackdrop showHalo haloClassName="top-0 left-[85%] opacity-70" />
             <div className="relative grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+              {showHeading ? (
+                <div>
+                  <Eyebrow tone="light">{contactContent.eyebrow}</Eyebrow>
+                  <h2 id="contact-heading" className="mt-6 text-[clamp(2.75rem,7vw,6rem)] leading-[0.9] font-semibold tracking-[-0.05em]">
+                    {contactContent.title}
+                    {' '}
+                    <span className="text-dawn block pb-2">{contactContent.accent}</span>
+                  </h2>
+                </div>
+              ) : null}
               <div>
-                <Eyebrow tone="light">{contactContent.eyebrow}</Eyebrow>
-                <h2 id="contact-heading" className="mt-6 text-[clamp(2.75rem,7vw,6rem)] leading-[0.9] font-semibold tracking-[-0.05em]">
-                  {contactContent.title}
-                  {' '}
-                  <span className="text-dawn block pb-2">{contactContent.accent}</span>
-                </h2>
-              </div>
-              <div>
-                <p className="text-lg leading-relaxed text-cream/70">{contactContent.description}</p>
-                <div className="mt-8">
+                {showHeading ? <p className="text-lg leading-relaxed text-cream/70">{contactContent.description}</p> : null}
+                <div className={showHeading ? 'mt-8' : undefined}>
                   <ContactAction />
                 </div>
               </div>

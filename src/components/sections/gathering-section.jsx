@@ -18,18 +18,21 @@ const facts = [
   { icon: UsersRound, label: 'Who', value: community.audience },
 ]
 
-function GatheringSection() {
+/** `showHeading={false}` lets the standalone Gathering page supply its own hero heading. */
+function GatheringSection({ showHeading = true }) {
   return (
-    <section id="gathering" aria-labelledby="gathering-heading" className="scroll-morph-in relative isolate overflow-clip bg-ink py-24 text-cream sm:py-36">
+    <section id="gathering" aria-labelledby={showHeading ? 'gathering-heading' : undefined} className="scroll-morph-in relative isolate overflow-clip bg-ink py-24 text-cream sm:py-36">
       <div
         aria-hidden="true"
         className="scroll-parallax absolute inset-x-0 -inset-y-16 -z-10 bg-ember/25 [--parallax-from:-4rem] [--parallax-to:4rem]"
         style={{ maskImage: `url(${contoursUrl})`, maskSize: 'cover', maskPosition: 'center', WebkitMaskImage: `url(${contoursUrl})`, WebkitMaskSize: 'cover' }}
       />
       <Container>
-        <SectionHeading id="gathering-heading" tone="light" eyebrow={gatheringContent.eyebrow} title={gatheringContent.title} accent={gatheringContent.accent} description={gatheringContent.description} />
+        {showHeading ? (
+          <SectionHeading id="gathering-heading" tone="light" eyebrow={gatheringContent.eyebrow} title={gatheringContent.title} accent={gatheringContent.accent} description={gatheringContent.description} className="mb-16" />
+        ) : null}
 
-        <div className="mt-16 grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
+        <div className="grid gap-5 lg:grid-cols-[1.25fr_0.75fr]">
           <Reveal className="glow-border rounded-[2rem] bg-ink-soft/80 p-6 backdrop-blur sm:p-10">
             <GatheringCountdown />
             <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-8 sm:grid-cols-4">
@@ -52,7 +55,7 @@ function GatheringSection() {
             </div>
             <div>
               <p className="text-sm opacity-80">{gatheringContent.reassurance}</p>
-              <PillLink href="#contact" variant="ink" className="mt-4">
+              <PillLink href="/#contact" variant="ink" className="mt-4">
                 Ask a question
               </PillLink>
             </div>

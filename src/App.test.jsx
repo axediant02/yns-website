@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import App from './App'
@@ -53,6 +53,65 @@ describe('App', () => {
     render(<App />)
 
     expect(screen.getByRole('button', { name: 'Contact link coming soon' })).toBeDisabled()
+  })
+
+  it('keeps every section on the homepage while nav links open separate pages', () => {
+    render(<App />)
+
+    for (const id of ['about', 'gathering', 'gallery', 'stories', 'leadership', 'contact']) {
+      expect(document.getElementById(id)).toBeInTheDocument()
+    }
+
+    const nav = within(screen.getByRole('navigation', { name: 'Primary navigation' }))
+    expect(nav.getAllByRole('link')[0]).toHaveAccessibleName('Home')
+    expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page')
+    expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
+    expect(nav.getByRole('link', { name: 'Gallery' })).toHaveAttribute('href', '/#gallery-all')
+    expect(nav.getByRole('link', { name: 'Events' })).toHaveAttribute('href', '/events')
+  })
+
+  it('keeps Home highlighted while scrolling homepage sections', () => {
+    const observers = []
+    vi.stubGlobal('IntersectionObserver', class {
+      constructor(callback) {
+        this.callback = callback
+        this.targets = []
+        observers.push(this)
+      }
+      observe(target) { this.targets.push(target) }
+      unobserve() {}
+      disconnect() {}
+    })
+    render(<App />)
+
+    const about = document.getElementById('about')
+    act(() => observers.forEach((observer) => observer.callback([{ target: about, isIntersecting: true }], observer)))
+
+    const nav = within(screen.getByRole('navigation', { name: 'Primary navigation' }))
+    expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page')
+    expect(nav.getByRole('link', { name: 'About' })).not.toHaveAttribute('aria-current')
+    expect(nav.getByRole('link', { name: 'About' })).toHaveClass('text-cream/70')
+    expect(nav.getByRole('link', { name: 'Home' })).not.toHaveClass('text-cream/70')
+    vi.unstubAllGlobals()
+  })
+
+  it('switches to a section page client-side and marks its nav link current', () => {
+    render(<App />)
+
+    const nav = within(screen.getByRole('navigation', { name: 'Primary navigation' }))
+    fireEvent.click(nav.getByRole('link', { name: 'Stories' }))
+
+    expect(window.location.pathname).toBe('/stories')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Every story starts somewhere.')
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
+    expect(document.title).toBe('YNS D6 — Stories')
+    expect(nav.getByRole('link', { name: 'Stories' })).toHaveAttribute('aria-current', 'page')
+
+    fireEvent.click(nav.getByRole('link', { name: 'Home' }))
+
+    expect(window.location.pathname).toBe('/')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Find your people. Follow Jesus.')
+    expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page')
   })
 
   it('renders a not-found state for unknown locations', () => {

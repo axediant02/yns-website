@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { getPageMeta } from './page-meta'
-import { getRouteKey, resolveSiteRoute } from './site-route'
+import { getRouteKey, getSectionPageHref, resolveSiteRoute } from './site-route'
 
 describe('resolveSiteRoute', () => {
   it('prefers path routes over gallery hashes', () => {
@@ -17,6 +17,25 @@ describe('resolveSiteRoute', () => {
   it('treats other hashes as home anchors', () => {
     expect(resolveSiteRoute('/', '#about')).toEqual({ type: 'home', anchor: 'about' })
     expect(resolveSiteRoute('/', '')).toEqual({ type: 'home', anchor: '' })
+  })
+})
+
+describe('section pages', () => {
+  it('resolves each section page path, ahead of gallery hashes', () => {
+    expect(resolveSiteRoute('/about', '')).toEqual({ type: 'about' })
+    expect(resolveSiteRoute('/gathering/', '')).toEqual({ type: 'gathering' })
+    expect(resolveSiteRoute('/contact', '#gallery-all')).toEqual({ type: 'contact' })
+  })
+
+  it('links sections to their page, the gallery index, or the home anchor', () => {
+    expect(getSectionPageHref('stories')).toBe('/stories')
+    expect(getSectionPageHref('gallery')).toBe('/#gallery-all')
+    expect(getSectionPageHref('top')).toBe('/#top')
+  })
+
+  it('gives each section page its own metadata', () => {
+    expect(getPageMeta({ type: 'about' }).title).toBe('YNS D6 — About')
+    expect(getPageMeta({ type: 'leadership' }).title).toBe('YNS D6 — Leadership')
   })
 })
 

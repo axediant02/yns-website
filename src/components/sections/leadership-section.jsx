@@ -22,12 +22,15 @@ function LeaderCard({ leader, index }) {
   )
 }
 
-function LeadershipSection() {
+/** `showHeading={false}` lets the standalone Leadership page supply its own hero heading. */
+function LeadershipSection({ showHeading = true }) {
   return (
-    <section id="leadership" aria-labelledby="leadership-heading" className="scroll-morph-in relative overflow-clip bg-ink py-24 text-cream sm:py-36">
+    <section id="leadership" aria-labelledby={showHeading ? 'leadership-heading' : undefined} className="scroll-morph-in relative overflow-clip bg-ink py-24 text-cream sm:py-36">
       <Container>
-        <SectionHeading id="leadership-heading" tone="light" eyebrow={leadershipContent.eyebrow} title={leadershipContent.title} accent={leadershipContent.accent} description={leadershipContent.description} />
-        <div className="mt-16 grid gap-5 md:grid-cols-2">
+        {showHeading ? (
+          <SectionHeading id="leadership-heading" tone="light" eyebrow={leadershipContent.eyebrow} title={leadershipContent.title} accent={leadershipContent.accent} description={leadershipContent.description} className="mb-16" />
+        ) : null}
+        <div className="grid gap-5 md:grid-cols-2">
           {leadershipPlaceholders.map((leader, index) => (
             <LeaderCard key={leader.name} leader={leader} index={index} />
           ))}

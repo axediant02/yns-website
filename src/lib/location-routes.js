@@ -18,10 +18,6 @@ export function getLocationHref(location) {
   return `/locations/${location.id}`
 }
 
-export function getSiteHref(href) {
-  return href.startsWith('#') ? `/${href}` : href
-}
-
 export function getGoogleMapsUrl(query) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 }

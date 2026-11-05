@@ -2,8 +2,11 @@ import { ArrowUp, ArrowUpRight } from 'lucide-react'
 
 import BrandLockup from '@/components/common/brand-lockup'
 import Container from '@/components/common/container'
-import { community, navigationItems } from '@/data/community'
-import { getLocationBySlug, getSiteHref } from '@/lib/location-routes'
+import { community } from '@/data/community'
+import { getLocationBySlug } from '@/lib/location-routes'
+import { contactLink, isCurrentPageLink, primaryLinks } from '@/lib/site-navigation'
+
+const footerLinks = [...primaryLinks, contactLink]
 
 function FooterHeading({ children }) {
   return <p className="text-[11px] font-semibold tracking-[0.2em] text-cream/50 uppercase">{children}</p>
@@ -24,9 +27,9 @@ function SiteFooter({ route }) {
           <nav aria-label="Footer navigation">
             <FooterHeading>Explore</FooterHeading>
             <ul className="mt-5 grid gap-3">
-              {[...navigationItems, { label: 'Events', href: '/events' }, { label: 'Contact', href: '#contact' }].map((item) => (
+              {footerLinks.map((item) => (
                 <li key={item.href}>
-                  <a href={getSiteHref(item.href)} className="group inline-flex items-center gap-1 text-cream/80 transition-colors hover:text-cream">
+                  <a href={item.href} aria-current={isCurrentPageLink(item, route) ? 'page' : undefined} className="group inline-flex items-center gap-1 text-cream/80 transition-colors hover:text-cream">
                     {item.label}
                     <ArrowUpRight className="size-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" />
                   </a>

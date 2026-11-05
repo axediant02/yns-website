@@ -7,6 +7,8 @@ import EventsPage from '@/components/pages/events-page'
 import GalleryPage from '@/components/pages/gallery-page'
 import HomePage from '@/components/pages/home-page'
 import LocationPage from '@/components/pages/location-page'
+import SectionPage from '@/components/pages/section-page'
+import useClientNavigation from '@/hooks/use-client-navigation'
 import useIntro from '@/hooks/use-intro'
 import usePageMeta from '@/hooks/use-page-meta'
 import useSiteRoute from '@/hooks/use-site-route'
@@ -26,6 +28,12 @@ function RoutedPage({ route, isReady }) {
     case 'gallery-index':
     case 'gallery-event':
       return <GalleryPage route={route} />
+    case 'about':
+    case 'gathering':
+    case 'stories':
+    case 'leadership':
+    case 'contact':
+      return <SectionPage type={route.type} />
     default:
       return <HomePage isReady={isReady} />
   }
@@ -36,6 +44,7 @@ function App() {
   const intro = useIntro()
 
   usePageMeta(route)
+  useClientNavigation()
 
   return (
     <div className="min-h-svh overflow-x-clip bg-background">

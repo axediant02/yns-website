@@ -1,8 +1,4 @@
-import { navigateTo } from '@/lib/site-route'
-
-function isPlainLeftClick(event) {
-  return !event.defaultPrevented && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey
-}
+import { isPlainLeftClick, navigateTo } from '@/lib/site-route'
 
 /** Anchor for same-origin path routes that navigates without a full reload. */
 function ClientLink({ href, onClick, ...props }) {

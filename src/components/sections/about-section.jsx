@@ -27,22 +27,25 @@ function AboutPillar({ pillar, index }) {
   )
 }
 
-function AboutSection() {
+/** `showHeading={false}` lets the standalone About page supply its own hero heading. */
+function AboutSection({ showHeading = true }) {
   return (
-    <section id="about" aria-labelledby="about-heading" className="relative overflow-hidden bg-cream py-24 sm:py-36">
+    <section id="about" aria-labelledby={showHeading ? 'about-heading' : undefined} className="relative overflow-hidden bg-cream py-24 sm:py-36">
       <Container>
-        <Reveal>
-          <Eyebrow>{aboutContent.eyebrow}</Eyebrow>
-          <h2 id="about-heading" className="mt-6 text-[clamp(2.6rem,6vw,5rem)] leading-[0.92] font-semibold tracking-[-0.045em]">
-            {aboutContent.title}
-            {' '}
-            <span className="text-dawn block pb-1">{aboutContent.accent}</span>
-          </h2>
-        </Reveal>
+        {showHeading ? (
+          <Reveal className="mb-14">
+            <Eyebrow>{aboutContent.eyebrow}</Eyebrow>
+            <h2 id="about-heading" className="mt-6 text-[clamp(2.6rem,6vw,5rem)] leading-[0.92] font-semibold tracking-[-0.045em]">
+              {aboutContent.title}
+              {' '}
+              <span className="text-dawn block pb-1">{aboutContent.accent}</span>
+            </h2>
+          </Reveal>
+        ) : null}
 
         <ScrollHighlightText
           text={aboutContent.statement}
-          className="mt-14 max-w-5xl text-[clamp(1.6rem,3.4vw,2.9rem)] leading-[1.15] font-medium tracking-[-0.03em]"
+          className="max-w-5xl text-[clamp(1.6rem,3.4vw,2.9rem)] leading-[1.15] font-medium tracking-[-0.03em]"
         />
 
         <div className="mt-20 grid gap-5 md:grid-cols-2">

@@ -27,7 +27,7 @@ function StoryCard({ story, index }) {
       <div className="relative mt-16">
         <h3 className="text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] font-semibold tracking-[-0.03em] text-balance">{story.title}</h3>
         <p className="mt-5 max-w-md leading-relaxed opacity-70">{story.description}</p>
-        <a href="#contact" className="group/link mt-8 inline-flex items-center gap-2 rounded-full font-semibold">
+        <a href="/#contact" className="group/link mt-8 inline-flex items-center gap-2 rounded-full font-semibold">
           Start a conversation
           <ArrowUpRight className="size-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" aria-hidden="true" />
         </a>
@@ -36,13 +36,16 @@ function StoryCard({ story, index }) {
   )
 }
 
-function StoriesSection() {
+/** `showHeading={false}` lets the standalone Stories page supply its own hero heading. */
+function StoriesSection({ showHeading = true }) {
   return (
-    <section id="stories" aria-labelledby="stories-heading" className="relative overflow-clip bg-sand py-24 sm:py-36">
+    <section id="stories" aria-labelledby={showHeading ? 'stories-heading' : undefined} className="relative overflow-clip bg-sand py-24 sm:py-36">
       <div aria-hidden="true" className="scroll-blob absolute top-0 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-linear-to-r from-ember/25 via-dawn/20 to-iris/25 blur-3xl" />
       <Container className="relative">
-        <SectionHeading id="stories-heading" eyebrow={storiesContent.eyebrow} title={storiesContent.title} accent={storiesContent.accent} description={storiesContent.description} />
-        <div className="mt-16 grid gap-5 md:grid-cols-2">
+        {showHeading ? (
+          <SectionHeading id="stories-heading" eyebrow={storiesContent.eyebrow} title={storiesContent.title} accent={storiesContent.accent} description={storiesContent.description} className="mb-16" />
+        ) : null}
+        <div className="grid gap-5 md:grid-cols-2">
           {storyPlaceholders.map((story, index) => (
             <div
               key={story.accent}

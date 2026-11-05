@@ -1,5 +1,14 @@
+import { aboutContent, contactContent, gatheringContent, leadershipContent, storiesContent } from '@/constants/home-content'
 import { galleryEvents } from '@/data/community'
 import { getLocationBySlug } from '@/lib/location-routes'
+
+const SECTION_PAGE_META = {
+  about: { title: 'YNS D6 — About', description: aboutContent.statement },
+  gathering: { title: 'YNS D6 — Sunday gathering', description: gatheringContent.description },
+  stories: { title: 'YNS D6 — Stories', description: storiesContent.description },
+  leadership: { title: 'YNS D6 — Leadership', description: leadershipContent.description },
+  contact: { title: 'YNS D6 — Contact', description: contactContent.description },
+}
 
 const HOME_META = {
   title: 'YNS D6 — Find your people. Follow Jesus.',
@@ -42,6 +51,6 @@ export function getPageMeta(route) {
     case 'gallery-event':
       return getGalleryEventMeta(route.eventId)
     default:
-      return HOME_META
+      return SECTION_PAGE_META[route.type] ?? HOME_META
   }
 }

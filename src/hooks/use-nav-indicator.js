@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 
 /**
- * Slides one highlight pill to the active nav link.
+ * Slides one highlight pill to the nav link marked aria-current="page".
  * Styles are written directly so moving the pill does not re-render the nav.
  */
 function useNavIndicator(activeKey) {
@@ -14,7 +14,7 @@ function useNavIndicator(activeKey) {
     if (!nav || !indicator) return undefined
 
     const update = () => {
-      const activeLink = nav.querySelector('[data-active="true"]')
+      const activeLink = nav.querySelector('[aria-current="page"]')
 
       indicator.style.opacity = activeLink ? '1' : '0'
       if (!activeLink) return
