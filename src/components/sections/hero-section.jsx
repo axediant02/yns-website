@@ -30,7 +30,7 @@ function HeroSection({ isReady }) {
       aria-labelledby="hero-heading"
       className="scroll-hero-shell relative isolate flex min-h-svh flex-col overflow-hidden bg-ink text-cream"
     >
-      <AuroraBackdrop showHalo haloClassName="top-[44%]" />
+      <AuroraBackdrop showHalo haloClassName="top-[44%]" className="enter-bloom" />
 
       <Container className="scroll-hero-exit relative flex flex-1 flex-col items-center justify-center pt-32 pb-12 text-center">
         <div className="stage-in" style={{ '--stage-delay': '0ms' }}>

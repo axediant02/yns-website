@@ -62,6 +62,41 @@
     to { opacity: 1; transform: none; }
   }
 
+  /* ---------- Entrance on mount (every load and page switch) ---------- */
+  /*
+   * These run as soon as the element mounts, so they also play inside the CMS
+   * preview. While an ancestor reports data-ready="false" (the intro is
+   * playing) they hold at their start, then play once it lifts.
+   */
+  .enter-fade {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    animation: stage-in 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .enter-drop {
+    opacity: 0;
+    transform: translate3d(0, -130%, 0);
+    animation: stage-in 1000ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: var(--enter-delay, 150ms);
+  }
+
+  .enter-bloom {
+    opacity: 0;
+    transform: scale(1.15);
+    animation: stage-in 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .split-on-mount .split-word > span {
+    animation: word-rise 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--word-index, 0) * 90ms + var(--split-delay, 0ms));
+  }
+
+  [data-ready='false'] :is(.enter-fade, .enter-drop, .enter-bloom, .split-on-mount .split-word > span) {
+    animation-play-state: paused;
+  }
+
   /* ---------- Aurora background ---------- */
   .aurora-blob {
     position: absolute;
@@ -530,6 +565,9 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal,
     .stage-in,
+    .enter-fade,
+    .enter-drop,
+    .enter-bloom,
     .split-word > span,
     .intro-letter,
     .intro-tracking,

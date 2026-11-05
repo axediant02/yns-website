@@ -28,7 +28,7 @@ function SiteHeader({ route }) {
         style={{ transform: 'scaleX(var(--scroll-progress, 0))' }}
       />
 
-      <Container className="relative z-40">
+      <Container className="enter-drop relative z-40">
         <div
           className={cn(
             'mt-3 flex items-center justify-between gap-4 rounded-full py-2 pr-2 pl-3 transition-all duration-500 ease-out sm:mt-4',
