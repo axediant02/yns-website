@@ -6,7 +6,6 @@ import { INTRO_DURATION } from './hooks/use-intro'
 
 describe('App', () => {
   beforeEach(() => {
-    window.sessionStorage.clear()
     window.history.replaceState({}, '', '/')
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
   })
@@ -17,7 +16,7 @@ describe('App', () => {
     vi.restoreAllMocks()
   })
 
-  it('plays the intro once per session and can be skipped', () => {
+  it('plays the intro on every visit and can be skipped with the button or Escape', () => {
     vi.useFakeTimers()
     const { unmount } = render(<App />)
 
@@ -29,7 +28,52 @@ describe('App', () => {
 
     unmount()
     render(<App />)
+    expect(screen.getByRole('button', { name: 'Skip intro' })).toBeInTheDocument()
+
+    fireEvent.keyDown(window, { key: 'Escape' })
+    act(() => vi.advanceTimersByTime(1200))
     expect(screen.queryByRole('button', { name: 'Skip intro' })).toBeNull()
+  })
+
+  it('does not replay the intro on client-side page switches', () => {
+    vi.useFakeTimers()
+    render(<App />)
+    fireEvent.click(screen.getByRole('button', { name: 'Skip intro' }))
+    act(() => vi.advanceTimersByTime(1200))
+
+    fireEvent.click(within(screen.getByRole('navigation', { name: 'Primary navigation' })).getByRole('link', { name: 'About' }))
+
+    expect(window.location.pathname).toBe('/about')
+    expect(screen.queryByRole('button', { name: 'Skip intro' })).toBeNull()
+  })
+
+  it('skips the intro for visitors who prefer reduced motion', () => {
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })
+    render(<App />)
+
+    expect(screen.queryByRole('button', { name: 'Skip intro' })).toBeNull()
+    delete window.matchMedia
+  })
+
+  it('plays the intro through, splits the curtain, then releases the page', () => {
+    vi.useFakeTimers()
+    const { container } = render(<App />)
+    const overlay = () => container.querySelector('[data-phase]')
+
+    expect(overlay()).toHaveAttribute('data-phase', 'playing')
+    expect(document.documentElement.style.overflow).toBe('hidden')
+    expect(document.getElementById('top')).toHaveAttribute('data-ready', 'false')
+    // Header and page entrances hold behind the intro.
+    expect(container.firstElementChild).toHaveAttribute('data-ready', 'false')
+
+    act(() => vi.advanceTimersByTime(INTRO_DURATION))
+    expect(overlay()).toHaveAttribute('data-phase', 'exiting')
+    expect(document.getElementById('top')).toHaveAttribute('data-ready', 'true')
+    expect(container.firstElementChild).toHaveAttribute('data-ready', 'true')
+
+    act(() => vi.advanceTimersByTime(1200))
+    expect(overlay()).toBeNull()
+    expect(document.documentElement.style.overflow).toBe('')
   })
 
   it('renders one primary heading with the welcome message', () => {
