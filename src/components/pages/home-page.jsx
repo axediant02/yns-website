@@ -15,7 +15,7 @@ function HomePage({ isReady, sections = {} }) {
     <main>
       <HeroSection isReady={isReady} />
       <PhotoStripSection />
-      <AboutSection />
+      <AboutSection showStatements={false} />
       <ScriptureSection />
       <GatheringSection />
       <EventsSection />

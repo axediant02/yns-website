@@ -10,6 +10,8 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 
 ## Current page map
 
+- [x] Redesign Mission, Vision and Core values with the website's editorial typography/palette. Keep the detailed statements on About, with a compact homepage introduction and link; see feature-checklists/2026-11-06-about-statements-redesign.md.
+
 - [x] Add a seamless homepage photo strip below the hero, with explicit temporary stock placeholders, continuous motion on hover, gapless images, no playback buttons, and a static reduced-motion grid; see feature-checklists/2026-11-06-homepage-photo-strip.md.
 
 - [x] Remove local editorial content/media from the public homepage while retaining its section frames/navigation and explicit unavailable states; see feature-checklists/2026-10-29-public-homepage-content.md.

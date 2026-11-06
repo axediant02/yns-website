@@ -2,10 +2,13 @@ import { HeartHandshake, Sparkles } from 'lucide-react'
 
 import Container from '@/components/common/container'
 import Eyebrow from '@/components/common/eyebrow'
+import PillLink from '@/components/common/pill-link'
 import Reveal from '@/components/common/reveal'
 import ScrollHighlightText from '@/components/common/scroll-highlight-text'
 import AboutStatements from '@/components/sections/about-statements'
+import { aboutStatementsContent } from '@/constants/about-statements-content'
 import { aboutContent } from '@/constants/home-content'
+import { community } from '@/data/community'
 
 const pillarIcons = { heart: HeartHandshake, sparkles: Sparkles }
 
@@ -28,7 +31,7 @@ function AboutPillar({ pillar, index }) {
 }
 
 /** `showHeading={false}` lets the standalone About page supply its own hero heading. */
-function AboutSection({ showHeading = true }) {
+function AboutSection({ showHeading = true, showStatements = true, identity = community }) {
   return (
     <section id="about" aria-labelledby={showHeading ? 'about-heading' : undefined} className="relative overflow-hidden bg-cream py-24 sm:py-36">
       <Container>
@@ -54,7 +57,9 @@ function AboutSection({ showHeading = true }) {
           ))}
         </div>
 
-        <AboutStatements />
+        {showStatements ? <AboutStatements identity={identity} /> : (
+          <PillLink href="/about" variant="ghostDark" className="mt-10 max-w-full">{aboutStatementsContent.aboutLink}</PillLink>
+        )}
       </Container>
     </section>
   )

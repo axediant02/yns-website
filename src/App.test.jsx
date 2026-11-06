@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import App from './App'
 import { INTRO_DURATION } from './hooks/use-intro'
+import { community } from '@/data/community'
 
 vi.mock('@/api/leadership', () => ({ loadPublishedLeaders: vi.fn().mockResolvedValue([]) }))
 
@@ -101,18 +102,26 @@ describe('App', () => {
     expect(screen.getByRole('button', { name: 'Contact link coming soon' })).toBeDisabled()
   })
 
-  it('shows the supplied mission, vision, and values on the homepage and About page', () => {
+  it('keeps mission, vision, and values on the About page with a short homepage introduction', () => {
     const { unmount } = render(<App />)
+
+    expect(screen.queryByRole('heading', { name: 'Mission' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Vision' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Core values' })).not.toBeInTheDocument()
+    expect(screen.queryByText(/^Activating the youth to be partakers/)).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Come as you are' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Our mission, vision & values' })).toHaveAttribute('href', '/about')
 
     const expectStatements = () => {
       expect(screen.getByRole('heading', { level: 3, name: 'Mission' })).toBeInTheDocument()
-      expect(screen.getByText(/^Activating the youth to be partakers of the Kingdom work by unleashing/)).toBeInTheDocument()
-      expect(screen.getByText(/^Multiplying the numbers of Youth Nation Shakers/)).toBeInTheDocument()
-      expect(screen.getByText('Raising young people to walk with God in integrity and dignity.')).toBeInTheDocument()
+      expect(screen.getByText(community.mission)).toBeInTheDocument()
+      expect(screen.getByText(community.vision)).toBeInTheDocument()
+      const values = within(screen.getByRole('list', { name: 'Core values' }))
+      expect(values.getAllByRole('listitem')).toHaveLength(community.coreValues.length)
+      community.coreValues.forEach((value) => expect(values.getByText(value)).toBeInTheDocument())
       expect(screen.queryByText(/lorem ipsum|placeholder text/i)).toBeNull()
     }
 
-    expectStatements()
     unmount()
 
     window.history.replaceState({}, '', '/about')

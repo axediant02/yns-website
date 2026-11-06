@@ -40,6 +40,19 @@ afterEach(() => {
 })
 
 describe('website-owned templates and starting content', () => {
+  it('renders supplied About statement edits in the standalone About preview', () => {
+    const draft = validatePreview('about', {
+      ...previewCatalog.find((module) => module.id === 'about').records[0].values,
+      mission: 'Edited mission text', vision: 'Edited vision text', coreValues: 'First edited value\nSecond edited value',
+    })
+    const html = renderToStaticMarkup(<PreviewRenderer draft={draft} />)
+    expect(html).toContain('Edited mission text')
+    expect(html).toContain('Edited vision text')
+    expect(html).toContain('First edited value')
+    expect(html).toContain('Second edited value')
+    expect(html).not.toContain('Activating the youth to be partakers')
+  })
+
   it.each([
     ['hero', <HeroSection />], ['about', <AboutSection />], ['gathering', <GatheringSection />], ['contact', <ContactSection />],
     ['story', <StoriesSection stories={[storyPlaceholders[0]]} />], ['leader', <LeadershipSection leaders={[leadershipPlaceholders[0]]} />],
