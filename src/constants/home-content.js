@@ -38,6 +38,14 @@ export const gatheringContent = {
   locationsNote: 'Map previews are approximate and will be updated with verified venue details.',
 }
 
+export const eventsContent = {
+  eyebrow: 'Events',
+  title: 'Save the',
+  accent: 'date.',
+  description: 'Gatherings, camps, and shared moments from across the YNS D6 community.',
+  draftNote: 'These cards are placeholders. Verified event names, dates, venues, and posters will replace them.',
+}
+
 export const galleryContent = {
   eyebrow: 'Gallery',
   title: 'Room for',

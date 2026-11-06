@@ -1,13 +1,6 @@
 import { CalendarDays, MapPin } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
-
-function eventTime(value) {
-  if (!value) return 'Date to be confirmed'
-  const date = new Date(`${value}+08:00`)
-  return Number.isNaN(date.getTime()) ? 'Date to be confirmed' : new Intl.DateTimeFormat('en', {
-    dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Manila',
-  }).format(date)
-}
+import { formatEventTime as eventTime } from '@/utils/event-schedule'
 
 export default function EventDetails({ event }) {
   return (

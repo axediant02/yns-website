@@ -1,5 +1,6 @@
 import AboutSection from '@/components/sections/about-section'
 import ContactSection from '@/components/sections/contact-section'
+import EventsSection from '@/components/sections/events-section'
 import GallerySection from '@/components/sections/gallery-section'
 import GatheringSection from '@/components/sections/gathering-section'
 import HeroSection from '@/components/sections/hero-section'
@@ -14,6 +15,7 @@ function HomePage({ isReady }) {
       <AboutSection />
       <ScriptureSection />
       <GatheringSection />
+      <EventsSection />
       <GallerySection />
       <StoriesSection />
       <LeadershipSection />

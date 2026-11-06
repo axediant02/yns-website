@@ -118,6 +118,7 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 ## Location pages
 
 - [x] Add a dedicated `/events` page for global event discovery.
+- [x] Add a homepage events section with three placeholder event cards and branded poster art; replace with published events once a public events source and poster field exist.
 
 ### Page structure
 
