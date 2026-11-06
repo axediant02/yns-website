@@ -10,6 +10,8 @@ Release target: **Public launch for v1**. This checklist is complete only when t
 
 ## Current page map
 
+- [x] Add a seamless homepage photo strip below the hero, with explicit temporary stock placeholders, continuous motion on hover, gapless images, no playback buttons, and a static reduced-motion grid; see feature-checklists/2026-11-06-homepage-photo-strip.md.
+
 - [x] Remove local editorial content/media from the public homepage while retaining its section frames/navigation and explicit unavailable states; see feature-checklists/2026-10-29-public-homepage-content.md.
 - [~] Connect public homepage transport/mapping after the public contents endpoint and response schema exist. Current backend routes/OpenAPI contain no public contents API. The section checklists below describe retained templates, not a completed live homepage API integration.
 

@@ -5,6 +5,7 @@ import GallerySection from '@/components/sections/gallery-section'
 import GatheringSection from '@/components/sections/gathering-section'
 import HeroSection from '@/components/sections/hero-section'
 import LeadershipSection from '@/components/sections/leadership-section'
+import PhotoStripSection from '@/components/sections/photo-strip-section'
 import PublishedLeadership from '@/features/leadership/published-leadership'
 import ScriptureSection from '@/components/sections/scripture-section'
 import StoriesSection from '@/components/sections/stories-section'
@@ -13,6 +14,7 @@ function HomePage({ isReady, sections = {} }) {
   return (
     <main>
       <HeroSection isReady={isReady} />
+      <PhotoStripSection />
       <AboutSection />
       <ScriptureSection />
       <GatheringSection />

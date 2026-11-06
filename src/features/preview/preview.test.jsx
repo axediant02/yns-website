@@ -20,7 +20,10 @@ import HomePage from '@/components/pages/home-page'
 
 const originalParent = Object.getOwnPropertyDescriptor(window, 'parent')
 beforeEach(() => {
-  window.matchMedia = vi.fn(() => ({ matches: true }))
+  // Template comparisons include a gathering countdown, so keep both renders at one instant.
+  vi.useFakeTimers({ toFake: ['Date'] })
+  vi.setSystemTime(new Date('2026-11-06T12:00:00Z'))
+  window.matchMedia = vi.fn(() => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
   window.requestAnimationFrame = vi.fn((callback) => { callback(0); return 1 })
   window.cancelAnimationFrame = vi.fn()
   window.scrollTo = vi.fn()
@@ -31,6 +34,7 @@ beforeEach(() => {
 })
 afterEach(() => {
   cleanup()
+  vi.useRealTimers()
   Object.defineProperty(window, 'parent', originalParent)
   vi.restoreAllMocks()
 })
@@ -223,7 +227,7 @@ describe('full website preview', () => {
   })
 
   it('uses smooth scrolling when reduced motion is not requested', () => {
-    window.matchMedia = vi.fn(() => ({ matches: false }))
+    window.matchMedia = vi.fn(() => ({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }))
     const { message, frame } = embeddedPreview()
     message({ type: 'hello' })
     message({ type: 'render-site', active: selection('about'), patches: [], requestId: 'scroll' })

@@ -180,7 +180,8 @@
     animation: marquee var(--marquee-duration, 40s) linear infinite;
   }
 
-  .marquee:hover .marquee-track {
+  .marquee[data-pause-on-hover='true']:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
     animation-play-state: paused;
   }
 

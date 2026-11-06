@@ -144,7 +144,7 @@ describe('App', () => {
   it('keeps every section on the homepage while nav links open separate pages', () => {
     render(<App />)
 
-    for (const id of ['about', 'gathering', 'gallery', 'stories', 'leadership', 'contact']) {
+    for (const id of ['photo-strip', 'about', 'gathering', 'gallery', 'stories', 'leadership', 'contact']) {
       expect(document.getElementById(id)).toBeInTheDocument()
     }
 
