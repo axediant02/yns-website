@@ -45,7 +45,10 @@ export const previewModules = [
   {
     id: 'leader', label: 'Leadership', mode: 'collection',
     notice: 'Current leadership cards are placeholders. Names, roles, and consent require verification.',
-    fields: [text('name', 'Name', true), long('description', 'Role and biography')],
+    fields: [
+      text('name', 'Name', true), text('role', 'Official role'), long('description', 'Short introduction'),
+      { key: 'imageSrc', label: 'Portrait URL', type: 'image' }, text('imageAlt', 'Portrait description'),
+    ],
   },
   {
     id: 'location', label: 'Locations', mode: 'collection',

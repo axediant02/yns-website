@@ -30,7 +30,9 @@ For substantial features and crucial changes, record scope, evidence, acceptance
 
 ## Public-content rule
 
-Current homepage cutover: local homepage editorial content/media is no longer used as a production fallback. Contract dashboard-1 and backend routes define no public contents endpoint. The homepage therefore shows explicit unavailable states, with no guessed endpoint or fake API success. Confirm the public route and response schema before adding its transport/mapping; see [the feature record](../feature-checklists/2026-10-29-public-homepage-content.md). CMS preview templates and other website pages remain independent.
+Contract `content-2` now defines `GET /api/v1/public/content`, which exposes published snapshots only. The Leadership tab and leadership section use this endpoint through `src/api/leadership.js`, configured with `VITE_API_BASE_URL`, with loading/empty/error/retry feedback and no fixture fallback. CMS preview templates remain independent and receive explicit draft/fixture values.
+
+The broader homepage cutover is still incomplete: the current App mounts the legacy homepage template, while the separate unavailable-content component and its tests record the earlier cutover intention. Leadership is integrated independently; this change does not migrate other homepage sections. See [the historical cutover record](../feature-checklists/2026-10-29-public-homepage-content.md) and [leadership integration](../feature-checklists/2026-11-06-leadership-portraits.md).
 
 Only backend responses satisfying the published/current public contract may render as production content. Local modules are fixtures, placeholders, or explicitly approved outage essentials and must be labeled accordingly. API failures render explicit unavailable states; they do not silently promote draft fixtures.
 

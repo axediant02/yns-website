@@ -3,8 +3,10 @@ info:
   title: YNS API
   version: 1.0.0
   description: Canonical contract for the YNS public website and authenticated CMS.
-x-yns-contract-revision: dashboard-1
+x-yns-contract-revision: content-2
 tags:
+  - name: Content
+    description: Private drafts and explicitly published website content.
   - name: Authentication
     description: CMS browser authentication and account activation.
   - name: Administration
@@ -20,6 +22,139 @@ servers:
 security:
   - cookieAuth: []
 paths:
+  /api/v1/admin/content:
+    get:
+      operationId: listContentDrafts
+      summary: Load saved editorial items
+      description: Both active CMS roles may read saved drafts. Preview fixtures are not automatically saved.
+      tags:
+        - Content
+      responses:
+        '200':
+          description: Saved items and versions
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SavedContent'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '503':
+          $ref: '#/components/responses/ContentUnavailable'
+  /api/v1/admin/content/{module}/{record}:
+    parameters:
+      - in: path
+        name: module
+        required: true
+        schema:
+          $ref: '#/components/schemas/ContentModule'
+      - in: path
+        name: record
+        required: true
+        description: Stable item key; singletons require current.
+        schema:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{1,100}$
+    put:
+      operationId: saveContent
+      summary: Save a draft or publish the selected item
+      tags:
+        - Content
+      description: >-
+        Both active CMS roles may save and publish. Version 0 creates; subsequent writes require the returned version. Draft saves preserve
+        the published snapshot. Publish exposes submitted values. Module fields are allowlisted. Publishing requires heading/title/name,
+        location area, and event startsAt. Leadership accepts name, role, description, imageSrc, and imageAlt;
+        role and portrait fields are optional for existing profiles. A supplied portrait requires an HTTPS URL without credentials
+        and nonblank imageAlt. Links/media must be safe. No file uploads.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action
+                - version
+                - values
+              properties:
+                action:
+                  type: string
+                  enum:
+                    - draft
+                    - publish
+                version:
+                  type: integer
+                  minimum: 0
+                  maximum: 2147483646
+                values:
+                  $ref: '#/components/schemas/ContentValues'
+      responses:
+        '200':
+          description: Saved item and new version
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SavedContent'
+        '401':
+          $ref: '#/components/responses/Unauthenticated'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Stale version; preserve edits and reload saved content.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - message
+                  - code
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: string
+                    const: content_conflict
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '503':
+          $ref: '#/components/responses/ContentUnavailable'
+  /api/v1/public/content:
+    get:
+      operationId: listPublishedContent
+      summary: Read published website content
+      description: Only explicit published snapshots. Drafts and private metadata are excluded. Empty data is valid; no fixture fallback.
+      tags:
+        - Content
+      security: []
+      responses:
+        '200':
+          description: Published items; no-store caching
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PublishedContent'
+        '503':
+          $ref: '#/components/responses/ContentUnavailable'
   /api/v1/admin/dashboard:
     get:
       operationId: getDashboard
@@ -236,6 +371,21 @@ components:
         application/json:
           schema: { type: object, required: [token], properties: { token: { type: string } } }
   responses:
+    ContentUnavailable:
+      description: Content storage is unavailable; no write is confirmed as saved.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+              - code
+            properties:
+              message:
+                type: string
+              code:
+                type: string
+                const: content_unavailable
     UserResponse:
       description: Safe CMS user
       content:
@@ -250,6 +400,93 @@ components:
         application/json:
           schema: { $ref: "#/components/schemas/LaravelValidationError" }
   schemas:
+    ContentModule:
+      type: string
+      enum:
+        - hero
+        - about
+        - gathering
+        - contact
+        - story
+        - leader
+        - location
+        - album
+        - event
+    ContentValues:
+      type: object
+      description: >-
+        Module-specific string fields matching the editor. Unknown fields are rejected. Photos are a JSON-encoded array of at most 100 objects
+        with src, alt, title, size. Event dates use YYYY-MM-DDTHH:mm in Asia/Manila.
+        The leader module allows name, role, description, imageSrc, imageAlt only. Publishing requires name;
+        role and portraits are optional. Nonempty imageSrc must be an HTTPS URL without credentials and requires nonblank imageAlt.
+      maxProperties: 40
+      properties:
+        name:
+          type: string
+          maxLength: 100000
+          description: Leadership officer name; required when publishing a leader.
+        role:
+          type: string
+          maxLength: 100000
+          description: Optional official leadership role.
+        description:
+          type: string
+          maxLength: 100000
+          description: Short introduction for leadership profiles, or descriptive text for other modules.
+        imageSrc:
+          type: string
+          maxLength: 2048
+          description: Optional HTTPS portrait or location photo URL without credentials; an empty string clears the photo.
+        imageAlt:
+          type: string
+          maxLength: 100000
+          description: Photo description; must be nonblank whenever imageSrc is nonempty.
+      additionalProperties:
+        type: string
+        maxLength: 100000
+    PublishedContent:
+      type: object
+      additionalProperties: false
+      required:
+        - moduleId
+        - recordId
+        - values
+      properties:
+        moduleId:
+          $ref: '#/components/schemas/ContentModule'
+        recordId:
+          type: string
+          maxLength: 100
+        values:
+          $ref: '#/components/schemas/ContentValues'
+    SavedContent:
+      type: object
+      additionalProperties: false
+      required:
+        - moduleId
+        - recordId
+        - values
+        - version
+        - publishedAt
+        - hasUnpublishedChanges
+      properties:
+        moduleId:
+          $ref: '#/components/schemas/ContentModule'
+        recordId:
+          type: string
+          maxLength: 100
+        values:
+          $ref: '#/components/schemas/ContentValues'
+        version:
+          type: integer
+          minimum: 1
+        publishedAt:
+          type:
+            - string
+            - 'null'
+          format: date-time
+        hasUnpublishedChanges:
+          type: boolean
     User:
       type: object
       additionalProperties: false

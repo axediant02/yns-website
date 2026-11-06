@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { INTRO_DURATION } from './hooks/use-intro'
 
+vi.mock('@/api/leadership', () => ({ loadPublishedLeaders: vi.fn().mockResolvedValue([]) }))
+
 describe('App', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/')

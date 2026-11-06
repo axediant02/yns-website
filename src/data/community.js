@@ -307,11 +307,18 @@ export const storyPlaceholders = [
 
 export const leadershipPlaceholders = [
   {
-    name: 'Leadership team',
-    description: 'Verified names, roles, and photos will be added here when available.',
+    name: 'Core officer profile 1',
+    role: '', imageSrc: '', imageAlt: '',
+    description: 'An introduction will be added once this officer’s name and role are confirmed.',
   },
   {
-    name: 'Community voices',
-    description: 'Meet the people helping make YNS D6 a welcoming place to belong.',
+    name: 'Core officer profile 2',
+    role: '', imageSrc: '', imageAlt: '',
+    description: 'An introduction will be added once this officer’s name and role are confirmed.',
+  },
+  {
+    name: 'Core officer profile 3',
+    role: '', imageSrc: '', imageAlt: '',
+    description: 'An introduction will be added once this officer’s name and role are confirmed.',
   },
 ]

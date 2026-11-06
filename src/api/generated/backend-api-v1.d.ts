@@ -4,6 +4,70 @@
  */
 
 export interface paths {
+    "/api/v1/admin/content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Load saved editorial items
+         * @description Both active CMS roles may read saved drafts. Preview fixtures are not automatically saved.
+         */
+        get: operations["listContentDrafts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/content/{module}/{record}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                module: components["schemas"]["ContentModule"];
+                /** @description Stable item key; singletons require current. */
+                record: string;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Save a draft or publish the selected item
+         * @description Both active CMS roles may save and publish. Version 0 creates; subsequent writes require the returned version. Draft saves preserve the published snapshot. Publish exposes submitted values. Module fields are allowlisted. Publishing requires heading/title/name, location area, and event startsAt. Leadership accepts name, role, description, imageSrc, and imageAlt; role and portrait fields are optional for existing profiles. A supplied portrait requires an HTTPS URL without credentials and nonblank imageAlt. Links/media must be safe. No file uploads.
+         */
+        put: operations["saveContent"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/public/content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Read published website content
+         * @description Only explicit published snapshots. Drafts and private metadata are excluded. Empty data is valid; no fixture fallback.
+         */
+        get: operations["listPublishedContent"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/dashboard": {
         parameters: {
             query?: never;
@@ -292,6 +356,37 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** @enum {string} */
+        ContentModule: "hero" | "about" | "gathering" | "contact" | "story" | "leader" | "location" | "album" | "event";
+        /** @description Module-specific string fields matching the editor. Unknown fields are rejected. Photos are a JSON-encoded array of at most 100 objects with src, alt, title, size. Event dates use YYYY-MM-DDTHH:mm in Asia/Manila. The leader module allows name, role, description, imageSrc, imageAlt only. Publishing requires name; role and portraits are optional. Nonempty imageSrc must be an HTTPS URL without credentials and requires nonblank imageAlt. */
+        ContentValues: {
+            /** @description Leadership officer name; required when publishing a leader. */
+            name?: string;
+            /** @description Optional official leadership role. */
+            role?: string;
+            /** @description Short introduction for leadership profiles, or descriptive text for other modules. */
+            description?: string;
+            /** @description Optional HTTPS portrait or location photo URL without credentials; an empty string clears the photo. */
+            imageSrc?: string;
+            /** @description Photo description; must be nonblank whenever imageSrc is nonempty. */
+            imageAlt?: string;
+        } & {
+            [key: string]: string;
+        };
+        PublishedContent: {
+            moduleId: components["schemas"]["ContentModule"];
+            recordId: string;
+            values: components["schemas"]["ContentValues"];
+        };
+        SavedContent: {
+            moduleId: components["schemas"]["ContentModule"];
+            recordId: string;
+            values: components["schemas"]["ContentValues"];
+            version: number;
+            /** Format: date-time */
+            publishedAt: string | null;
+            hasUnpublishedChanges: boolean;
+        };
         User: {
             id: number;
             name: string;
@@ -397,6 +492,19 @@ export interface components {
         };
     };
     responses: {
+        /** @description Content storage is unavailable; no write is confirmed as saved. */
+        ContentUnavailable: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    message: string;
+                    /** @constant */
+                    code: "content_unavailable";
+                };
+            };
+        };
         /** @description Safe CMS user */
         UserResponse: {
             headers: {
@@ -465,6 +573,106 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    listContentDrafts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Saved items and versions */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["SavedContent"][];
+                    };
+                };
+            };
+            401: components["responses"]["Unauthenticated"];
+            403: components["responses"]["Forbidden"];
+            503: components["responses"]["ContentUnavailable"];
+        };
+    };
+    saveContent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                module: components["schemas"]["ContentModule"];
+                /** @description Stable item key; singletons require current. */
+                record: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    action: "draft" | "publish";
+                    version: number;
+                    values: components["schemas"]["ContentValues"];
+                };
+            };
+        };
+        responses: {
+            /** @description Saved item and new version */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["SavedContent"];
+                    };
+                };
+            };
+            401: components["responses"]["Unauthenticated"];
+            403: components["responses"]["Forbidden"];
+            /** @description Stale version; preserve edits and reload saved content. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message: string;
+                        /** @constant */
+                        code: "content_conflict";
+                    };
+                };
+            };
+            422: components["responses"]["ValidationError"];
+            503: components["responses"]["ContentUnavailable"];
+        };
+    };
+    listPublishedContent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Published items; no-store caching */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["PublishedContent"][];
+                    };
+                };
+            };
+            503: components["responses"]["ContentUnavailable"];
+        };
+    };
     getDashboard: {
         parameters: {
             query?: never;

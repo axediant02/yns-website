@@ -1,0 +1,15 @@
+export const leadershipDetails = {
+  title: 'Meet the core officers',
+  introduction: 'Get to know the people serving our community, one face at a time.',
+  draftNote: 'These profiles are placeholders. Verified officer names, roles, introductions, and approved portraits will be added when confirmed.',
+  empty: 'Officer profiles are being prepared. Check back soon to meet the team.',
+  loading: 'Loading officer profiles…',
+  unavailable: 'We couldn’t load the officer profiles. Please try again.',
+  retryLabel: 'Try again',
+  rolePending: 'Role to be confirmed',
+  portraitPending: 'Portrait coming soon',
+  portraitUnavailable: 'Photo unavailable',
+  invitation: 'Come say hello.',
+  invitationDescription: 'New here? A gathering is a good place to start getting to know the community.',
+  gatheringLabel: 'Explore our gatherings',
+}

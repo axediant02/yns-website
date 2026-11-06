@@ -65,7 +65,7 @@ export const leadershipContent = {
   eyebrow: 'Leadership',
   title: 'People who',
   accent: 'make space.',
-  description: 'YNS D6 is shaped by people who care about making a welcoming place to meet Jesus and one another. Leadership details will be added as they are confirmed.',
+  description: 'Meet the core officers serving the YNS D6 community and helping make space for faith, friendship, and belonging.',
 }
 
 export const contactContent = {

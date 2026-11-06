@@ -140,7 +140,7 @@ describe('full website preview', () => {
   it('retains the full homepage template composition, with only preview scroll IDs added', () => {
     const site = buildPreviewSite([])
     const preview = renderToStaticMarkup(<HomePage sections={site.sections} />).replace(/ id="preview-[^"]*"/g, '')
-    expect(preview).toBe(renderToStaticMarkup(<HomePage />))
+    expect(preview).toBe(renderToStaticMarkup(<HomePage sections={{ leadership: { leaders: leadershipPlaceholders } }} />))
   })
 
   it('renders all homepage sections and preserves simultaneous edits and untouched records', () => {
